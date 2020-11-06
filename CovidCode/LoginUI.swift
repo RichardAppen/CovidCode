@@ -27,7 +27,7 @@ struct ContentView: View {
                 .background(Color(red: colorNum, green: colorNum, blue: colorNum))
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
-            LoginButton(username: username)
+            LoginButton(username: username, password: password)
             Spacer()
         }
         .padding()
@@ -53,8 +53,10 @@ struct CovidLogo: View {
 
 struct LoginButton: View {
     var username: String
+    var password: String
     var body: some View {
         Button(action: {
+            NetworkUser.networkStatus(username: username, password: password)
             let contentView = HomescreenUI(username: username)
             if let window = UIApplication.shared.windows.first {
                 window.rootViewController = UIHostingController(rootView: contentView)

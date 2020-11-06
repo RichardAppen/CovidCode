@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0145720E2556007200809A7F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145720D2556007200809A7F /* NetworkManager.swift */; };
+		01457213255601B200809A7F /* NetworkAddFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01457212255601B200809A7F /* NetworkAddFriend.swift */; };
+		01457218255601B800809A7F /* NetworkUpdateFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01457217255601B800809A7F /* NetworkUpdateFriends.swift */; };
+		0145721D2556023400809A7F /* NetworkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145721C2556023400809A7F /* NetworkUser.swift */; };
+		014572222556024800809A7F /* NetworkUserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014572212556024800809A7F /* NetworkUserLogin.swift */; };
+		014572272556025E00809A7F /* NetworkUpdateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014572262556025E00809A7F /* NetworkUpdateAccount.swift */; };
+		0145722C2556028500809A7F /* NetworkNewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145722B2556028500809A7F /* NetworkNewUser.swift */; };
+		0145723D2556079500809A7F /* cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 0145723C2556079500809A7F /* cert.der */; };
 		0184F7272553B56A008655E6 /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7262553B56A008655E6 /* LoginUI.swift */; };
 		0184F7292553B56D008655E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F7282553B56D008655E6 /* Assets.xcassets */; };
 		0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F72B2553B56D008655E6 /* Preview Assets.xcassets */; };
@@ -35,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0145720D2556007200809A7F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkManager.swift; sourceTree = "<group>"; };
+		01457212255601B200809A7F /* NetworkAddFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkAddFriend.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkAddFriend.swift; sourceTree = "<group>"; };
+		01457217255601B800809A7F /* NetworkUpdateFriends.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkUpdateFriends.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkUpdateFriends.swift; sourceTree = "<group>"; };
+		0145721C2556023400809A7F /* NetworkUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkUser.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkUser.swift; sourceTree = "<group>"; };
+		014572212556024800809A7F /* NetworkUserLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkUserLogin.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkUserLogin.swift; sourceTree = "<group>"; };
+		014572262556025E00809A7F /* NetworkUpdateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkUpdateAccount.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkUpdateAccount.swift; sourceTree = "<group>"; };
+		0145722B2556028500809A7F /* NetworkNewUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkNewUser.swift; path = ../../../sharesafereal/ShareSafe/src/Network/NetworkNewUser.swift; sourceTree = "<group>"; };
+		0145723C2556079500809A7F /* cert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.der; sourceTree = "<group>"; };
 		0184F7212553B56A008655E6 /* CovidCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0184F7262553B56A008655E6 /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
 		0184F7282553B56D008655E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +92,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0145720C2556003100809A7F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0145722B2556028500809A7F /* NetworkNewUser.swift */,
+				014572262556025E00809A7F /* NetworkUpdateAccount.swift */,
+				0145721C2556023400809A7F /* NetworkUser.swift */,
+				014572212556024800809A7F /* NetworkUserLogin.swift */,
+				0145720D2556007200809A7F /* NetworkManager.swift */,
+				01457212255601B200809A7F /* NetworkAddFriend.swift */,
+				01457217255601B800809A7F /* NetworkUpdateFriends.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		0184F7182553B56A008655E6 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +129,8 @@
 		0184F7232553B56A008655E6 /* CovidCode */ = {
 			isa = PBXGroup;
 			children = (
+				0145723C2556079500809A7F /* cert.der */,
+				0145720C2556003100809A7F /* Network */,
 				0184F7802553C47A008655E6 /* CovidCodeApp.swift */,
 				0184F7262553B56A008655E6 /* LoginUI.swift */,
 				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
@@ -239,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0145723D2556079500809A7F /* cert.der in Resources */,
 				0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */,
 				0184F7292553B56D008655E6 /* Assets.xcassets in Resources */,
 			);
@@ -265,10 +298,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0145722C2556028500809A7F /* NetworkNewUser.swift in Sources */,
+				01457213255601B200809A7F /* NetworkAddFriend.swift in Sources */,
 				0184F7272553B56A008655E6 /* LoginUI.swift in Sources */,
+				014572222556024800809A7F /* NetworkUserLogin.swift in Sources */,
 				0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */,
+				0145720E2556007200809A7F /* NetworkManager.swift in Sources */,
 				0184F7812553C47A008655E6 /* CovidCodeApp.swift in Sources */,
+				0145721D2556023400809A7F /* NetworkUser.swift in Sources */,
+				014572272556025E00809A7F /* NetworkUpdateAccount.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,
+				01457218255601B800809A7F /* NetworkUpdateFriends.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
