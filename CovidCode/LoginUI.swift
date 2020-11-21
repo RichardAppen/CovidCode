@@ -57,7 +57,7 @@ struct LoginButton: View {
     var body: some View {
         Button(action: {
             NetworkUser.networkStatus(username: username, password: password)
-            let contentView = HomescreenUI(username: username)
+            let contentView = TabControllerUI(username: username)
             if let window = UIApplication.shared.windows.first {
                 window.rootViewController = UIHostingController(rootView: contentView)
                 window.makeKeyAndVisible()
