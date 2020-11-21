@@ -10,13 +10,13 @@
 		0145723D2556079500809A7F /* cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 0145723C2556079500809A7F /* cert.der */; };
 		0175B73825696A0C00946F26 /* NetworkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73725696A0C00946F26 /* NetworkUser.swift */; };
 		0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73C25696A9000946F26 /* NetworkManager.swift */; };
+		0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B74725696EA800946F26 /* CovidCodeApp.swift */; };
 		0184F7272553B56A008655E6 /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7262553B56A008655E6 /* LoginUI.swift */; };
 		0184F7292553B56D008655E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F7282553B56D008655E6 /* Assets.xcassets */; };
 		0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F72B2553B56D008655E6 /* Preview Assets.xcassets */; };
 		0184F7372553B56D008655E6 /* CovidCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7362553B56D008655E6 /* CovidCodeTests.swift */; };
 		0184F7422553B56E008655E6 /* CovidCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7412553B56E008655E6 /* CovidCodeUITests.swift */; };
 		0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7532553C1ED008655E6 /* HomescreenUI.swift */; };
-		0184F7812553C47A008655E6 /* CovidCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7802553C47A008655E6 /* CovidCodeApp.swift */; };
 		0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */; };
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
@@ -44,6 +44,7 @@
 		0145723C2556079500809A7F /* cert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.der; sourceTree = "<group>"; };
 		0175B73725696A0C00946F26 /* NetworkUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUser.swift; sourceTree = "<group>"; };
 		0175B73C25696A9000946F26 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		0175B74725696EA800946F26 /* CovidCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidCodeApp.swift; sourceTree = "<group>"; };
 		0184F7212553B56A008655E6 /* CovidCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0184F7262553B56A008655E6 /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
 		0184F7282553B56D008655E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		0184F7412553B56E008655E6 /* CovidCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidCodeUITests.swift; sourceTree = "<group>"; };
 		0184F7432553B56E008655E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0184F7532553C1ED008655E6 /* HomescreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomescreenUI.swift; sourceTree = "<group>"; };
-		0184F7802553C47A008655E6 /* CovidCodeApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CovidCodeApp.swift; path = ../../CSE110/CovidCode/CovidCode/CovidCodeApp.swift; sourceTree = "<group>"; };
 		0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDiagnosisUI.swift; sourceTree = "<group>"; };
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
@@ -122,7 +122,6 @@
 			children = (
 				0145723C2556079500809A7F /* cert.der */,
 				0145720C2556003100809A7F /* Network */,
-				0184F7802553C47A008655E6 /* CovidCodeApp.swift */,
 				0184F7262553B56A008655E6 /* LoginUI.swift */,
 				019F686A25683C3E000E2CC5 /* TabControllerUI.swift */,
 				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
@@ -132,6 +131,7 @@
 				0184F7282553B56D008655E6 /* Assets.xcassets */,
 				0184F72D2553B56D008655E6 /* Info.plist */,
 				0184F72A2553B56D008655E6 /* Preview Content */,
+				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
 			);
 			path = CovidCode;
 			sourceTree = "<group>";
@@ -296,8 +296,8 @@
 				0184F7272553B56A008655E6 /* LoginUI.swift in Sources */,
 				0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */,
 				019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */,
+				0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */,
 				019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */,
-				0184F7812553C47A008655E6 /* CovidCodeApp.swift in Sources */,
 				0175B73825696A0C00946F26 /* NetworkUser.swift in Sources */,
 				019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,

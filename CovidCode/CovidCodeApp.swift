@@ -2,9 +2,10 @@
 //  CovidCodeApp.swift
 //  CovidCode
 //
-//  Created by Richard Appen on 11/4/20.
+//  Created by Richard Appen on 11/21/20.
 //
 
+import Foundation
 import SwiftUI
 
 @main
