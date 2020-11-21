@@ -10,7 +10,11 @@ import SwiftUI
 
 protocol MonthViewUI {
     var showView: Bool {get set}
+    var daySelected: Int {get set}
+    var monthSelected: Int {get set}
+    var YearSelected: Int {get set}
 }
+
 
 struct CalendarUI: View {
 
@@ -20,11 +24,13 @@ struct CalendarUI: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                WinterView(currentYear: currentYear)
-                SpringView(currentYear: currentYear)
-                SummerView(currentYear: currentYear)
-                FallView(currentYear: currentYear)
+            ScrollViewReader { scrollView in
+                LazyVStack {
+                    WinterView(currentYear: currentYear)
+                    SpringView(currentYear: currentYear)
+                    SummerView(currentYear: currentYear)
+                    FallView(currentYear: currentYear)
+                }
             }
         }
     }
@@ -154,6 +160,9 @@ struct JanuaryView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
 
     
     var body: some View {
@@ -162,7 +171,7 @@ struct JanuaryView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 1, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -171,7 +180,7 @@ struct JanuaryView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -203,6 +212,9 @@ struct FeburaryView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -210,7 +222,7 @@ struct FeburaryView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 2, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -219,7 +231,7 @@ struct FeburaryView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -250,6 +262,9 @@ struct MarchView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -257,7 +272,7 @@ struct MarchView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 3, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -266,7 +281,7 @@ struct MarchView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -297,6 +312,9 @@ struct AprilView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -304,7 +322,7 @@ struct AprilView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 4, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -313,7 +331,7 @@ struct AprilView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -344,6 +362,9 @@ struct MayView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -351,7 +372,7 @@ struct MayView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 5, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -360,7 +381,7 @@ struct MayView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -391,6 +412,9 @@ struct JuneView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -398,7 +422,7 @@ struct JuneView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 6, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -407,7 +431,7 @@ struct JuneView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -439,6 +463,9 @@ struct JulyView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -446,7 +473,7 @@ struct JulyView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 7, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -455,7 +482,7 @@ struct JulyView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -486,6 +513,9 @@ struct AugustView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -493,7 +523,7 @@ struct AugustView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 8, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -502,7 +532,7 @@ struct AugustView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -533,6 +563,9 @@ struct SeptemberView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -540,7 +573,7 @@ struct SeptemberView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 9, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -549,7 +582,7 @@ struct SeptemberView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -580,6 +613,9 @@ struct OctoberView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -587,7 +623,7 @@ struct OctoberView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 10, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -596,7 +632,7 @@ struct OctoberView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -627,6 +663,9 @@ struct NovemberView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -634,7 +673,7 @@ struct NovemberView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 11, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -644,7 +683,7 @@ struct NovemberView: View, MonthViewUI {
             }
             
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -675,6 +714,9 @@ struct DecemberView: View, MonthViewUI {
     @State var count = 1
     var currentYear: Int
     @State var showView: Bool = false
+    @State var daySelected: Int = -1
+    @State var monthSelected: Int = -1
+    @State var YearSelected: Int = -1
     
     var body: some View {
         VStack {
@@ -682,7 +724,7 @@ struct DecemberView: View, MonthViewUI {
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 12, currentYear: currentYear, parentView: self)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -692,7 +734,7 @@ struct DecemberView: View, MonthViewUI {
             }
             
             if (showView) {
-                CurrentDateInfoBoxUI()
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -721,6 +763,8 @@ struct dayCircles: View {
     var dayOfTheWeek: Int
     var circlefill = ".circle.fill"
     var numDays: Int
+    var currentMonth: Int
+    var currentYear: Int
     @State var parentView: MonthViewUI
     @State private var showDate = false
     var body: some View {
@@ -734,13 +778,45 @@ struct dayCircles: View {
     
     private func getImage() -> some View {
         let number = ((week - 1)*7 + day - dayOfTheWeek + 1)
-    
+        let dateString = String(currentMonth) + "/" + String(number) + "/" + String(currentYear)
+        let defaults = UserDefaults.standard
+        let actualDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        let currentDateTime = formatter.date(from: dateString)
+        var isFutureButton = false
+        
+        if (currentDateTime! > actualDate) {
+            isFutureButton = true
+        }
         
         return Button(action: {
             //self.openView.toggle()
-            parentView.showView.toggle()
+            if (number != parentView.daySelected || currentMonth != parentView.monthSelected || currentYear != currentYear) {
+                parentView.showView = true
+            } else {
+                parentView.showView = false
+                parentView.daySelected = -1
+                parentView.monthSelected = -1
+                parentView.YearSelected = -1
+                return
+            }
+            parentView.daySelected = number
+            parentView.monthSelected = currentMonth
+            parentView.YearSelected = currentYear
         }) {
-            Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.systemBlue))
+            if let surveyFilledStatus = defaults.string(forKey: dateString) {
+                Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
+            } else {
+                if (currentDateTime! < actualDate) {
+                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
+                } else {
+                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.lightGray))
+                }
+            }
         }
+        .disabled(isFutureButton)
     }
+    
+
 }
