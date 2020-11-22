@@ -20,7 +20,7 @@ struct CalendarUI: View {
 
     // only display the current year
     var currentYear = Calendar.current.component(.year, from: Date())
-    @State var currentDisplay = "kcksnd"
+    var currentMonth = Calendar.current.component(.month, from: Date())
     
     var body: some View {
         ScrollView {
@@ -30,6 +30,12 @@ struct CalendarUI: View {
                     SpringView(currentYear: currentYear)
                     SummerView(currentYear: currentYear)
                     FallView(currentYear: currentYear)
+                }
+                .onAppear {
+                    withAnimation {
+                        scrollView.scrollTo(currentMonth)
+
+                    }
                 }
             }
         }
@@ -43,7 +49,6 @@ struct CalendarUI: View {
 
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        print("Testing numDays: " + String(numDays))
         return numDays
     }
     
@@ -53,13 +58,13 @@ struct CalendarUI: View {
 struct WinterView: View {
     var currentYear: Int
     var body: some View {
-        Text("January").font(.title)
+        Text("January").font(.title).id(1)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JanuaryView(numDays: dates(year: currentYear, month: 1), currentYear: currentYear)
-        Text("Feburary").font(.title)
+        Text("Feburary").font(.title).id(2)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         FeburaryView(numDays: dates(year: currentYear, month: 2), currentYear: currentYear)
-        Text("March").font(.title)
+        Text("March").font(.title).id(3)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         MarchView(numDays: dates(year: currentYear, month: 3), currentYear: currentYear)
     }
@@ -71,20 +76,19 @@ struct WinterView: View {
 
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        print("Testing numDays: " + String(numDays))
         return numDays
     }
 }
 struct SpringView: View {
     var currentYear: Int
     var body: some View {
-        Text("April").font(.title)
+        Text("April").font(.title).id(4)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         AprilView(numDays: dates(year: currentYear, month: 4), currentYear: currentYear)
-        Text("May").font(.title)
+        Text("May").font(.title).id(5)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         MayView(numDays: dates(year: currentYear, month: 5), currentYear: currentYear)
-        Text("June").font(.title)
+        Text("June").font(.title).id(6)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JuneView(numDays: dates(year: currentYear, month: 6), currentYear: currentYear)
     }
@@ -96,20 +100,19 @@ struct SpringView: View {
 
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        print("Testing numDays: " + String(numDays))
         return numDays
     }
 }
 struct SummerView: View {
     var currentYear: Int
     var body: some View {
-        Text("July").font(.title)
+        Text("July").font(.title).id(7)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JulyView(numDays: dates(year: currentYear, month: 7), currentYear: currentYear)
-        Text("August").font(.title)
+        Text("August").font(.title).id(8)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         AugustView(numDays: dates(year: currentYear, month: 8), currentYear: currentYear)
-        Text("September").font(.title)
+        Text("September").font(.title).id(9)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         SeptemberView(numDays: dates(year: currentYear, month: 9), currentYear: currentYear)
     }
@@ -121,20 +124,19 @@ struct SummerView: View {
 
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        print("Testing numDays: " + String(numDays))
         return numDays
     }
 }
 struct FallView: View {
     var currentYear: Int
     var body: some View {
-        Text("October").font(.title)
+        Text("October").font(.title).id(10)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         OctoberView(numDays: dates(year: currentYear, month: 10), currentYear: currentYear)
-        Text("Novemeber").font(.title)
+        Text("November").font(.title).id(11)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         NovemberView(numDays: dates(year: currentYear, month: 11), currentYear: currentYear)
-        Text("December").font(.title)
+        Text("December").font(.title).id(12)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
         DecemberView(numDays: dates(year: currentYear, month: 12), currentYear: currentYear)
     }
@@ -146,7 +148,6 @@ struct FallView: View {
 
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        print("Testing numDays: " + String(numDays))
         return numDays
     }
 }
@@ -199,7 +200,6 @@ struct JanuaryView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -249,7 +249,6 @@ struct FeburaryView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -299,7 +298,6 @@ struct MarchView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -349,7 +347,6 @@ struct AprilView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -399,7 +396,6 @@ struct MayView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -449,7 +445,6 @@ struct JuneView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -500,7 +495,6 @@ struct JulyView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -550,7 +544,6 @@ struct AugustView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -600,7 +593,6 @@ struct SeptemberView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -650,7 +642,6 @@ struct OctoberView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -701,7 +692,6 @@ struct NovemberView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }
@@ -752,7 +742,6 @@ struct DecemberView: View, MonthViewUI {
         formatter.dateFormat = "yyyy/MM/dd"
         guard let dateDesired = formatter.date(from: date) else { return nil }
         let weekday = Calendar.current.component(.weekday, from: dateDesired)
-        print(weekday)
         return weekday
     }
 }

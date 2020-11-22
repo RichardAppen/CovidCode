@@ -11,6 +11,8 @@
 		0175B73825696A0C00946F26 /* NetworkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73725696A0C00946F26 /* NetworkUser.swift */; };
 		0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73C25696A9000946F26 /* NetworkManager.swift */; };
 		0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B74725696EA800946F26 /* CovidCodeApp.swift */; };
+		0175B7502569EE2400946F26 /* FriendListUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B74F2569EE2400946F26 /* FriendListUI.swift */; };
+		0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B7542569F08000946F26 /* NewFriendUI.swift */; };
 		0184F7272553B56A008655E6 /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7262553B56A008655E6 /* LoginUI.swift */; };
 		0184F7292553B56D008655E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F7282553B56D008655E6 /* Assets.xcassets */; };
 		0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F72B2553B56D008655E6 /* Preview Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		0175B73725696A0C00946F26 /* NetworkUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUser.swift; sourceTree = "<group>"; };
 		0175B73C25696A9000946F26 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0175B74725696EA800946F26 /* CovidCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidCodeApp.swift; sourceTree = "<group>"; };
+		0175B74F2569EE2400946F26 /* FriendListUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListUI.swift; sourceTree = "<group>"; };
+		0175B7542569F08000946F26 /* NewFriendUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFriendUI.swift; sourceTree = "<group>"; };
 		0184F7212553B56A008655E6 /* CovidCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0184F7262553B56A008655E6 /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
 		0184F7282553B56D008655E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				0184F72D2553B56D008655E6 /* Info.plist */,
 				0184F72A2553B56D008655E6 /* Preview Content */,
 				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
+				0175B74F2569EE2400946F26 /* FriendListUI.swift */,
+				0175B7542569F08000946F26 /* NewFriendUI.swift */,
 			);
 			path = CovidCode;
 			sourceTree = "<group>";
@@ -293,8 +299,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */,
+				0175B7502569EE2400946F26 /* FriendListUI.swift in Sources */,
 				0184F7272553B56A008655E6 /* LoginUI.swift in Sources */,
 				0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */,
+				0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */,
 				019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */,
 				0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */,
 				019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */,
