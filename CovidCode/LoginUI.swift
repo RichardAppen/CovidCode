@@ -28,6 +28,10 @@ struct ContentView: View {
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
             LoginButton(username: username, password: password)
+            Button(action: {
+            }) {
+                Text("Create an Account")
+            }
             Spacer()
         }
         .padding()
@@ -37,13 +41,14 @@ struct ContentView: View {
 struct CovidLogo: View {
     var body: some View {
         VStack {
-            Text("CovidCode")
-                .padding()
-                .font(.largeTitle)
             HStack {
-                // CURRENTLY TEMPORARY
+                /*
                 Image(systemName: "waveform.path.ecg").font(.system(size: 50, weight: .regular))
                 Image(systemName: "bandage.fill").font(.system(size: 50, weight: .regular))
+                */
+                Image("qr-code")
+                    .resizable()
+                    .scaledToFit()
             }
             .padding()
         }

@@ -11,7 +11,7 @@ import SwiftUI
 struct TabControllerUI: View {
     
     @State private var showDetail = false
-    @State private var selectedTab = 0
+    @State var selectedTab = 0
     var username: String
     
     
@@ -27,7 +27,7 @@ struct TabControllerUI: View {
         
         ///
         TabView(selection: selection) {
-            HomescreenUI(username: username)
+            HomescreenUI(parentTabController: self, username: username)
              .tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
@@ -45,7 +45,7 @@ struct TabControllerUI: View {
                    Text("Calender")
              }
                 .tag(2)
-            Text("Friends List")
+            FriendListUI(parentTabController: self)
                 .tabItem {
                     Image(systemName: "person.3").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                    Text("Friends")
