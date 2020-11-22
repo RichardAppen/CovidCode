@@ -2,7 +2,9 @@
  * ShareSafe
  * NetworkManager.swift
  *
+ * Standard Swift SLL pinning. Uses cert.der to check authenticity of backend to prevent man in the middle attacks
  *
+ * Adapted by Colin Drewes
  */
 
 import Foundation

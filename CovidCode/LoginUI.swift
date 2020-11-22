@@ -61,7 +61,7 @@ struct LoginButton: View {
     var password: String
     var body: some View {
         Button(action: {
-            NetworkUser.networkStatus(username: username, password: password)
+            NetworkLogin.loginUser(username: username, password: password, handler: placeHolder)
             let contentView = TabControllerUI(username: username)
             if let window = UIApplication.shared.windows.first {
                 window.rootViewController = UIHostingController(rootView: contentView)
@@ -77,6 +77,12 @@ struct LoginButton: View {
         .buttonStyle(PlainButtonStyle())
         .disabled(username.isEmpty)
     }
+    
+    func placeHolder(res: Bool) -> () {
+        // TODO Change this name and make this the return handler of login
+        
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
