@@ -9,9 +9,11 @@ import Foundation
 import SwiftUI
 
 struct CurrentDateInfoBoxUI: View {
+    
     var currentDay: Int
     var currentMonth: Int
     var currentYear: Int
+    var parentTabController: TabControllerUI
     //var completedSurvery = false
     
     var body: some View {
@@ -30,9 +32,11 @@ struct CurrentDateInfoBoxUI: View {
                         .foregroundColor(Color(UIColor.systemRed))
                 }
                 Button(action: {
-                    let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
-                    let defaults = UserDefaults.standard
-                    defaults.set("1", forKey: dateString)
+                    let contentView = QuestionnaireUI(currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear, parentTabController: parentTabController)
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
                 }) {
                     Text("Complete Survery")
                         .foregroundColor(.white)
