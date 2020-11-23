@@ -8,50 +8,79 @@
 import SwiftUI
 
 struct QuestionnaireUI: View {
-     
-       /// List of questions
-       @State var questions: [Question] = [
+    var currentDay: Int
+    var currentMonth: Int
+    var currentYear: Int
+    var parentTabController: TabControllerUI
+    
+    @State var questions: [Question] = [
         Question(id: 1, question: "Do you have a cough?"),
         Question(id: 2, question: "Do you have a headache?"),
-        Question(id: 3, question: "Does your stomach?"),
+        Question(id: 3, question: "Does your stomach hurt?"),
         Question(id: 4, question: "Do you have a fever?"),
         Question(id: 5, question: "Do you feel good and feel well?")
-       ]
-       
-        
-       private func getCardWidth(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-           let offset: CGFloat = CGFloat(questions.count - 1 - id) * 10
-           return geometry.size.width - offset
-       }
-       
-       
-       private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-           return  CGFloat(questions.count - 1 - id) * 10
-       }
-       
-       var body: some View {
-           VStack {
-               GeometryReader { geometry in
-                   VStack {
-                       ZStack {
-                           ForEach(self.questions, id: \.self) { q in
-                            QuestionCardView(question: q)
-                                   .frame(width: self.getCardWidth(geometry, id: q.id), height: 400)
-                                   .offset(x: 0, y: self.getCardOffset(geometry, id: q.id))
-                           }
-                       }
-                       Spacer()
-                   }
-               }
-           }.padding()
-       }
-   }
-
-
-struct QuestionnaireUI_Previews: PreviewProvider {
-    static var previews: some View {
-        QuestionnaireUI()
+    ]
+    
+    
+    var body: some View {
+        VStack {
+            ZStack {
+                HStack {
+                    Button(action: {
+                        let contentView = parentTabController
+                        if let window = UIApplication.shared.windows.first {
+                            window.rootViewController = UIHostingController(rootView: contentView)
+                            window.makeKeyAndVisible()
+                        }
+                    }) {
+                        Text("Back").padding()
+                    }
+                    Spacer()
+                }
+                
+            }
+            Divider()
+            VStack {
+                ScrollView(.horizontal, showsIndicators: true) {
+                    LazyHStack {
+                        TabView {
+                            ForEach(self.questions, id: \.self) { q in
+                                ZStack {
+                                    QuestionCardView(question: q)
+                                }
+                            }
+                            .padding(.all, 10)
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 200)
+                        .tabViewStyle(PageTabViewStyle())
+                    }
+                }
+                Button(action: {
+                    let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
+                    let defaults = UserDefaults.standard
+                    defaults.set("1", forKey: dateString)
+                    let contentView = parentTabController
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
+                    submitQuestionnaire(questions: questions)
+                }) {
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.green))
+                    
+                }
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+            }
+        }
     }
 }
 
 
+
+func submitQuestionnaire (questions: [Question]) {
+    
+}

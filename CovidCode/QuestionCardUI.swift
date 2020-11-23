@@ -18,13 +18,25 @@ struct QuestionCardView: View {
     
     @State var question: Question
 
-    var buttonColor: Color {
+    var yesButtonColor: Color {
+        
         if (self.question.answer == nil) {
             return Color.gray
         } else if (self.question.answer == false) {
-            return Color.red
+            return Color.black
         } else {
             return Color.green
+        }
+    }
+    
+    var noButtonColor: Color {
+        
+        if (self.question.answer == nil) {
+            return Color.gray
+        } else if (self.question.answer == true) {
+            return Color.black
+        } else {
+            return Color.red
         }
     }
     
@@ -38,16 +50,17 @@ struct QuestionCardView: View {
                         .bold()
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
-                }.padding(.bottom, 300)
+                }.padding(.bottom, 200)
                 .padding(.top, 100)
                 HStack {
+                    
                     Spacer()
                     Button(action: {
                         self.question.answer = false
                     }, label: {
                         Image(systemName: "x.circle")
                             .resizable()
-                            .foregroundColor(buttonColor)
+                            .foregroundColor(noButtonColor)
                             .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     })
 
@@ -59,15 +72,16 @@ struct QuestionCardView: View {
                     }, label: {
                         Image(systemName: "checkmark.circle")
                             .resizable()
-                            .foregroundColor(buttonColor)
+                            .foregroundColor(yesButtonColor)
                             .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     })
                     Spacer()
+
                 }
-                HStack {
-                    
-                }
-                .padding(.horizontal)
+                
+                Spacer()
+                
+                
             }
             .padding(10)
             .multilineTextAlignment(.center)

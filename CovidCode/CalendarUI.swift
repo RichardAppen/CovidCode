@@ -17,7 +17,8 @@ protocol MonthViewUI {
 
 
 struct CalendarUI: View {
-
+    
+    var parentTabController: TabControllerUI
     // only display the current year
     var currentYear = Calendar.current.component(.year, from: Date())
     var currentMonth = Calendar.current.component(.month, from: Date())
@@ -26,10 +27,10 @@ struct CalendarUI: View {
         ScrollView {
             ScrollViewReader { scrollView in
                 LazyVStack {
-                    WinterView(currentYear: currentYear)
-                    SpringView(currentYear: currentYear)
-                    SummerView(currentYear: currentYear)
-                    FallView(currentYear: currentYear)
+                    WinterView(currentYear: currentYear, parentTabController: parentTabController)
+                    SpringView(currentYear: currentYear, parentTabController: parentTabController)
+                    SummerView(currentYear: currentYear, parentTabController: parentTabController)
+                    FallView(currentYear: currentYear, parentTabController: parentTabController)
                 }
                 .onAppear {
                     withAnimation {
@@ -57,16 +58,17 @@ struct CalendarUI: View {
 
 struct WinterView: View {
     var currentYear: Int
+    var parentTabController: TabControllerUI
     var body: some View {
         Text("January").font(.title).id(1)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        JanuaryView(numDays: dates(year: currentYear, month: 1), currentYear: currentYear)
+        JanuaryView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 1), currentYear: currentYear)
         Text("Feburary").font(.title).id(2)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        FeburaryView(numDays: dates(year: currentYear, month: 2), currentYear: currentYear)
+        FeburaryView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 2), currentYear: currentYear)
         Text("March").font(.title).id(3)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        MarchView(numDays: dates(year: currentYear, month: 3), currentYear: currentYear)
+        MarchView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 3), currentYear: currentYear)
     }
     
     private func dates(year: Int, month: Int) -> Int {
@@ -81,16 +83,17 @@ struct WinterView: View {
 }
 struct SpringView: View {
     var currentYear: Int
+    var parentTabController: TabControllerUI
     var body: some View {
         Text("April").font(.title).id(4)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        AprilView(numDays: dates(year: currentYear, month: 4), currentYear: currentYear)
+        AprilView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 4), currentYear: currentYear)
         Text("May").font(.title).id(5)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        MayView(numDays: dates(year: currentYear, month: 5), currentYear: currentYear)
+        MayView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 5), currentYear: currentYear)
         Text("June").font(.title).id(6)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        JuneView(numDays: dates(year: currentYear, month: 6), currentYear: currentYear)
+        JuneView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 6), currentYear: currentYear)
     }
     
     private func dates(year: Int, month: Int) -> Int {
@@ -105,16 +108,17 @@ struct SpringView: View {
 }
 struct SummerView: View {
     var currentYear: Int
+    var parentTabController: TabControllerUI
     var body: some View {
         Text("July").font(.title).id(7)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        JulyView(numDays: dates(year: currentYear, month: 7), currentYear: currentYear)
+        JulyView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 7), currentYear: currentYear)
         Text("August").font(.title).id(8)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        AugustView(numDays: dates(year: currentYear, month: 8), currentYear: currentYear)
+        AugustView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 8), currentYear: currentYear)
         Text("September").font(.title).id(9)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        SeptemberView(numDays: dates(year: currentYear, month: 9), currentYear: currentYear)
+        SeptemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 9), currentYear: currentYear)
     }
     
     private func dates(year: Int, month: Int) -> Int {
@@ -129,16 +133,17 @@ struct SummerView: View {
 }
 struct FallView: View {
     var currentYear: Int
+    var parentTabController: TabControllerUI
     var body: some View {
         Text("October").font(.title).id(10)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        OctoberView(numDays: dates(year: currentYear, month: 10), currentYear: currentYear)
+        OctoberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 10), currentYear: currentYear)
         Text("November").font(.title).id(11)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        NovemberView(numDays: dates(year: currentYear, month: 11), currentYear: currentYear)
+        NovemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 11), currentYear: currentYear)
         Text("December").font(.title).id(12)
         Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        DecemberView(numDays: dates(year: currentYear, month: 12), currentYear: currentYear)
+        DecemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 12), currentYear: currentYear)
     }
     
     private func dates(year: Int, month: Int) -> Int {
@@ -154,7 +159,7 @@ struct FallView: View {
 
 
 struct JanuaryView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -181,7 +186,7 @@ struct JanuaryView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected , parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -205,7 +210,7 @@ struct JanuaryView: View, MonthViewUI {
 }
 
 struct FeburaryView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -231,7 +236,7 @@ struct FeburaryView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -254,7 +259,7 @@ struct FeburaryView: View, MonthViewUI {
 }
 
 struct MarchView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -280,7 +285,7 @@ struct MarchView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -303,7 +308,7 @@ struct MarchView: View, MonthViewUI {
 }
 
 struct AprilView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -329,7 +334,7 @@ struct AprilView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -352,7 +357,7 @@ struct AprilView: View, MonthViewUI {
 }
 
 struct MayView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -378,7 +383,7 @@ struct MayView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -401,7 +406,7 @@ struct MayView: View, MonthViewUI {
 }
 
 struct JuneView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -427,7 +432,7 @@ struct JuneView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -451,7 +456,7 @@ struct JuneView: View, MonthViewUI {
 
 
 struct JulyView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -477,7 +482,7 @@ struct JulyView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -500,7 +505,7 @@ struct JulyView: View, MonthViewUI {
 }
 
 struct AugustView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -526,7 +531,7 @@ struct AugustView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -549,7 +554,7 @@ struct AugustView: View, MonthViewUI {
 }
 
 struct SeptemberView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -575,7 +580,7 @@ struct SeptemberView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -598,7 +603,7 @@ struct SeptemberView: View, MonthViewUI {
 }
 
 struct OctoberView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -624,7 +629,7 @@ struct OctoberView: View, MonthViewUI {
                 }
             }
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -647,7 +652,7 @@ struct OctoberView: View, MonthViewUI {
 }
 
 struct NovemberView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -674,7 +679,7 @@ struct NovemberView: View, MonthViewUI {
             }
             
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -697,7 +702,7 @@ struct NovemberView: View, MonthViewUI {
 }
 
 struct DecemberView: View, MonthViewUI {
-    
+    var parentTabController: TabControllerUI
     var numDays: Int
     @State var dayOfWeek = 0
     var circlefill = ".circle.fill"
@@ -724,7 +729,7 @@ struct DecemberView: View, MonthViewUI {
             }
             
             if (showView) {
-                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected)
+                CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
                 Spacer()
                 Spacer()

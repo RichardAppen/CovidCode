@@ -39,7 +39,7 @@ struct TabControllerUI: View {
                    Text("Map")
              }
                 .tag(1)
-            CalendarUI()
+            CalendarUI(parentTabController: self)
                 .tabItem {
                     Image(systemName: "calendar").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemPink))
                    Text("Calender")
