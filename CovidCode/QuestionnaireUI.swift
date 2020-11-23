@@ -13,12 +13,13 @@ struct QuestionnaireUI: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
     
+    let tests: [String: String] = ["PCR": "no", "Covid-19": "yes"]
+    let symptoms: [String: String] = ["Headache": "no", "Cough": "no", "Fever": "no"]
     @State var questions: [Question] = [
-        Question(id: 1, question: "Do you have a cough?"),
-        Question(id: 2, question: "Do you have a headache?"),
-        Question(id: 3, question: "Does your stomach hurt?"),
-        Question(id: 4, question: "Do you have a fever?"),
-        Question(id: 5, question: "Do you feel good and feel well?")
+        
+        Question(id: 1, question: "Have you tested positive for Covid-19?", type: "multiple", answers: ["PCR": "no", "Covid-19": "yes"] ),
+        Question(id: 3, question: "What are your symptoms", type: "multiple", answers: ["Headache": "no", "Cough": "no", "Fever": "no"]),
+        Question(id: 4, question: "Do you feel good and feel well?", type: "single")
     ]
     
     
