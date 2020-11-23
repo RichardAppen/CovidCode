@@ -10,14 +10,23 @@ import SwiftUI
 struct Question: Hashable {
     var id: Int
     let question: String
-    
+    var answer: Bool?
 }
 
 struct QuestionCardView: View {
     @State private var translation: CGSize = .zero
     
-    var question: Question
+    @State var question: Question
 
+    var buttonColor: Color {
+        if (self.question.answer == nil) {
+            return Color.gray
+        } else if (self.question.answer == false) {
+            return Color.red
+        } else {
+            return Color.green
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,18 +42,30 @@ struct QuestionCardView: View {
                 .padding(.top, 100)
                 HStack {
                     Spacer()
-                    Image(systemName: "x.circle")
-                        .resizable()
-                        .foregroundColor(.gray)
-                        .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Button(action: {
+                        self.question.answer = false
+                    }, label: {
+                        Image(systemName: "x.circle")
+                            .resizable()
+                            .foregroundColor(buttonColor)
+                            .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    })
+
                         
                     Spacer()
                     Spacer()
-                    Image(systemName: "checkmark.circle")
-                        .resizable()
-                        .foregroundColor(.gray)
-                        .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Button(action: {
+                        self.question.answer = true
+                    }, label: {
+                        Image(systemName: "checkmark.circle")
+                            .resizable()
+                            .foregroundColor(buttonColor)
+                            .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    })
                     Spacer()
+                }
+                HStack {
+                    
                 }
                 .padding(.horizontal)
             }
