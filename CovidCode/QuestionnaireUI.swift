@@ -12,14 +12,18 @@ struct QuestionnaireUI: View {
     var currentMonth: Int
     var currentYear: Int
     var parentTabController: TabControllerUI
+
     
-    let tests: [String: String] = ["PCR": "no", "Covid-19": "yes"]
-    let symptoms: [String: String] = ["Headache": "no", "Cough": "no", "Fever": "no"]
+    let tests: [String: String] = ["Nasal Test": "no", "Swab Test": "no", "Antibody": "no", "Antigen": "no"]
+    let symptoms: [String: String] = ["Headache": "no", "Cough": "no", "Fever": "no", "Fatigue": "no", "Breathing Issues": "no", "Soreness": "no"]
+    
     @State var questions: [Question] = [
         
-        Question(id: 1, question: "Have you tested positive for Covid-19?", type: "multiple", answers: ["PCR": "no", "Covid-19": "yes"] ),
-        Question(id: 3, question: "What are your symptoms", type: "multiple", answers: ["Headache": "no", "Cough": "no", "Fever": "no"]),
-        Question(id: 4, question: "Do you feel good and feel well?", type: "single")
+        Question(id: 1, question: "Have you tested positive for Covid-19?", type: "multiple", answers: ["Nasal Test": "no", "Swab Test": "no", "Antibody": "no", "Antigen": "no"] ),
+        Question(id: 2, question: "Do you have any symptoms?", type: "multiple", answers: ["Headache": "no", "Cough": "no", "Fever": "no", "Fatigue": "no", "Breathing Issues": "no", "Soreness": "no"]),
+        Question(id: 3, question: "Have you recently been to any large gatherings or used mass transportation such as train or plane?", type: "single"),
+        Question(id: 4, question: "Have you been into contact with anyone who has or has been exposed to Covid-19?", type: "single"),
+        Question(id: 5, question: "Do you continue to practice protective measure such as wearing a mask and washing your hands?", type: "single")
     ]
     
     

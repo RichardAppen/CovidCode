@@ -23,7 +23,7 @@ struct QuestionCardView: View {
     var yesButtonColor: Color {
         
         if (self.question.answer == nil) {
-            return Color.gray
+            return Color.black
         } else if (self.question.answer == false) {
             return Color.black
         } else {
@@ -34,7 +34,7 @@ struct QuestionCardView: View {
     var noButtonColor: Color {
         
         if (self.question.answer == nil) {
-            return Color.gray
+            return Color.black
         } else if (self.question.answer == true) {
             return Color.black
         } else {
@@ -51,62 +51,74 @@ struct QuestionCardView: View {
     }
     
     var body: some View {
+        
         GeometryReader { geometry in
             VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Text("\(self.question.question) ")
-                        .font(.title)
-                        .bold()
-                        .fixedSize(horizontal: false, vertical: true)
-                    Spacer()
-                }.padding(.bottom, 200)
-                .padding(.top, 100)
-                HStack {
-                    if(self.question.type == "single") {
+                VisualEffectBlur(blurStyle: .systemUltraThinMaterial, vibrancyStyle: .none) {
+                    VStack {
+                    HStack {
                         Spacer()
-                        Button(action: {
-                            self.question.answer = false
-                        }, label: {
-                            Image(systemName: "x.circle")
-                                .resizable()
-                                .foregroundColor(noButtonColor)
-                                .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        })
-                        
+                        Text("\(self.question.question) ")
+                            .font(.title)
+                            .bold()
+                            .fixedSize(horizontal: false, vertical: true)
                         
                         Spacer()
-                        Spacer()
-                        Button(action: {
-                            self.question.answer = true
-                        }, label: {
-                            Image(systemName: "checkmark.circle")
-                                .resizable()
-                                .foregroundColor(yesButtonColor)
-                                .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        })
-                        Spacer()
-                    } else if (self.question.type == "multiple"){
-                        Spacer()
-                        VStack {
-                            ForEach(self.question.answers.sorted(by: >), id: \.key) { key, value in
-                                CheckboxField(id: key, label: key, callback: checkboxSelected)
-                            }
-                        }.shadow(radius: 0)
-                        .cornerRadius(0)
                     }
-                    Spacer()
+                    .frame(width: 375, height: 400, alignment: .topTrailing)
+                    
+                    HStack {
+                        if(self.question.type == "single") {
+                            Spacer()
+                            Button(action: {
+                                self.question.answer = false
+                            }, label: {
+                                Image(systemName: "x.circle")
+                                    .resizable()
+                                    .foregroundColor(noButtonColor)
+                                    .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            })
+                            
+                            
+                            Spacer()
+                            Spacer()
+                            Button(action: {
+                                self.question.answer = true
+                            }, label: {
+                                Image(systemName: "checkmark.circle")
+                                    .resizable()
+                                    .foregroundColor(yesButtonColor)
+                                    .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            })
+                            Spacer()
+                        } else if (self.question.type == "multiple"){
+                            Spacer()
+                            VStack {
+                                ForEach(self.question.answers.sorted(by: >), id: \.key) { key, value in
+                                    CheckboxField(id: key, label: key, callback: checkboxSelected)
+                                }
+                            }
+                            
+                            Spacer()
+                        }
+                        
+                    }.frame(width: 325, height: 0, alignment: .bottomLeading)
                 }
-            }.padding(10)
+                }
+ 
+                
+            }.background(LinearGradient(
+                gradient: Gradient(colors: [.blue, .gray]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ))
             .multilineTextAlignment(.center)
-            .background(Color.white)
             .cornerRadius(10)
-            .shadow(radius: 5)
             .animation(.interactiveSpring())
-    
         }
     }
 }
+
 
 
 //CheckBoxField code used from Muahmud Ahsan
@@ -148,7 +160,7 @@ struct CheckboxField: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: self.size, height: self.size)
-
+                
                 Text(label)
                     .font(Font.system(size: size))
                 Spacer()
@@ -161,8 +173,11 @@ struct CheckboxField: View {
 
 struct QuestionCardView_Previews: PreviewProvider {
     static var previews: some View {
-        let answers = ["sick": "yes", "fever": "no"]
-        QuestionCardView(question: Question(id: 1, question: "Do you have a cough?", type: "multiple", answers: answers))
+        let answers = ["sick": "yes", "fever": "no", "cough": "no", "cdough": "no", "codugh": "no"]
+        QuestionCardView(question: Question(id: 1, question: "Do ads ads asd adsadsads adsdsa zcxcxzcxz you have a cough?", type: "multiple", answers: answers))
         
     }
 }
+
+
+

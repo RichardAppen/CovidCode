@@ -23,6 +23,7 @@
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
+		5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */; };
 		5AF6BBFE256C39C500E635F0 /* QuestionCardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */; };
 		5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */; };
 		AA1E2DF6256B00FA0039316C /* NetworkAddFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E2DF5256B00FA0039316C /* NetworkAddFriend.swift */; };
@@ -71,6 +72,7 @@
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
 		019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateInfoBoxUI.swift; sourceTree = "<group>"; };
+		5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionCardUI.swift; path = CovidCode/QuestionCardUI.swift; sourceTree = SOURCE_ROOT; };
 		5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireUI.swift; path = CovidCode/QuestionnaireUI.swift; sourceTree = SOURCE_ROOT; };
 		AA1E2DF5256B00FA0039316C /* NetworkAddFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAddFriend.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
 				0175B74F2569EE2400946F26 /* FriendListUI.swift */,
 				0175B7542569F08000946F26 /* NewFriendUI.swift */,
+				5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */,
 			);
 			path = CovidCode;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */,
 				019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,
+				5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */,
 				5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */,
 				5AF6BBFE256C39C500E635F0 /* QuestionCardUI.swift in Sources */,
 			);
