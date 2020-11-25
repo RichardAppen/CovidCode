@@ -25,6 +25,23 @@ struct CurrentDateInfoBoxUI: View {
                     Text("Survey Completed!")
                         .foregroundColor(Color(UIColor.systemGreen))
                 }
+                Button(action: {
+                    deleteQuestionnaire( currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear)
+                    let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
+                    let defaults = UserDefaults.standard
+                    defaults.set("0", forKey: dateString)
+                    let contentView = QuestionnaireUI(currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear, parentTabController: parentTabController)
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
+                }) {
+                    Text("Redo Survery")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.red))
+                }
+                .buttonStyle(PlainButtonStyle())
             } else {
                 HStack {
                     Image(systemName: "xmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(UIColor.systemPink))

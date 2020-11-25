@@ -19,8 +19,8 @@ struct QuestionnaireUI: View {
     
     @State var questions: [Question] = [
         
-        Question(id: 1, question: "Have you tested positive for Covid-19?", type: "multiple", answers: ["Nasal Test": "no", "Swab Test": "no", "Antibody": "no", "Antigen": "no"] ),
-        Question(id: 2, question: "Do you have any symptoms?", type: "multiple", answers: ["Headache": "no", "Cough": "no", "Fever": "no", "Fatigue": "no", "Breathing Issues": "no", "Soreness": "no"]),
+        Question(id: 1, question: "Have you tested positive for any of these Covid-19 tests?", type: "multiple", answers: ["Nasal Test": "no", "Swab Test": "no", "Antibody": "no", "Antigen": "no"] ),
+        Question(id: 2, question: "Do you have any of these symptoms?", type: "multiple", answers: ["Headache": "no", "Cough": "no", "Fever": "no", "Fatigue": "no", "Breathing Issues": "no", "Soreness": "no"]),
         Question(id: 3, question: "Have you recently been to any large gatherings or used mass transportation such as train or plane?", type: "single"),
         Question(id: 4, question: "Have you been into contact with anyone who has or has been exposed to Covid-19?", type: "single"),
         Question(id: 5, question: "Do you continue to practice protective measure such as wearing a mask and washing your hands?", type: "single")
@@ -69,7 +69,7 @@ struct QuestionnaireUI: View {
                         window.rootViewController = UIHostingController(rootView: contentView)
                         window.makeKeyAndVisible()
                     }
-                    submitQuestionnaire(questions: questions)
+                    submitQuestionnaire(currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear, questions: questions)
                 }) {
                     Text("Submit")
                         .foregroundColor(.white)
@@ -86,6 +86,10 @@ struct QuestionnaireUI: View {
 
 
 
-func submitQuestionnaire (questions: [Question]) {
+func submitQuestionnaire (currentDay: Int, currentMonth: Int, currentYear: Int, questions: [Question]) {
+    
+}
+
+func deleteQuestionnaire (currentDay: Int, currentMonth: Int, currentYear: Int) {
     
 }
