@@ -15,6 +15,20 @@ protocol MonthViewUI {
     var YearSelected: Int {get set}
 }
 
+/*struct NavigationConfigurator: UIViewControllerRepresentable {
+    var configure: (UINavigationController) -> Void = { _ in }
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
+        UIViewController()
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
+        if let nc = uiViewController.navigationController {
+            self.configure(nc)
+        }
+    }
+
+}*/
+
 
 struct CalendarUI: View {
     
@@ -24,9 +38,11 @@ struct CalendarUI: View {
     var currentMonth = Calendar.current.component(.month, from: Date())
     
     var body: some View {
+        
+        NavigationView {
         ScrollView {
             ScrollViewReader { scrollView in
-                LazyVStack {
+                LazyVStack() {
                     WinterView(currentYear: currentYear, parentTabController: parentTabController)
                     SpringView(currentYear: currentYear, parentTabController: parentTabController)
                     SummerView(currentYear: currentYear, parentTabController: parentTabController)
@@ -40,6 +56,23 @@ struct CalendarUI: View {
                 }
             }
         }
+        /*.toolbar {
+            ToolbarItem(placement: .principal) {
+                Image("test-banner")
+                    .resizable()
+                    .frame(height: 100)
+                    
+            }
+        }*/
+        /*.navigationTitle("Calendar Questionaire")
+        .background(NavigationConfigurator { nc in
+            nc.navigationBar.barTintColor = UIColor(cgColor: CGColor(red: 0, green: 161, blue: 242, alpha: 1.0))
+                            nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+                        })*/
+        }
+        
+        
+        
     }
     
     
@@ -60,14 +93,14 @@ struct WinterView: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
     var body: some View {
-        Text("January").font(.title).id(1)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("January").font(.title).fontWeight(.bold).id(1)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JanuaryView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 1), currentYear: currentYear)
-        Text("Feburary").font(.title).id(2)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("Feburary").font(.title).fontWeight(.bold).id(2)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         FeburaryView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 2), currentYear: currentYear)
-        Text("March").font(.title).id(3)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("March").font(.title).fontWeight(.bold).id(3)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         MarchView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 3), currentYear: currentYear)
     }
     
@@ -85,14 +118,14 @@ struct SpringView: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
     var body: some View {
-        Text("April").font(.title).id(4)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("April").font(.title).fontWeight(.bold).id(4)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         AprilView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 4), currentYear: currentYear)
-        Text("May").font(.title).id(5)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("May").font(.title).fontWeight(.bold).id(5)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         MayView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 5), currentYear: currentYear)
-        Text("June").font(.title).id(6)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("June").font(.title).fontWeight(.bold).id(6)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JuneView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 6), currentYear: currentYear)
     }
     
@@ -110,14 +143,14 @@ struct SummerView: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
     var body: some View {
-        Text("July").font(.title).id(7)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("July").font(.title).fontWeight(.bold).id(7)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         JulyView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 7), currentYear: currentYear)
-        Text("August").font(.title).id(8)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("August").font(.title).fontWeight(.bold).id(8)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         AugustView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 8), currentYear: currentYear)
-        Text("September").font(.title).id(9)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("September").font(.title).fontWeight(.bold).id(9)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         SeptemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 9), currentYear: currentYear)
     }
     
@@ -135,14 +168,14 @@ struct FallView: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
     var body: some View {
-        Text("October").font(.title).id(10)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("October").font(.title).fontWeight(.bold).id(10)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         OctoberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 10), currentYear: currentYear)
-        Text("November").font(.title).id(11)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("November").font(.title).fontWeight(.bold).id(11)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         NovemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 11), currentYear: currentYear)
-        Text("December").font(.title).id(12)
-        Divider().frame(height: 2).background(Color(UIColor.darkGray))
+        Text("December").font(.title).fontWeight(.bold).id(12)
+        //Divider().frame(height: 2).background(Color(UIColor.darkGray))
         DecemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 12), currentYear: currentYear)
     }
     
@@ -172,12 +205,24 @@ struct JanuaryView: View, MonthViewUI {
 
     
     var body: some View {
-        VStack {
+        VStack() {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 1, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 1, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -196,6 +241,7 @@ struct JanuaryView: View, MonthViewUI {
             var date = String(currentYear) + "/01/01"
             dayOfWeek = dayOfWeek(date: date)!
         }
+    
         
     }
 
@@ -223,11 +269,23 @@ struct FeburaryView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 2, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 2, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -272,11 +330,23 @@ struct MarchView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 3, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 3, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -321,11 +391,23 @@ struct AprilView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 4, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 4, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -370,11 +452,23 @@ struct MayView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 5, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 5, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -419,11 +513,23 @@ struct JuneView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 6, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 6, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -469,11 +575,23 @@ struct JulyView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 7, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 7, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -518,11 +636,23 @@ struct AugustView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 8, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 8, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -567,11 +697,23 @@ struct SeptemberView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 9, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 9, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -616,11 +758,23 @@ struct OctoberView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 10, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 10, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -665,11 +819,23 @@ struct NovemberView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 11, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 11, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
@@ -715,11 +881,23 @@ struct DecemberView: View, MonthViewUI {
     
     var body: some View {
         VStack {
+            HStack {
+            
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SUN"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("MON"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("TUE"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("WED"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("THU"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("FRI"))
+                Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden().overlay(Text("SAT"))
+
+                
+            }
             ForEach(1...6, id: \.self) { week in
                 HStack {
                     ForEach(1...7, id: \.self) { day in
                         if (!(week == 1 && day < dayOfWeek)) {
-                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 12, currentYear: currentYear, parentView: self)
+                            dayCircles(week: week, day: day, dayOfTheWeek: dayOfWeek, numDays: numDays, currentMonth: 12, currentYear: currentYear, parentView: self).padding(.bottom)
                         } else {
                             Image(systemName: "1.circle.fill").font(.system(size: 40, weight: .regular)).hidden()
                         }
