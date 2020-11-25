@@ -21,9 +21,9 @@ struct CurrentDateInfoBoxUI: View {
             getTitleString().font(.subheadline)
             if (getIfTheUserCompletedSurvey()) {
                 HStack {
-                    Image(systemName: "checkmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(UIColor.systemGreen))
+                    Image(systemName: "checkmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
                     Text("Survey Completed!")
-                        .foregroundColor(Color(UIColor.systemGreen))
+                        .foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
                 }
                 Button(action: {
                     deleteQuestionnaire( currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear)
@@ -39,14 +39,14 @@ struct CurrentDateInfoBoxUI: View {
                     Text("Redo Survery")
                         .foregroundColor(.white)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.red))
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 250/255, green: 128/255, blue: 114/255)))
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
                 HStack {
-                    Image(systemName: "xmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(UIColor.systemPink))
+                    Image(systemName: "xmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
                     Text("Survey Not Complete!")
-                        .foregroundColor(Color(UIColor.systemRed))
+                        .foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
                 }
                 Button(action: {
                     let contentView = QuestionnaireUI(currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear, parentTabController: parentTabController)
@@ -68,7 +68,7 @@ struct CurrentDateInfoBoxUI: View {
         .cornerRadius(10)
         .overlay(RoundedRectangle(cornerRadius: 10)
         .stroke(Color.black, lineWidth: 4))
-        .shadow(radius: 10)
+        //.shadow(radius: 10)
     }
     
     private func getIfTheUserCompletedSurvey() -> Bool {

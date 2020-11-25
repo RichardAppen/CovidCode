@@ -978,10 +978,10 @@ struct dayCircles: View {
             parentView.YearSelected = currentYear
         }) {
             if let surveyFilledStatus = defaults.string(forKey: dateString) {
-                Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
+                Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
             } else {
                 if (currentDateTime! < actualDate) {
-                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
+                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
                 } else {
                     Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.lightGray))
                 }

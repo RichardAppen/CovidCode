@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013674B6256ECB3900566821 /* QRCodeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013674B5256ECB3900566821 /* QRCodeUI.swift */; };
 		0145723D2556079500809A7F /* cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 0145723C2556079500809A7F /* cert.der */; };
 		0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73725696A0C00946F26 /* NetworkLogin.swift */; };
 		0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73C25696A9000946F26 /* NetworkManager.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		013674B5256ECB3900566821 /* QRCodeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUI.swift; sourceTree = "<group>"; };
 		0145723C2556079500809A7F /* cert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.der; sourceTree = "<group>"; };
 		0175B73725696A0C00946F26 /* NetworkLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogin.swift; sourceTree = "<group>"; };
 		0175B73C25696A9000946F26 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				0184F7262553B56A008655E6 /* LoginUI.swift */,
 				019F686A25683C3E000E2CC5 /* TabControllerUI.swift */,
 				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
+				013674B5256ECB3900566821 /* QRCodeUI.swift */,
 				019F688B256852F3000E2CC5 /* CalendarUI.swift */,
 				0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */,
 				019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */,
@@ -322,6 +325,7 @@
 				0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */,
 				0175B7502569EE2400946F26 /* FriendListUI.swift in Sources */,
 				0184F7272553B56A008655E6 /* LoginUI.swift in Sources */,
+				013674B6256ECB3900566821 /* QRCodeUI.swift in Sources */,
 				0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */,
 				AA1E2DF6256B00FA0039316C /* NetworkAddFriend.swift in Sources */,
 				AA1E2E08256B04A90039316C /* NetworkRemoveUser.swift in Sources */,
