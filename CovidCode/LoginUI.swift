@@ -65,14 +65,12 @@ struct CovidLogo: View {
 struct LoginButton: View {
     var username: String
     var password: String
+    @State var errorMsg: String = ""
+    @State private var showingAlert = false
+    
     var body: some View {
         Button(action: {
-            NetworkLogin.loginUser(username: username, password: password, handler: placeHolder)
-            let contentView = TabControllerUI(username: username)
-            if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: contentView)
-                window.makeKeyAndVisible()
-            }
+            NetworkLogin.loginUser(username: username, password: password, handler: userloginHandler)
         }) {
             Text("Login")
                 .foregroundColor(.white)
@@ -81,12 +79,31 @@ struct LoginButton: View {
                 
         }
         .buttonStyle(PlainButtonStyle())
-        .disabled(username.isEmpty || password.isEmpty)
+        .disabled(username.isEmpty || password.isEmpty || password.count < 8 )
+        
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Error"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
+              }
     }
     
-    func placeHolder(res: Bool) -> () {
-        // TODO Change this name and make this the return handler of login
+    func userloginHandler(res: Bool, error: String) -> () {
+        
+        if (res) {
+            DispatchQueue.main.async {
+                UserDefaults.standard.setValue(username, forKey: username)
+                let contentView = TabControllerUI(username: username)
+                if let window = UIApplication.shared.windows.first {
+                    window.rootViewController = UIHostingController(rootView: contentView)
+                    window.makeKeyAndVisible()
+                }
             }
+        } else {
+            errorMsg = error
+            showingAlert = true
+            
+        }
+        
+    }
 
 }
 

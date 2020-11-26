@@ -11,7 +11,7 @@ import Foundation
 
 class NetworkLogin {
     // Function takes a bool and has no return value
-    typealias userLoginHandler = (Bool) -> ()
+    typealias userLoginHandler = (Bool, String) -> ()
  
     static func loginUser(username: String, password: String, handler: @escaping userLoginHandler) {
         let parameters = ["username": username,
@@ -41,8 +41,14 @@ class NetworkLogin {
                 //  {"error": Username or password do not exist}
                 //  {"status": Login successful}
                 print (responseJSON)
+                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "Login successful") {
+                    handler(true, "none")
+                } else {
+                    handler(false, responseJSON["error"] as! String)
+                }
 
                 return
+            
             }
         }
         task.resume()
