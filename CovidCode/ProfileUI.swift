@@ -17,6 +17,7 @@ struct ProfileUI : View {
   @State var bio:String = "This is my Bio"
   @State var username:String = "JohnDoe1995"
   @State var friend_count:Int = 0
+    @State var showDetail: Bool = false
     var parentTabController: TabControllerUI
   
     
@@ -83,19 +84,33 @@ struct ProfileUI : View {
             .overlay(Rectangle().stroke(Color.primary.opacity(-2),lineWidth: 1).shadow(radius: 3).edgesIgnoringSafeArea((.top)))
             */
             
+            // FILLER
             HStack{
                 Image(systemName: "person")
                     .resizable()
-                    .frame(width: 150, height: 150)
-                    .cornerRadius(10)
+                    .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/6)
                       .clipShape(Circle())
                       .frame(alignment: .center)
                     .foregroundColor(Color.white)
-                Spacer(minLength: 0)
+                Spacer()
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 0)
-            .frame(width: 190, height:200, alignment: .topLeading)
+            
+            Button(action: {
+                showDetail.toggle()
+            }) {
+                if (showDetail){
+                    Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                } else {
+                    Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                }
+            }.padding(.bottom)
+            
           
           VStack(spacing: 0) {
               Text(self.name)
@@ -121,6 +136,7 @@ struct ProfileUI : View {
               
           }.padding(-35)
           .padding(.bottom, 35)
+          .padding(.top)
           
           
             Button(action: {
@@ -149,6 +165,22 @@ struct ProfileUI : View {
       }
       //}.padding(.top, -50)
     }
+    
+    private func generateQRCode(from string: String) -> UIImage {
+        let context = CIContext()
+        let filter = CIFilter.qrCodeGenerator()
+        let data = Data(string.utf8)
+        filter.setValue(data, forKey: "inputMessage")
+
+        if let image = filter.outputImage {
+            if let img = context.createCGImage(image, from: image.extent) {
+                return UIImage(cgImage: img)
+            }
+        }
+
+        return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+
 }
 
 struct Menu : View {
@@ -222,21 +254,18 @@ struct Menu : View {
           }
           .padding(.top, 25)
           
-          Button(action: {
-              
-          }) {
-              HStack{
-              Image("covid-co")
-                  .resizable()
-                  .frame(width: 35, height: 35)
-                  .foregroundColor(.yellow)
-              Text("My QR Code")
-                  Spacer()
-              }
-          }
-          .padding(.top, 25)
-          
           Spacer()
+        
+        Button(action: {
+        }) {
+            Text("Log Out")
+                .foregroundColor(.white)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.blue))
+                
+        }
+        .buttonStyle(PlainButtonStyle())
+        .padding()
           
       }.foregroundColor(.primary)
       .padding(.horizontal, 20)
