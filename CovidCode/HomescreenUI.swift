@@ -19,13 +19,11 @@ struct HomescreenUI: View {
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
-                    TopBlueParralax().padding()/*.frame(width: UIScreen.main.bounds.width)*/.background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                    .aspectRatio(contentMode: .fill)
+                    TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                     .offset(y: geometry.frame(in: .global).minY/9)
                     .frame(width: geometry.size.width, height: geometry.size.height*4)
                 } else {
-                    TopBlueParralax().padding()/*.frame(width: UIScreen.main.bounds.width)*/.background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                    .aspectRatio(contentMode: .fill)
+                    TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                     .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
                     .offset(y: -geometry.frame(in: .global).minY)
                 }
@@ -225,13 +223,9 @@ struct TopBlueParralax: View {
             Spacer()
             Spacer()
             Spacer()
-            /*Text("This must be a certain length ")
-                .font(.largeTitle)
-                //.background(Color(red: 119/255, green: 158/255, blue: 203/255))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)*/
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                .frame(width: 700)
+                .frame(width: UIScreen.main.bounds.width)
         }
     }
 }

@@ -39,8 +39,19 @@ struct CalendarUI: View {
     
     var body: some View {
         
-        NavigationView {
         ScrollView {
+            GeometryReader { geometry in
+                if geometry.frame(in: .global).minY <= 0 {
+                    TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+                    .offset(y: geometry.frame(in: .global).minY/9)
+                    .frame(width: geometry.size.width, height: geometry.size.height*4)
+                } else {
+                    TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+                    .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
+                    .offset(y: -geometry.frame(in: .global).minY)
+                }
+            }
+            TopCalendarView().padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             ScrollViewReader { scrollView in
                 LazyVStack() {
                     WinterView(currentYear: currentYear, parentTabController: parentTabController)
@@ -69,7 +80,7 @@ struct CalendarUI: View {
             nc.navigationBar.barTintColor = UIColor(cgColor: CGColor(red: 0, green: 161, blue: 242, alpha: 1.0))
                             nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
                         })*/
-        }
+        
         
         
         
@@ -992,3 +1003,18 @@ struct dayCircles: View {
     
 
 }
+
+struct TopCalendarView: View {
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("Calendar")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        
+        }
+    }
+}
+

@@ -51,7 +51,7 @@ struct TabControllerUI: View {
                    Text("Friends")
              }
                 .tag(3)
-            Text("My Profile")
+            ProfileUI(parentTabController: self)
                 .tabItem {
                     Image(systemName: "person").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemBlue))
                    Text("Me")
