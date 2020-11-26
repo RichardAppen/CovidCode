@@ -29,8 +29,14 @@ struct ContentView: View {
                 .padding(.bottom, 20)
             LoginButton(username: username, password: password)
             Button(action: {
+                let contentView = RegisterUI()
+                if let window = UIApplication.shared.windows.first {
+                    window.rootViewController = UIHostingController(rootView: contentView)
+                    window.makeKeyAndVisible()
+                }
             }) {
                 Text("Create an Account")
+                
             }
             Spacer()
         }
@@ -75,13 +81,12 @@ struct LoginButton: View {
                 
         }
         .buttonStyle(PlainButtonStyle())
-        .disabled(username.isEmpty)
+        .disabled(username.isEmpty || password.isEmpty)
     }
     
     func placeHolder(res: Bool) -> () {
         // TODO Change this name and make this the return handler of login
-        
-    }
+            }
 
 }
 

@@ -10,7 +10,7 @@
 import Foundation
 
 class NetworkAddUser {
-    typealias addUserHandler = (Bool) -> ()
+    typealias addUserHandler = (Bool, String) -> ()
     
     static func addUser(first_name: String, last_name: String, username: String, password: String, email: String, handler: @escaping addUserHandler) {
         let parameters = ["first_name": first_name,
@@ -43,6 +43,11 @@ class NetworkAddUser {
                 //  {"error": user exists}
                 //  {"status": Added}
                 print (responseJSON)
+                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "Added") {
+                    handler(true, "none")
+                } else {
+                    handler(false, responseJSON["error"] as! String)
+                }
 
                 return
             }
