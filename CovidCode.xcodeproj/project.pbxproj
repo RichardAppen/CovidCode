@@ -16,6 +16,7 @@
 		0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B7542569F08000946F26 /* NewFriendUI.swift */; };
 		017F1A3525702BAD00C82321 /* ProfileUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3425702BAD00C82321 /* ProfileUI.swift */; };
 		017F1A3A25702BED00C82321 /* EditProfileUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3925702BED00C82321 /* EditProfileUI.swift */; };
+		017F1A3F25706AA800C82321 /* NetworkGetFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */; };
 		0184F7272553B56A008655E6 /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7262553B56A008655E6 /* LoginUI.swift */; };
 		0184F7292553B56D008655E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F7282553B56D008655E6 /* Assets.xcassets */; };
 		0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F72B2553B56D008655E6 /* Preview Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		0175B7542569F08000946F26 /* NewFriendUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFriendUI.swift; sourceTree = "<group>"; };
 		017F1A3425702BAD00C82321 /* ProfileUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUI.swift; sourceTree = "<group>"; };
 		017F1A3925702BED00C82321 /* EditProfileUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUI.swift; sourceTree = "<group>"; };
+		017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetFriends.swift; sourceTree = "<group>"; };
 		0184F7212553B56A008655E6 /* CovidCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0184F7262553B56A008655E6 /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
 		0184F7282553B56D008655E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				AA1E2DFA256B02C60039316C /* NetworkRemoveFriend.swift */,
 				AA1E2E02256B03A50039316C /* NetworkAddUser.swift */,
 				AA1E2E07256B04A90039316C /* NetworkRemoveUser.swift */,
+				017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */,
 				017F1A3A25702BED00C82321 /* EditProfileUI.swift in Sources */,
 				AA1E2DFB256B02C60039316C /* NetworkRemoveFriend.swift in Sources */,
+				017F1A3F25706AA800C82321 /* NetworkGetFriends.swift in Sources */,
 				0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */,
 				019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,

@@ -41,6 +41,27 @@ struct ContentView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            let defaults = UserDefaults.standard
+            if let currUsername = defaults.string(forKey: "currUsername") {
+                if let currPassword = defaults.string(forKey: "currPassword") {
+                    NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
+                }
+            }
+        }
+    }
+    
+    func userloginHandler(res: Bool, error: String) -> () {
+        
+        if (res) {
+            DispatchQueue.main.async {
+                let contentView = TabControllerUI(username: username)
+                if let window = UIApplication.shared.windows.first {
+                    window.rootViewController = UIHostingController(rootView: contentView)
+                    window.makeKeyAndVisible()
+                }
+            }
+        }
     }
 }
 
@@ -70,7 +91,9 @@ struct LoginButton: View {
     
     var body: some View {
         Button(action: {
+            
             NetworkLogin.loginUser(username: username, password: password, handler: userloginHandler)
+            
         }) {
             Text("Login")
                 .foregroundColor(.white)
@@ -90,7 +113,9 @@ struct LoginButton: View {
         
         if (res) {
             DispatchQueue.main.async {
-                UserDefaults.standard.setValue(username, forKey: username)
+                let defaults = UserDefaults.standard
+                defaults.setValue(username, forKey: "currUsername")
+                defaults.setValue(password, forKey: "currPassword")
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)

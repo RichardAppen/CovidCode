@@ -42,12 +42,31 @@ struct NewFriendUI: View {
             }
             TextField("Friend Name", text: $friendName).textFieldStyle(RoundedBorderTextFieldStyle()).padding()
             Button(action: {
+                let defaults = UserDefaults.standard
+                if let currUsername = defaults.string(forKey: "currUsername") {
+                    if let currPassword = defaults.string(forKey: "currPassword") {
+                        NetworkAddFriend.addFriend(username: currUsername, password: currPassword, friend: friendName, handler: addFriendHandler)
+                    }
+                }
             }) {
                 Text("Add").padding()
             }.background(RoundedRectangle(cornerRadius: 40).opacity(0.1))
             Spacer()
         }
     }
+    
+    func addFriendHandler(status: Bool) {
+        if (status) {
+            let contentView = FriendListUI(parentTabController: parentTabController)
+            if let window = UIApplication.shared.windows.first {
+                window.rootViewController = UIHostingController(rootView: contentView)
+                window.makeKeyAndVisible()
+            }
+        } else {
+            friendStatus = true
+        }
+    }
+
 
 }
 
