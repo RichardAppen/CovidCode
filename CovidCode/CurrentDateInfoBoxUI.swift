@@ -26,7 +26,6 @@ struct CurrentDateInfoBoxUI: View {
                         .foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
                 }
                 Button(action: {
-                    deleteQuestionnaire( currentDay: currentDay, currentMonth: currentMonth, currentYear: currentYear)
                     let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
                     let defaults = UserDefaults.standard
                     defaults.set("0", forKey: dateString)

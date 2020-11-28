@@ -27,6 +27,7 @@
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
+		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */; };
 		5AF6BBFE256C39C500E635F0 /* QuestionCardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */; };
 		5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */; };
@@ -81,6 +82,7 @@
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
 		019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateInfoBoxUI.swift; sourceTree = "<group>"; };
+		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
 		5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionCardUI.swift; path = CovidCode/QuestionCardUI.swift; sourceTree = SOURCE_ROOT; };
 		5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireUI.swift; path = CovidCode/QuestionnaireUI.swift; sourceTree = SOURCE_ROOT; };
@@ -126,6 +128,7 @@
 				AA1E2E02256B03A50039316C /* NetworkAddUser.swift */,
 				AA1E2E07256B04A90039316C /* NetworkRemoveUser.swift */,
 				017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */,
+				5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */,
 				019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */,
 				0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */,
+				5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */,
 				019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */,
 				017F1A3A25702BED00C82321 /* EditProfileUI.swift in Sources */,
 				AA1E2DFB256B02C60039316C /* NetworkRemoveFriend.swift in Sources */,

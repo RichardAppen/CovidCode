@@ -7,18 +7,44 @@
 
 import SwiftUI
 
-struct Question: Hashable {
-    var id: Int
-    let question: String
-    var type: String
-    var answer: Bool?
-    var answers: [String: String] = [:]
+class Question: Hashable, ObservableObject {
+    static func == (lhs: Question, rhs: Question) -> Bool {
+        if lhs.id != rhs.id {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    var id: Int = 0
+    var question: String = ""
+    var type: String = ""
+    @Published var answer: Bool?
+    @Published var answers: [String: Bool] = [:]
+    
+    init(id: Int, question: String, type: String, answers: [String: Bool]  ) {
+        self.id = id;
+        self.question = question
+        self.type = type
+        self.answers = answers
+    }
+    
+    init(id: Int, question: String, type: String ) {
+        self.id = id;
+        self.question = question
+        self.type = type
+        self.answers = [:]
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 struct QuestionCardView: View {
     @State private var translation: CGSize = .zero
     
-    @State var question: Question
+    @ObservedObject var question: Question
     
     var yesButtonColor: Color {
         
@@ -44,9 +70,11 @@ struct QuestionCardView: View {
     
     func checkboxSelected(id: String, res: Bool) {
         if (res) {
-            self.question.answers[id] = "yes"
+            //self.question.answers[id] = true
+            print(self.question.answers)
         } else {
-            self.question.answers[id] = "no"
+            //self.question.answers[id] = false
+            print(self.question.answers)
         }
     }
     
@@ -94,8 +122,8 @@ struct QuestionCardView: View {
                         } else if (self.question.type == "multiple"){
                             Spacer()
                             VStack {
-                                ForEach(self.question.answers.sorted(by: >), id: \.key) { key, value in
-                                    CheckboxField(id: key, label: key, callback: checkboxSelected)
+                                ForEach(self.question.answers.sorted(by: ==), id: \.key) { key, value in
+                                    CheckboxField(id: key, label: key, callback: self.checkboxSelected, q: self.question)
                                 }
                             }
                             
@@ -108,7 +136,7 @@ struct QuestionCardView: View {
  
                 
             }.background(LinearGradient(
-                gradient: Gradient(colors: [.blue, .gray]),
+                gradient: Gradient(colors: [.blue, .white]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             ))
@@ -129,6 +157,7 @@ struct CheckboxField: View {
     let size: CGFloat
     let color: Color
     let textSize: Int
+    @ObservedObject var q: Question
     let callback: (String, Bool)->()
     
     init(
@@ -137,32 +166,42 @@ struct CheckboxField: View {
         size: CGFloat = 30,
         color: Color = Color.black,
         textSize: Int = 14,
-        callback: @escaping (String, Bool)->()
+        callback: @escaping (String, Bool)->(),
+        q: Question
+        
     ) {
+    
         self.id = id
         self.label = label
         self.size = size
         self.color = color
         self.textSize = textSize
         self.callback = callback
+        self.q = q
+       
+        
     }
     
-    @State var isMarked:Bool = false
+    
+    
     
     var body: some View {
         Button(action:{
-            self.isMarked.toggle()
-            self.callback(self.id, self.isMarked)
+            self.q.answers[id] = !(self.q.answers[id] ?? false)
+            self.callback(self.id, self.q.answers[id] ?? false)
+            print(self.q.answers[id])
         }) {
             HStack(alignment: .center, spacing: 10) {
-                Image(systemName: self.isMarked ? "checkmark.square" : "square")
+                Image(systemName: (self.q.answers[id]!) ? "checkmark.square" : "square")
                     .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: self.size, height: self.size)
                 
                 Text(label)
-                    .font(Font.system(size: size))
+                    .font(.system(size: 20))
+                    .minimumScaleFactor(0.5)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }.foregroundColor(self.color)
         }
@@ -171,13 +210,29 @@ struct CheckboxField: View {
 }
 
 
+
+/*
+ 
+ Are you experiencing any of the following symptoms? Cough, Headache, Fatigue, Breathing Issues, Soreness
+ Do you have a fever? No, Yes a low fever between 37.2°C and 38.5°C, Yes a high fever over 38.5°C
+ Have you participated in any of the following recently? Attended a mass gathering such as a party or wedding, travelled by plane, train, bus, or other public transport, None of these
+ Have you come in close contact with anyone diagnosed with Covid-19 today?
+ Do you continue to practice protective measures such as using a mask to cover your nose and mouth, follow social distancing, and washing your hands with soap and water? Yes or No
+ 
+ 
+ 
+ 
+ */
+
+
 struct QuestionCardView_Previews: PreviewProvider {
     static var previews: some View {
-        let answers = ["sick": "yes", "fever": "no", "cough": "no", "cdough": "no", "codugh": "no"]
-        QuestionCardView(question: Question(id: 1, question: "Do ads ads asd adsadsads adsdsa zcxcxzcxz you have a cough?", type: "multiple", answers: answers))
+        let answers = ["Attended a mass gathering such as a party or wedding": false, "test": false, "cough": false, "cdough": false, "codugh": false]
+        QuestionCardView(question: Question(id: 1, question: "Do you have a fever", type: "multiple", answers: answers))
         
     }
 }
+
 
 
 
