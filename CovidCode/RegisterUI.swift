@@ -137,6 +137,9 @@ struct RegisterButton: View {
         // TODO Change this name and make this the return handler of login
         if (res) {
             DispatchQueue.main.async {
+                let defaults = UserDefaults.standard
+                defaults.setValue(username, forKey: "currUsername")
+                defaults.setValue(password, forKey: "currPassword")
                 UserDefaults.standard.setValue(username, forKey: username)
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {

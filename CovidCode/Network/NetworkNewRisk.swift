@@ -44,7 +44,7 @@ class NetworkNewRisk {
                 //  {"status": Added}
                 print (responseJSON)
                 print("test1")
-                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "Added") {
+                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "added") {
                     handler(true, "none")
                 } else {
                     handler(false, responseJSON["error"] as! String)

@@ -128,7 +128,8 @@ struct SubmitQuestionnaireButton: View {
                 errorMsg = "Please answer question 5"
                 showingAlert = true
             } else {
-                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(10), state: "new", handler: newRiskHandler)
+                print("y")
+                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(5), state: "new", handler: newRiskHandler)
             }
         }) {
             Text("Submit")
@@ -147,14 +148,15 @@ struct SubmitQuestionnaireButton: View {
     func newRiskHandler(res: Bool, error: String) -> () {
         // TODO Change this name and make this the return handler of login
         if (res) {
-            print("test")
-            let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
-            let defaults = UserDefaults.standard
-            defaults.set("1", forKey: dateString)
-            let contentView = parentTabController
-            if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: contentView)
-                window.makeKeyAndVisible()
+            DispatchQueue.main.async {
+                let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
+                let defaults = UserDefaults.standard
+                defaults.set("1", forKey: dateString)
+                let contentView = parentTabController
+                if let window = UIApplication.shared.windows.first {
+                    window.rootViewController = UIHostingController(rootView: contentView)
+                    window.makeKeyAndVisible()
+                }
             }
         } else {
             print("unsuccessful")
