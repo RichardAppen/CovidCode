@@ -19,6 +19,7 @@ struct ProfileUI : View {
   @State var friend_count:Int = 0
     @State var showDetail: Bool = false
     var parentTabController: TabControllerUI
+    @State var friendDictionary: [String : String] = [:]
   
     
     
@@ -41,6 +42,7 @@ struct ProfileUI : View {
                 }
             }
                 TopProfileView(show: self.$show).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+                GeometryReader { geometry in
         VStack{
         
             
@@ -117,12 +119,12 @@ struct ProfileUI : View {
                   .font(.title)
                   .foregroundColor(Color.black.opacity(0.8))
               
-              Text(self.username)
+              getUsername()
                   .foregroundColor(Color.black.opacity(0.8))
                   .padding(.top,10)
               
               
-              Text(String(self.friend_count) + " Friends")
+              Text(String(getFriendCount()) + " Friends")
                   .foregroundColor(Color.black.opacity(0.6))
                   .padding(.top, 8)
                   .padding(.bottom,8)
@@ -147,11 +149,18 @@ struct ProfileUI : View {
                 }
             }) {
                 Text("Edit Profile")
+                    .foregroundColor(.white)
+                    .padding(6)
             }
+            .frame(width: geometry.size.width / 1.5)
+            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+            .buttonStyle(PlainButtonStyle())
+            
           
           Spacer(minLength: 30)
         }
-        .background(Color("Color1").edgesIgnoringSafeArea(.all))
+        .edgesIgnoringSafeArea(.all)
+            }
           }
           
           HStack{
@@ -164,6 +173,31 @@ struct ProfileUI : View {
       }
       }
       //}.padding(.top, -50)
+    }
+    
+    private func getUsername() -> Text {
+        let defaults = UserDefaults.standard
+        if let currUsername = defaults.string(forKey: "currUsername") {
+            return Text(currUsername)
+        }
+        
+        return Text("")
+    }
+    
+    private func getFriendCount() -> Int {
+        let defaults = UserDefaults.standard
+        if let currUsername = defaults.string(forKey: "currUsername") {
+            if let currPassword = defaults.string(forKey: "currPassword") {
+                NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                
+            }
+        }
+        
+        return friendDictionary.count
+    }
+    
+    func getFriendsHandler(friendsDict: [String: String]) {
+        friendDictionary = friendsDict
     }
     
     private func generateQRCode(from string: String) -> UIImage {
@@ -193,6 +227,7 @@ struct Menu : View {
   
   var body: some View {
       
+    GeometryReader { geometry in
     VStack() {
           HStack{
             Spacer()
@@ -257,21 +292,30 @@ struct Menu : View {
           Spacer()
         
         Button(action: {
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.synchronize()
+            let contentView = ContentView()
+            if let window = UIApplication.shared.windows.first {
+                window.rootViewController = UIHostingController(rootView: contentView)
+                window.makeKeyAndVisible()
+            }
         }) {
             Text("Log Out")
                 .foregroundColor(.white)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.blue))
-                
+                .padding(6)
         }
+        .frame(width: geometry.size.width / 2)
+        .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
         .buttonStyle(PlainButtonStyle())
-        .padding()
+        .padding(.bottom)
           
       }.foregroundColor(.primary)
       .padding(.horizontal, 20)
       .frame(width: UIScreen.main.bounds.width / 1.5)
       .background((self.dark ? Color.black : Color.white).edgesIgnoringSafeArea(.all))
       .overlay(Rectangle().stroke(Color.primary.opacity(0.2),lineWidth: 2).shadow(radius: 3).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+    }
   }
 }
 
@@ -298,8 +342,8 @@ struct TopProfileView: View {
                     Image(systemName: "slider.horizontal.3")
                       .resizable()
                       .frame(width: 15, height: 15)
-                        .font(.system(size: 22))
-                        .foregroundColor(.black)
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
                 }
             }
         

@@ -14,6 +14,7 @@ struct NewFriendUI: View {
     var parentTabController: TabControllerUI
 
     var body: some View {
+        GeometryReader { geometry in
         VStack {
             ZStack {
                 HStack {
@@ -24,8 +25,9 @@ struct NewFriendUI: View {
                             window.makeKeyAndVisible()
                         }
                     }) {
-                        Text("Back").padding()
+                        Image(systemName: "chevron.left").font(.system(size: 16, weight: .regular))
                     }
+                    .padding()
                     Spacer()
                 }
                 HStack {
@@ -40,7 +42,12 @@ struct NewFriendUI: View {
             } else {
                 Text("Friend cannot be located").foregroundColor(Color.red).hidden()
             }
-            TextField("Friend Name", text: $friendName).textFieldStyle(RoundedBorderTextFieldStyle()).padding()
+            TextField("Friend Name", text: $friendName)
+                .padding()
+                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                .cornerRadius(5.0)
+                .padding(.bottom, 20)
+                .frame(width: geometry.size.width / 1.1)
             Button(action: {
                 let defaults = UserDefaults.standard
                 if let currUsername = defaults.string(forKey: "currUsername") {
@@ -49,9 +56,15 @@ struct NewFriendUI: View {
                     }
                 }
             }) {
-                Text("Add").padding()
-            }.background(RoundedRectangle(cornerRadius: 40).opacity(0.1))
+                Text("Add")
+                    .foregroundColor(.white)
+                    .padding(6)
+                
+            }
+            .frame(width: geometry.size.width / 1.1)
+            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             Spacer()
+        }
         }
     }
     

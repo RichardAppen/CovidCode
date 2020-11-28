@@ -10,11 +10,14 @@ import SwiftUI
 
 class dataHolder {
     static var currLetter : String = "A"
+    static var letterChecker : String = "A"
 }
+
 
 struct FriendListUI: View {
     var parentTabController: TabControllerUI
     @State var friendDictionary: [String: String] = [:]
+    @State private var searchName: String = ""
     
     var body: some View {
         ScrollView {
@@ -29,13 +32,33 @@ struct FriendListUI: View {
                     .offset(y: -geometry.frame(in: .global).minY)
                 }
             }
-            TopFriendListView().padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-            
+            TopFriendListView(parentTabController: parentTabController).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             
             VStack {
-                ForEach(friendDictionary.sorted { $0.key > $1.key }, id: \.key) { key, value in
-                    Section(header: determineCurrentLetter(currName: key).frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .leading).background(Color(red: 119/255, green: 158/255, blue: 203/255))) {
+                
+                HStack {
+                    Image(systemName: "magnifyingglass").font(.system(size: 20, weight: .regular)).padding(.leading)
+                    TextField("Search", text: $searchName)
+                        .padding(6)
+                        .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                        .cornerRadius(5.0)
+                        .padding(.trailing)
+                }.padding()
+                
+                ForEach(friendDictionary.sorted { $0.key < $1.key }.filter({
+                    if (searchName == "") {
+                        return true
+                    }
+                    return $0.key.contains(searchName)
                     
+                                
+                            }), id: \.key) { key, value in
+                    if (needNewLetter(currName: key)) {
+                        Section(header: determineCurrentLetter(currName: key).frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .leading).background(Color(red: 119/255, green: 158/255, blue: 203/255))) {
+                    
+                        }
+                    } else {
+                        Divider().frame(height: 2).background(Color(UIColor.lightGray)).padding(.leading).padding(.trailing)
                     }
                     HStack {
         
@@ -61,6 +84,7 @@ struct FriendListUI: View {
 
             }
             
+            
         }
         
     }
@@ -69,9 +93,29 @@ struct FriendListUI: View {
         friendDictionary = friendsDict
     }
     
+    private func needNewLetter(currName: String) -> Bool {
+        let currNameUpper = currName.uppercased()
+        let capitalAlphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        
+        if (searchName != "") {
+            return false
+        }
+        
+        for item in capitalAlphabet {
+            
+            if (currNameUpper.hasPrefix(item) && dataHolder.letterChecker != item) {
+                dataHolder.letterChecker = item
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     private func determineCurrentLetter(currName: String) -> Text {
         let currNameUpper = currName.uppercased()
         let capitalAlphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        
         
         for item in capitalAlphabet {
             
@@ -89,14 +133,28 @@ struct FriendListUI: View {
 
 
 struct TopFriendListView: View {
+    var parentTabController: TabControllerUI
     
     var body: some View {
         VStack {
             Spacer()
-            Text("Friends")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            HStack {
+                Text("Friends")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                Spacer()
+                Button(action: {
+                    let contentView = NewFriendUI(parentTabController: parentTabController)
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
+                }) {
+                    Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    
+                }
+            }
                
         
         }

@@ -7,27 +7,32 @@
 
 import SwiftUI
 
-let colorNum: Double = 235.0/255.0
+
 struct ContentView: View {
     
     @State var username: String = ""
     @State var password: String = ""
     
     var body: some View {
+        GeometryReader { geometry in
         VStack() {
             CovidLogo()
             Spacer()
             TextField("Username", text: $username)
                 .padding()
-                .background(Color(red: colorNum, green: colorNum, blue: colorNum))
+                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
+                .frame(width: geometry.size.width / 1.1)
             SecureField("Password", text: $password)
                 .padding()
-                .background(Color(red: colorNum, green: colorNum, blue: colorNum))
+                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
+                .frame(width: geometry.size.width / 1.1)
             LoginButton(username: username, password: password)
+                .frame(width: geometry.size.width / 1.1)
+                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             Button(action: {
                 let contentView = RegisterUI()
                 if let window = UIApplication.shared.windows.first {
@@ -36,19 +41,25 @@ struct ContentView: View {
                 }
             }) {
                 Text("Create an Account")
+                    .foregroundColor(.white)
+                    .padding(6)
                 
             }
+            .frame(width: geometry.size.width / 1.1)
+            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             Spacer()
         }
         .padding()
         .onAppear {
             let defaults = UserDefaults.standard
             if let currUsername = defaults.string(forKey: "currUsername") {
+                username = currUsername
                 if let currPassword = defaults.string(forKey: "currPassword") {
                     NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
                 }
             }
         }
+    }
     }
     
     func userloginHandler(res: Bool, error: String) -> () {
@@ -97,8 +108,8 @@ struct LoginButton: View {
         }) {
             Text("Login")
                 .foregroundColor(.white)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.blue))
+                .padding(6)
+
                 
         }
         .buttonStyle(PlainButtonStyle())

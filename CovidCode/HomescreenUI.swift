@@ -45,6 +45,7 @@ struct HomescreenUI: View {
                     Text("Today's Survey Complete!").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
                 } else {
                     Image(systemName: "xmark.circle.fill").font(.system(size: 30, weight:      .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
+                    GeometryReader { geometry in
                     VStack {
                         Text("Today's Survery Not Complete!").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
                         Button(action: {
@@ -52,10 +53,12 @@ struct HomescreenUI: View {
                         }) {
                             Text("Go To Calender")
                                 .foregroundColor(.white)
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.blue))
+                                .padding(6)
                         }
+                        .frame(width: geometry.size.width / 1.1)
+                        .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                         .buttonStyle(PlainButtonStyle())
+                    }
                     }
                 }
                 }
