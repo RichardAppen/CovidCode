@@ -18,20 +18,24 @@ struct FriendListUI: View {
     var parentTabController: TabControllerUI
     @State var friendDictionary: [String: String] = [:]
     @State private var searchName: String = ""
-    @State var showingAlert: Bool = false
+    
     @State var alertMsg: String = ""
+    
+    @State var showingConfirmAlert = false
+    @State var showingMessageAlert = false
+    @State var errorMsg = ""
     
     var body: some View {
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                    .offset(y: geometry.frame(in: .global).minY/9)
-                    .frame(width: geometry.size.width, height: geometry.size.height*4)
+                        .offset(y: geometry.frame(in: .global).minY/9)
+                        .frame(width: geometry.size.width, height: geometry.size.height*4)
                 } else {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                    .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
-                    .offset(y: -geometry.frame(in: .global).minY)
+                        .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
+                        .offset(y: -geometry.frame(in: .global).minY)
                 }
             }
             TopFriendListView(parentTabController: parentTabController).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
@@ -53,28 +57,32 @@ struct FriendListUI: View {
                     }
                     return $0.key.contains(searchName)
                     
-                                
-                            }), id: \.key) { key, value in
+                    
+                }), id: \.key) { key, value in
                     if (needNewLetter(currName: key)) {
                         Section(header: determineCurrentLetter(currName: key).frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .leading).background(Color(red: 119/255, green: 158/255, blue: 203/255))) {
-                    
+                            
                         }
                     } else {
                         Divider().frame(height: 2).background(Color(UIColor.lightGray)).padding(.leading).padding(.trailing)
                     }
                     HStack {
-        
+                        
                         Section(header: Text(key)) {
                             Spacer()
+                            
                             if (Int(value) == 0) {
                                 Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
                             } else {
                                 Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                             }
+                            RemoveFriendButton(friend: key)
+                            
                         }.padding()
+                        
                     }
                 }
-
+                
             }.onAppear {
                 let defaults = UserDefaults.standard
                 if let currUsername = defaults.string(forKey: "currUsername") {
@@ -83,11 +91,9 @@ struct FriendListUI: View {
                         
                     }
                 }
-
+                
             }
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Success"), message: Text(alertMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
-                  }
+           
             
         }
         
@@ -95,6 +101,13 @@ struct FriendListUI: View {
     
     func getFriendsHandler(friendsDict: [String: String]) {
         friendDictionary = friendsDict
+    }
+    
+    func removeFriendHandler(res: Bool, error: String) -> () {
+
+            errorMsg = error
+            showingMessageAlert = true
+
     }
     
     private func needNewLetter(currName: String) -> Bool {
@@ -131,9 +144,61 @@ struct FriendListUI: View {
         
         return Text("")
     }
-
+    
     
 }
+
+struct RemoveFriendButton: View {
+    
+    var friend: String
+    @State var confirmAlert = true
+    @State var showingAlert = false
+    @State var errorMsg = ""
+    
+    var body: some View {
+        
+        Button(action: {
+            self.showingAlert = true
+            
+        }) {
+            Image(systemName: "trash.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(.black)
+
+        }
+        
+        .alert(isPresented: $showingAlert) {
+            if (confirmAlert) {
+                return Alert(title: Text("Important"), message: Text("Are you sure you would like to remove " + friend + " as a friend?"),  primaryButton: .destructive(Text("Remove")) {
+                        let defaults = UserDefaults.standard
+                        if let currUsername = defaults.string(forKey: "currUsername") {
+                        if let currPassword = defaults.string(forKey: "currPassword") {
+                        NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
+                        }
+                    }
+                }, secondaryButton: .cancel())
+            
+            } else {
+                
+                return Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")) {
+                    confirmAlert = true
+                })
+                      
+            }
+        }
+        
+        
+        
+        
+    }
+    func removeFriendHandler(res: Bool, error: String) -> () {
+
+            errorMsg = error
+            confirmAlert = false
+        showingAlert = true
+
+    }
+}
+
+
 
 
 struct TopFriendListView: View {
@@ -159,8 +224,8 @@ struct TopFriendListView: View {
                     
                 }
             }
-               
-        
+            
+            
         }
     }
 }

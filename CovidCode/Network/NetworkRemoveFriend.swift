@@ -10,7 +10,7 @@
 import Foundation
 
 class NetworkRemoveFriend {
-    typealias removeFriendHandler = (Bool) -> ()
+    typealias removeFriendHandler = (Bool, String) -> ()
     
     static func removeFriend(username: String, password: String, friend: String, handler: @escaping removeFriendHandler) {
         let parameters = ["username": username,
@@ -44,7 +44,13 @@ class NetworkRemoveFriend {
                 //  {"status": deleted}
                 //  {"status": no change} -- If this person is not a shared friend
                 print (responseJSON)
-
+                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "deleted") {
+                    handler(true, "Friend removed")
+                } else if (responseJSON["status"] != nil && responseJSON["status"] as! String == "no change") {
+                    handler(false, "There was an error removing this friend")
+                } else {
+                    handler(false, responseJSON["error"] as! String)
+                }
                 return
             }
         }
