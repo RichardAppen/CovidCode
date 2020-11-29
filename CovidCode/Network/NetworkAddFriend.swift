@@ -10,7 +10,7 @@
 import Foundation
 
 class NetworkAddFriend {
-    typealias addFriendHandler = (Bool) -> ()
+    typealias addFriendHandler = (Bool, String) -> ()
     
     static func addFriend(username: String, password: String, friend: String, handler: @escaping addFriendHandler) {
         let parameters = ["username": username,
@@ -43,6 +43,11 @@ class NetworkAddFriend {
                 //  {"error": Friend does not exist in system}
                 //  {"status": added, "shared": True/False}
                 print (responseJSON)
+                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "added") {
+                    handler(true, responseJSON["shared"] as! String)
+                } else {
+                    handler(false, responseJSON["error"] as! String)
+                }
 
                 return
             }

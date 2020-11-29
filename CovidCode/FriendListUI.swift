@@ -18,6 +18,8 @@ struct FriendListUI: View {
     var parentTabController: TabControllerUI
     @State var friendDictionary: [String: String] = [:]
     @State private var searchName: String = ""
+    @State var showingAlert: Bool = false
+    @State var alertMsg: String = ""
     
     var body: some View {
         ScrollView {
@@ -83,7 +85,9 @@ struct FriendListUI: View {
                 }
 
             }
-            
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Success"), message: Text(alertMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
+                  }
             
         }
         

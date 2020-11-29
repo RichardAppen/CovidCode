@@ -89,7 +89,7 @@ struct RegisterUI: View {
            //     .cornerRadius(5.0)
             //    .padding(.bottom, 20)
             //    .textContentType(.newPassword)
-            RegisterButton(first_name: first_name, last_name: last_name, username: username, email: email, password: password)
+                RegisterButton(first_name: first_name, last_name: last_name, username: username.lowercased(), email: email, password: password)
             
             
             
@@ -138,7 +138,7 @@ struct RegisterButton: View {
         if (res) {
             DispatchQueue.main.async {
                 let defaults = UserDefaults.standard
-                defaults.setValue(username, forKey: "currUsername")
+                defaults.setValue(username.lowercased(), forKey: "currUsername")
                 defaults.setValue(password, forKey: "currPassword")
                 UserDefaults.standard.setValue(username, forKey: username)
                 let contentView = TabControllerUI(username: username)

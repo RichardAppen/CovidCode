@@ -171,7 +171,7 @@ struct TopWelcomeView: View {
             Spacer()
             Spacer()
             Spacer()
-            Text("Weclome " + username)
+            Text("Weclome " + username.capitalizingFirstLetter())
                 .font(.largeTitle)
                 //.background(Color(red: 119/255, green: 158/255, blue: 203/255))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
