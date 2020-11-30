@@ -10,29 +10,11 @@ import SwiftUI
 
 struct QRCodeUI: View {
     @State var showDetail : Bool
-    var parentTabController: TabControllerUI
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
+        NavigationView{
         VStack {
-            ZStack {
-                HStack() {
-                    Button(action: {
-                        let contentView = parentTabController
-                        if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: contentView)
-                            window.makeKeyAndVisible()
-                        }
-                    }) {
-                        Text("Back").padding()
-                    }
-                    Spacer()
-                }
-                HStack {
-                    Text("QR Code")
-                }
-            }
-            Divider()
-            Spacer()
         Text("Your QR Code")
             .font(.title)
             .padding()
@@ -61,6 +43,17 @@ struct QRCodeUI: View {
         .padding()
             Spacer()
         }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("QR Code").font(.headline)
+        
+                }
+            }
+        }
+        
     }
     
     private func generateQRCode(from string: String) -> UIImage {

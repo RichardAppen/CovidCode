@@ -9,41 +9,14 @@ import Foundation
 import SwiftUI
 
 struct NewFriendUI: View {
-    //@State private var friendStatus: Bool = false
     @State private var friendName: String = ""
     @State private var showingAlert = false
     @State private var errorMsg: String = ""
-    var parentTabController: TabControllerUI
 
     var body: some View {
+        NavigationView {
         GeometryReader { geometry in
-        VStack {
-            ZStack {
-                HStack {
-                    Button(action: {
-                        let contentView = parentTabController
-                        if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: contentView)
-                            window.makeKeyAndVisible()
-                        }
-                    }) {
-                        Image(systemName: "chevron.left").font(.system(size: 16, weight: .regular))
-                    }
-                    .padding()
-                    Spacer()
-                }
-                HStack {
-                    Text("Add Friend")
-                }
-            }
-            Divider()
-            
-            //TODO This should tell the user if the firend is not in network?? Just to give extra info
-            /*if (friendStatus) {
-                Text("Friend cannot be located").foregroundColor(Color.red)
-            } else {
-                Text("Friend cannot be located").foregroundColor(Color.red).hidden()
-            }*/
+        VStack() {
             TextField("Friend Name", text: $friendName)
                 .padding()
                 .background(Color(red: 235/255, green: 235/255, blue: 235/255))
@@ -69,35 +42,30 @@ struct NewFriendUI: View {
                 Text("Add")
                     .foregroundColor(.white)
                     .padding(6)
+                    .frame(width: geometry.size.width / 1.1)
+                    .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                 
             }
-            .frame(width: geometry.size.width / 1.1)
-            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
                   }
             Spacer()
-            Button(action: {
-                DispatchQueue.main.async {
-                    let contentView = parentTabController
-                    if let window = UIApplication.shared.windows.first {
-                        window.rootViewController = UIHostingController(rootView: contentView)
-                        window.makeKeyAndVisible()
-                    }
-                }
-
-                
-            }) {
-                Text("Back to Friends List")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 8).fill(Color.green))
-                
-            }
-            .buttonStyle(PlainButtonStyle())
             
         }
+        .frame(maxWidth: UIScreen.main.bounds.width)
         }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Add Friend").font(.headline)
+        
+                }
+            }
+        }
+    
+    
     }
     
     func addFriendHandler(status: Bool, res: String ) {

@@ -31,9 +31,7 @@ struct ContentView: View {
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
                 .frame(width: geometry.size.width / 1.1)
-            LoginButton(username: username.lowercased(), password: password)
-                .frame(width: geometry.size.width / 1.1)
-                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+            LoginButton(username: username.lowercased(), password: password, geometry: geometry)
             Button(action: {
                 let contentView = RegisterUI()
                 if let window = UIApplication.shared.windows.first {
@@ -44,10 +42,10 @@ struct ContentView: View {
                 Text("Create an Account")
                     .foregroundColor(.white)
                     .padding(6)
+                    .frame(width: geometry.size.width / 1.1)
+                    .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                 
             }
-            .frame(width: geometry.size.width / 1.1)
-            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             Spacer()
         }
         .padding()
@@ -100,6 +98,7 @@ struct LoginButton: View {
     var password: String
     @State var errorMsg: String = ""
     @State private var showingAlert = false
+    var geometry: GeometryProxy
     
     var body: some View {
         Button(action: {
@@ -110,6 +109,8 @@ struct LoginButton: View {
             Text("Login")
                 .foregroundColor(.white)
                 .padding(6)
+                .frame(width: geometry.size.width / 1.1)
+                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
 
                 
         }

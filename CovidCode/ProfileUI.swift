@@ -18,13 +18,12 @@ struct ProfileUI : View {
   @State var username:String = "JohnDoe1995"
   @State var friend_count:Int = 0
     @State var showDetail: Bool = false
-    var parentTabController: TabControllerUI
     @State var friendDictionary: [String : String] = [:]
   
     
     
     var body: some View{
-        
+        NavigationView{
       ZStack {
           
           GeometryReader {_ in
@@ -141,7 +140,7 @@ struct ProfileUI : View {
           .padding(.top)
           
           
-            Button(action: {
+            /*Button(action: {
                 let contentView = EditProfileUI(parentTabController: parentTabController)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)
@@ -151,9 +150,15 @@ struct ProfileUI : View {
                 Text("Edit Profile")
                     .foregroundColor(.white)
                     .padding(6)
+            }*/
+            NavigationLink(destination: EditProfileUI()){
+                Text("Edit Profile")
+                    .foregroundColor(.white)
+                    .padding(6)
+                    .frame(width: geometry.size.width / 1.5)
+                    .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+
             }
-            .frame(width: geometry.size.width / 1.5)
-            .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             .buttonStyle(PlainButtonStyle())
             
           
@@ -162,6 +167,7 @@ struct ProfileUI : View {
         .edgesIgnoringSafeArea(.all)
             }
           }
+            .navigationBarHidden(true)
           
           HStack{
               Menu(dark: self.$dark, show: self.$show, name: self.$name, friend_count: self.$friend_count)
@@ -172,6 +178,8 @@ struct ProfileUI : View {
           .background(Color.primary.opacity(self.show ? (self.dark ? 0.05 : 0.2) : 0).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
       }
       }
+        }
+        .navigationBarHidden(true)
       //}.padding(.top, -50)
     }
     
@@ -304,9 +312,9 @@ struct Menu : View {
             Text("Log Out")
                 .foregroundColor(.white)
                 .padding(6)
+                .frame(width: geometry.size.width / 2)
+                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
         }
-        .frame(width: geometry.size.width / 2)
-        .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
         .buttonStyle(PlainButtonStyle())
         .padding(.bottom)
           

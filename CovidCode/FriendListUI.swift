@@ -15,7 +15,6 @@ class dataHolder {
 
 
 struct FriendListUI: View {
-    var parentTabController: TabControllerUI
     @State var friendDictionary: [String: String] = [:]
     @State private var searchName: String = ""
     
@@ -26,6 +25,7 @@ struct FriendListUI: View {
     @State var errorMsg = ""
     
     var body: some View {
+        NavigationView {
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
@@ -38,7 +38,7 @@ struct FriendListUI: View {
                         .offset(y: -geometry.frame(in: .global).minY)
                 }
             }
-            TopFriendListView(parentTabController: parentTabController).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+            TopFriendListView().padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             
             VStack {
                 
@@ -96,6 +96,9 @@ struct FriendListUI: View {
            
             
         }
+        .navigationBarHidden(true)
+        }
+        .navigationBarHidden(true)
         
     }
     
@@ -202,7 +205,6 @@ struct RemoveFriendButton: View {
 
 
 struct TopFriendListView: View {
-    var parentTabController: TabControllerUI
     
     var body: some View {
         VStack {
@@ -213,7 +215,7 @@ struct TopFriendListView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Spacer()
-                Button(action: {
+                /*Button(action: {
                     let contentView = NewFriendUI(parentTabController: parentTabController)
                     if let window = UIApplication.shared.windows.first {
                         window.rootViewController = UIHostingController(rootView: contentView)
@@ -222,6 +224,9 @@ struct TopFriendListView: View {
                 }) {
                     Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                     
+                }*/
+                NavigationLink(destination: NewFriendUI()) {
+                    Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                 }
             }
             

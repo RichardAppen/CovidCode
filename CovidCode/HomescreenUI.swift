@@ -16,6 +16,7 @@ struct HomescreenUI: View {
     var username: String
 
     var body: some View {
+        NavigationView {
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
@@ -37,8 +38,7 @@ struct HomescreenUI: View {
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
-                    gotToQRCodeButton(parentTabController: parentTabController, showDetail: showDetail).padding()
-                    
+                    gotToQRCodeButton(showDetail: showDetail).padding()
                 VStack {
                 if (getIfUserCompletedSurveyToday()) {
                     Image(systemName: "checkmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
@@ -54,9 +54,9 @@ struct HomescreenUI: View {
                             Text("Go To Calender")
                                 .foregroundColor(.white)
                                 .padding(6)
+                                .frame(width: geometry.size.width / 1.1)
+                                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                         }
-                        .frame(width: geometry.size.width / 1.1)
-                        .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                         .buttonStyle(PlainButtonStyle())
                     }
                     }
@@ -71,6 +71,9 @@ struct HomescreenUI: View {
             .padding()
         }//.background(Color(red: 119/255, green: 158/255, blue: 203/255))
         .edgesIgnoringSafeArea(.top)
+        .navigationBarHidden(true)
+        }
+        .navigationBarHidden(true)
         
     }
     
@@ -234,22 +237,18 @@ struct TopBlueParralax: View {
 }
 
 struct gotToQRCodeButton: View {
-    var parentTabController: TabControllerUI
     var showDetail: Bool
+
     var body: some View {
         VStack {
-        Button(action: {
-            let contentView = QRCodeUI(showDetail: showDetail, parentTabController: parentTabController)
-            if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: contentView)
-                window.makeKeyAndVisible()
-            }
-        }) {
-            Image(systemName: "qrcode.viewfinder").font(.system(size: 100, weight: .regular)).foregroundColor(Color(UIColor.black))
+            NavigationLink(destination: QRCodeUI(showDetail: showDetail)) {
                 
-        }
+                Image(systemName: "qrcode.viewfinder").font(.system(size: 100, weight: .regular)).foregroundColor(Color(UIColor.black))
+            }
     
             Text("Scan/Generate Your QR Code").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
         }
     }
 }
+
+

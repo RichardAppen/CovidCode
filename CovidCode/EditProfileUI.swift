@@ -11,29 +11,10 @@ import SwiftUI
 struct EditProfileUI: View {
     @State var name: String = ""
     @State var bio: String = ""
-    var parentTabController: TabControllerUI
     
     var body: some View {
-        
+        NavigationView {
         VStack (){
-            ZStack {
-                HStack {
-                    Button(action: {
-                        let contentView = parentTabController
-                        if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: contentView)
-                            window.makeKeyAndVisible()
-                        }
-                    }) {
-                        Text("Back").padding()
-                    }
-                    Spacer()
-                }
-                HStack {
-                    Text("Edit Profile")
-                }
-            }
-            Divider()
             
         
         Form{
@@ -56,8 +37,17 @@ struct EditProfileUI: View {
             }
         }
         }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Edit Profile").font(.headline)
         
-       // Spacer(minLength: 30)
+                }
+            }
+        }
+        
     }
 }
 

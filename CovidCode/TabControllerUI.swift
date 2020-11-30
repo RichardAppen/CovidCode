@@ -16,17 +16,17 @@ struct TabControllerUI: View {
     
     
     var body: some View {
-        let selection = Binding<Int>(
+        /*let selection = Binding<Int>(
              get: { self.selectedTab },
              set: { self.selectedTab = $0
                  print("Pressed tab: \($0)")
                  if $0 == 0 {
                     
                  }
-         })
+         })*/
         
         ///
-        TabView(selection: selection) {
+        TabView(selection: $selectedTab) {
             HomescreenUI(parentTabController: self, username: username)
              .tabItem {
                 Image(systemName: "house.fill")
@@ -45,19 +45,21 @@ struct TabControllerUI: View {
                    Text("Calender")
              }
                 .tag(2)
-            FriendListUI(parentTabController: self)
+            FriendListUI()
                 .tabItem {
                     Image(systemName: "person.3").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                    Text("Friends")
              }
                 .tag(3)
-            ProfileUI(parentTabController: self)
+            ProfileUI()
                 .tabItem {
                     Image(systemName: "person").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemBlue))
                    Text("Me")
              }
                 .tag(4)
             
+        }.onAppear {
+            //selectedTab = 0
         }
         //.accentColor(.purple)
         ///
