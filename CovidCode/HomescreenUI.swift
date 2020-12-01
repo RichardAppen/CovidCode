@@ -47,7 +47,6 @@ struct HomescreenUI: View {
                     Text("Today's Survey Complete!").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
                 } else {
                     Image(systemName: "xmark.circle.fill").font(.system(size: 30, weight:      .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
-                    GeometryReader { geometry in
                     VStack {
                         Text("Today's Survery Not Complete!").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
                         Button(action: {
@@ -56,11 +55,11 @@ struct HomescreenUI: View {
                             Text("Go To Calender")
                                 .foregroundColor(.white)
                                 .padding(6)
-                                .frame(width: geometry.size.width / 1.1)
+                                .padding(.leading)
+                                .padding(.trailing)
                                 .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                         }
                         .buttonStyle(PlainButtonStyle())
-                    }
                     }
                 }
                 }
@@ -273,9 +272,6 @@ struct QRCodeWindow: View {
     
     var body: some View {
         VStack {
-        Text("Your QR Code")
-            .font(.title)
-            .padding()
         Button(action: {
             showDetail.toggle()
         }) {
@@ -288,17 +284,10 @@ struct QRCodeWindow: View {
                 Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 60, height: 60)
+                    .frame(width: UIScreen.main.bounds.width / 1.5, height:  UIScreen.main.bounds.width / 1.5)
             }
         }
-        if (!showDetail) {
-            Text("Click image to enlarge").font(.caption)
-        }
-        Button(action: {
-        }) {
-            Text("What is this?")
-        }
-        .padding()
+
             Spacer()
         }
     }
