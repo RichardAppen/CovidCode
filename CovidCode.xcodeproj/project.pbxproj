@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,7 @@
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
+		01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 01F437172576B9C5006CD5BC /* CodeScanner */; };
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */; };
 		5AF6BBFE256C39C500E635F0 /* QuestionCardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */; };
@@ -98,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +225,9 @@
 			dependencies = (
 			);
 			name = CovidCode;
+			packageProductDependencies = (
+				01F437172576B9C5006CD5BC /* CodeScanner */,
+			);
 			productName = CovidCode;
 			productReference = 0184F7212553B56A008655E6 /* CovidCode.app */;
 			productType = "com.apple.product-type.application";
@@ -294,6 +299,9 @@
 				Base,
 			);
 			mainGroup = 0184F7182553B56A008655E6;
+			packageReferences = (
+				01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 0184F7222553B56A008655E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -519,6 +527,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CovidCode/Preview Content\"";
+				DEVELOPMENT_TEAM = 2RD55BAT9J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CovidCode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -540,6 +549,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CovidCode/Preview Content\"";
+				DEVELOPMENT_TEAM = 2RD55BAT9J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CovidCode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -674,6 +684,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		01F437172576B9C5006CD5BC /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0184F7192553B56A008655E6 /* Project object */;
 }

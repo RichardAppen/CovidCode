@@ -25,19 +25,22 @@ struct FriendListUI: View {
     @State var errorMsg = ""
     
     var body: some View {
+       
         NavigationView {
         ScrollView {
-            GeometryReader { geometry in
+                GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                        .offset(y: geometry.frame(in: .global).minY/9)
-                        .frame(width: geometry.size.width, height: geometry.size.height*4)
+                    .offset(y: geometry.frame(in: .global).minY)
+                    .frame(width: geometry.size.width, height: geometry.size.height*4)
+                
+
                 } else {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                        .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
-                        .offset(y: -geometry.frame(in: .global).minY)
+                    .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
+                    .offset(y: -geometry.frame(in: .global).minY)
                 }
-            }
+                }
             TopFriendListView().padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             
             VStack {

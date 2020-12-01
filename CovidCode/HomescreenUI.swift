@@ -8,21 +8,24 @@
 import Foundation
 import SwiftUI
 import CoreImage.CIFilterBuiltins
+import CodeScanner
 
 struct HomescreenUI: View {
     
     @State private var showDetail = false
+    @State private var isShowingScanner = false
     var parentTabController: TabControllerUI
     var username: String
 
     var body: some View {
-        NavigationView {
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-                    .offset(y: geometry.frame(in: .global).minY/9)
+                    .offset(y: geometry.frame(in: .global).minY)
                     .frame(width: geometry.size.width, height: geometry.size.height*4)
+                
+
                 } else {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                     .frame(width: geometry.size.width, height: geometry.size.height*4 + geometry.frame(in: .global).minY)
@@ -32,9 +35,8 @@ struct HomescreenUI: View {
             TopWelcomeView(username: username).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             VStack {
                 
-                StatisticsButton(increaseNumber: 700, title: "CONFIRMED", mainValue: 898765, subTitle: "Cases", isPlusGreen: false).padding()
-                StatisticsButton(increaseNumber: 500, title: "CONFIRMED", mainValue: 747634, subTitle: "Deaths", isPlusGreen: false).padding()
-                StatisticsButton(increaseNumber: 600, title: "CONFIRMED", mainValue: 645373, subTitle: "Recoveries", isPlusGreen: true).padding()
+                StatisticsButton(increaseNumber: 700, title: "USER CASES", mainValue: 1234556, subTitle: "May Have Covid", isPlusGreen: false).padding()
+                QRCodeWindow(showDetail: showDetail)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -71,9 +73,7 @@ struct HomescreenUI: View {
             .padding()
         }//.background(Color(red: 119/255, green: 158/255, blue: 203/255))
         .edgesIgnoringSafeArea(.top)
-        .navigationBarHidden(true)
-        }
-        .navigationBarHidden(true)
+
         
     }
     
@@ -238,17 +238,86 @@ struct TopBlueParralax: View {
 
 struct gotToQRCodeButton: View {
     var showDetail: Bool
+    @State private var isShowingScanner = false
 
     var body: some View {
         VStack {
-            NavigationLink(destination: QRCodeUI(showDetail: showDetail)) {
-                
+            Button(action: {
+                 self.isShowingScanner = true
+             }) {
                 Image(systemName: "qrcode.viewfinder").font(.system(size: 100, weight: .regular)).foregroundColor(Color(UIColor.black))
-            }
+             }
+             .sheet(isPresented: $isShowingScanner) {
+                 CodeScannerView(codeTypes: [.qr], simulatedData: "Some simulated data", completion: self.handleScan)
+             }
     
-            Text("Scan/Generate Your QR Code").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
+            Text("Scan a QR Code").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
         }
     }
+    
+    private func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+           self.isShowingScanner = false
+           switch result {
+           case .success(let data):
+               print("Success with \(data)")
+                
+           case .failure(let error):
+               print("Scanning failed \(error)")
+           }
+    }
+}
+
+
+struct QRCodeWindow: View {
+    @State var showDetail : Bool
+    
+    var body: some View {
+        VStack {
+        Text("Your QR Code")
+            .font(.title)
+            .padding()
+        Button(action: {
+            showDetail.toggle()
+        }) {
+            if (showDetail){
+                Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
+            } else {
+                Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+            }
+        }
+        if (!showDetail) {
+            Text("Click image to enlarge").font(.caption)
+        }
+        Button(action: {
+        }) {
+            Text("What is this?")
+        }
+        .padding()
+            Spacer()
+        }
+    }
+    
+    private func generateQRCode(from string: String) -> UIImage {
+        let context = CIContext()
+        let filter = CIFilter.qrCodeGenerator()
+        let data = Data(string.utf8)
+        filter.setValue(data, forKey: "inputMessage")
+
+        if let image = filter.outputImage {
+            if let img = context.createCGImage(image, from: image.extent) {
+                return UIImage(cgImage: img)
+            }
+        }
+
+        return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
 }
 
 
