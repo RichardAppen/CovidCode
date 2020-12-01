@@ -23,11 +23,13 @@ struct FriendListUI: View {
     @State var showingConfirmAlert = false
     @State var showingMessageAlert = false
     @State var errorMsg = ""
+
     
     var body: some View {
        
         NavigationView {
         ScrollView {
+            
                 GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
                     TopBlueParralax().padding().background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
@@ -71,7 +73,7 @@ struct FriendListUI: View {
                     }
                     HStack {
                         
-                        Section(header: Text(key)) {
+                        /*Section(header: Text(key)) {
                             Spacer()
                             
                             if (Int(value) == 0) {
@@ -81,9 +83,17 @@ struct FriendListUI: View {
                             }
                             RemoveFriendButton(friend: key)
                             
-                        }.padding()
+                        }.padding()*/
+                        Text(key)
+                        Spacer()
+                        if (Int(value) == 0) {
+                            Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
+                        } else {
+                            Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
+                        }
+                        RemoveFriendButton(friend: key)
                         
-                    }
+                    }.padding()
                 }
                 
             }.onAppear {
@@ -99,8 +109,10 @@ struct FriendListUI: View {
            
             
         }
+        .navigationBarTitle("")
         .navigationBarHidden(true)
         }
+        .navigationBarTitle("")
         .navigationBarHidden(true)
         
     }

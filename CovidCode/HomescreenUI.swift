@@ -14,6 +14,7 @@ struct HomescreenUI: View {
     
     @State private var showDetail = false
     @State private var isShowingScanner = false
+    @State private var covidRisk = 2
     var parentTabController: TabControllerUI
     var username: String
 
@@ -36,7 +37,7 @@ struct HomescreenUI: View {
             VStack {
                 
                 StatisticsButton(increaseNumber: 700, title: "USER CASES", mainValue: 1234556, subTitle: "May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail)
+                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -269,6 +270,7 @@ struct gotToQRCodeButton: View {
 
 struct QRCodeWindow: View {
     @State var showDetail : Bool
+    @State var covidRisk: Int
     
     var body: some View {
         VStack {
@@ -279,14 +281,48 @@ struct QRCodeWindow: View {
                 Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 300, height: 300)
+                    .frame(width: UIScreen.main.bounds.width / 1.1, height:  UIScreen.main.bounds.width / 1.1)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .colorMultiply(determineColor())
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(determineColor(), lineWidth: 4)
+                        )
+                    
             } else {
                 Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 1.5, height:  UIScreen.main.bounds.width / 1.5)
+                    .frame(width: UIScreen.main.bounds.width / 1.7, height:  UIScreen.main.bounds.width / 1.7)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .colorMultiply(determineColor())
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(determineColor(), lineWidth: 4)
+                        )
             }
         }
+            if (!showDetail) {
+                if (covidRisk == 0) {
+                    Text("Red indicates high covid risk")
+                    .font(.subheadline)
+                } else if (covidRisk == 2) {
+                    Text("Green indicates low covid risk")
+                    .font(.subheadline)
+                }
+            } else {
+                if (covidRisk == 0) {
+                    Text("We have determined that you have high Covid Risk")
+                    .font(.subheadline)
+                    Text("Scan the QR Code for more info")
+                    .font(.subheadline)
+                } else if (covidRisk == 2) {
+                    Text("We have determined that you have low Covid Risk")
+                    .font(.subheadline)
+                    Text("Scan the QR Code for more info")
+                    .font(.subheadline)
+                }
+            }
 
             Spacer()
         }
@@ -305,6 +341,16 @@ struct QRCodeWindow: View {
         }
 
         return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
+    private func determineColor() -> Color {
+        if (covidRisk == 0) {
+            return Color(red: 250/255, green: 128/255, blue: 114/255)
+        } else if (covidRisk == 2) {
+            return Color(red: 119/255, green: 221/255, blue: 119/255)
+        }
+        
+        return Color.gray
     }
     
 }
