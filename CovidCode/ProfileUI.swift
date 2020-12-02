@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ProfileUI : View {
     
+    @State private var covidRisk = 0
   @State var index:Int = 0
   @State var show:Bool = false
   @State var dark:Bool = false
   @State var name:String = "John Doe"
-  @State var bio:String = "This is my Bio"
   @State var username:String = "JohnDoe1995"
   @State var friend_count:Int = 0
     @State var showDetail: Bool = false
@@ -96,21 +96,7 @@ struct ProfileUI : View {
                 Spacer()
             }
             
-            Button(action: {
-                showDetail.toggle()
-            }) {
-                if (showDetail){
-                    Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
-                } else {
-                    Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                }
-            }.padding(.bottom)
+            QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 3.4, sizeLarge: UIScreen.main.bounds.width / 1.8, extra: false).padding()
             
           
           VStack(spacing: 0) {
@@ -129,11 +115,6 @@ struct ProfileUI : View {
                   .padding(.bottom,8)
                   
               
-              Text(self.bio)
-                  .foregroundColor(Color.black.opacity(0.7))
-                  .padding(.top, 8)
-                  .frame(width: 350)
-                  .padding(.bottom, 10)
               
           }.padding(-35)
           .padding(.bottom, 35)
@@ -151,15 +132,6 @@ struct ProfileUI : View {
                     .foregroundColor(.white)
                     .padding(6)
             }*/
-            NavigationLink(destination: EditProfileUI()){
-                Text("Edit Profile")
-                    .foregroundColor(.white)
-                    .padding(6)
-                    .frame(width: geometry.size.width / 1.5)
-                    .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-
-            }
-            .buttonStyle(PlainButtonStyle())
             
           
           Spacer(minLength: 30)
@@ -170,7 +142,7 @@ struct ProfileUI : View {
             .navigationBarHidden(true)
           
           HStack{
-              Menu(dark: self.$dark, show: self.$show, name: self.$name, friend_count: self.$friend_count)
+              Menu(dark: self.$dark, show: self.$show, name: self.$name, friend_count: getFriendCount())
                 .offset(x: self.show ? UIScreen.main.bounds.width - (UIScreen.main.bounds.width / 1.5) : UIScreen.main.bounds.width)
           
               Spacer(minLength: 0)
@@ -230,7 +202,7 @@ struct Menu : View {
   @Binding var dark : Bool
   @Binding var show : Bool
   @Binding var name : String
-  @Binding var friend_count: Int
+  var friend_count: Int
   
   
   var body: some View {
@@ -358,3 +330,4 @@ struct TopProfileView: View {
         }
     }
 }
+

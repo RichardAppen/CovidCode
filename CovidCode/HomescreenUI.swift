@@ -14,9 +14,16 @@ struct HomescreenUI: View {
     
     @State private var showDetail = false
     @State private var isShowingScanner = false
-    @State private var covidRisk = 2
+    @State private var covidRisk = 0
     var parentTabController: TabControllerUI
     var username: String
+    @State var results = [CovidTrackingInfo]()
+    @State var cases = 0
+    @State var casesIncrease = 0
+    @State var deaths = 0
+    @State var deathsIncrease = 0
+    @State var negative = 0
+    @State var negativeIncrease = 0
 
     var body: some View {
         ScrollView {
@@ -36,8 +43,8 @@ struct HomescreenUI: View {
             TopWelcomeView(username: username).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             VStack {
                 
-                StatisticsButton(increaseNumber: 700, title: "USER CASES", mainValue: 1234556, subTitle: "May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk)
+                //StatisticsButton(increaseNumber: 2, title: "PERCENT OF USER", mainValue: 70, subTitle: "That May Have Covid", isPlusGreen: false).padding()
+                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -65,14 +72,21 @@ struct HomescreenUI: View {
                 }
                 }
                 .padding()
+                    
                 /*.cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.black, lineWidth: 4))*/
                 }
+                StatisticsButton(increaseNumber: casesIncrease, title: "CASES", mainValue: cases, subTitle: "In The US", isPlusGreen: false).padding()
+                StatisticsButton(increaseNumber: deathsIncrease, title: "DEATHS", mainValue: deaths, subTitle: "In The US", isPlusGreen: false).padding()
+                StatisticsButton(increaseNumber: negativeIncrease, title: "NEGATIVE TESTS", mainValue: negative, subTitle: "In The US", isPlusGreen: true).padding()
             }
             .padding()
         }//.background(Color(red: 119/255, green: 158/255, blue: 203/255))
         .edgesIgnoringSafeArea(.top)
+        .onAppear {
+            loadData()
+        }
 
         
     }
@@ -105,6 +119,52 @@ struct HomescreenUI: View {
         return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
     
+    func loadData() {
+            guard let url = URL(string: "https://api.covidtracking.com/v1/us/current.json") else {
+                print("Invalid URL")
+                return
+            }
+            let request = URLRequest(url: url)
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let response = try? JSONDecoder().decode([CovidTrackingInfo].self, from: data) {
+                        DispatchQueue.main.async {
+                            self.results = response
+                            results.forEach { result in
+                                if let positive = result.positive {
+                                    self.cases = positive
+                                }
+                                
+                                if let positiveIncrease = result.positiveIncrease {
+                                    self.casesIncrease = positiveIncrease
+                                }
+                                
+                                if let deaths = result.death {
+                                    self.deaths = deaths
+                                }
+                                
+                                if let deathsIncrease = result.deathIncrease {
+                                    self.deathsIncrease = deathsIncrease
+                                }
+                                
+                                if let negative = result.negative {
+                                    self.negative = negative
+                                }
+                                
+                                if let negativeIncrease = result.negativeIncrease {
+                                    self.negativeIncrease = negativeIncrease
+                                }
+                            
+                                
+                            }
+                        }
+                        
+                        return
+                    }
+                }
+            }.resume()
+        }
     
     
 }
@@ -122,7 +182,7 @@ struct StatisticsButton: View {
             VStack{
                 HStack {
                 Text(title).font(.title2).frame(maxWidth: .infinity, alignment: .leading)
-                Text(String(mainValue)).frame(alignment: .trailing)
+                Text(String(formatMainNumber())).frame(alignment: .trailing)
                 }
                 HStack {
                 Text(subTitle).font(.subheadline).frame(maxWidth: .infinity, alignment: .leading)
@@ -138,19 +198,32 @@ struct StatisticsButton: View {
         .buttonStyle(PlainButtonStyle())
     }
     
+    private func formatMainNumber() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let mainValueFormatted = numberFormatter.string(from: NSNumber(value:mainValue))
+        
+        return mainValueFormatted!
+        
+    }
+    
     
     private func getIncDecText() -> some View {
         var stringToReturn : String
         var colorToUse: Color
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let increaseNumberFormatted = numberFormatter.string(from: NSNumber(value:increaseNumber))
+        
         if (increaseNumber >= 0) {
-            stringToReturn = " +" + String(increaseNumber) + " "
+            stringToReturn = " +" + increaseNumberFormatted! + " "
             if (isPlusGreen) {
                 colorToUse = Color(red: 119/255, green: 221/255, blue: 119/255)
             } else {
                 colorToUse = Color(red: 250/255, green: 128/255, blue: 114/255)
             }
         } else {
-            stringToReturn = " -" + String(increaseNumber) + " "
+            stringToReturn = " -" + increaseNumberFormatted! + " "
             if (isPlusGreen) {
                 colorToUse = Color(red: 119/255, green: 221/255, blue: 119/255)
             } else {
@@ -271,6 +344,9 @@ struct gotToQRCodeButton: View {
 struct QRCodeWindow: View {
     @State var showDetail : Bool
     @State var covidRisk: Int
+    var sizeSmall: CGFloat
+    var sizeLarge: CGFloat
+    var extra: Bool
     
     var body: some View {
         VStack {
@@ -281,7 +357,7 @@ struct QRCodeWindow: View {
                 Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 1.1, height:  UIScreen.main.bounds.width / 1.1)
+                    .frame(width: sizeLarge, height: sizeLarge)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .colorMultiply(determineColor())
                     .overlay(
@@ -293,7 +369,7 @@ struct QRCodeWindow: View {
                 Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 1.7, height:  UIScreen.main.bounds.width / 1.7)
+                    .frame(width: sizeSmall, height: sizeSmall)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .colorMultiply(determineColor())
                     .overlay(
@@ -302,25 +378,27 @@ struct QRCodeWindow: View {
                         )
             }
         }
-            if (!showDetail) {
-                if (covidRisk == 0) {
-                    Text("Red indicates high covid risk")
-                    .font(.subheadline)
-                } else if (covidRisk == 2) {
-                    Text("Green indicates low covid risk")
-                    .font(.subheadline)
-                }
-            } else {
-                if (covidRisk == 0) {
-                    Text("We have determined that you have high Covid Risk")
-                    .font(.subheadline)
-                    Text("Scan the QR Code for more info")
-                    .font(.subheadline)
-                } else if (covidRisk == 2) {
-                    Text("We have determined that you have low Covid Risk")
-                    .font(.subheadline)
-                    Text("Scan the QR Code for more info")
-                    .font(.subheadline)
+            if (extra) {
+                if (!showDetail) {
+                    if (covidRisk == 0) {
+                        Text("Red indicates high covid risk")
+                            .font(.subheadline)
+                    } else if (covidRisk == 2) {
+                        Text("Green indicates low covid risk")
+                            .font(.subheadline)
+                    }
+                } else {
+                    if (covidRisk == 0) {
+                        Text("We have determined that you have high Covid Risk")
+                            .font(.subheadline)
+                        Text("Scan the QR Code for more info")
+                            .font(.subheadline)
+                    } else if (covidRisk == 2) {
+                        Text("We have determined that you have low Covid Risk")
+                            .font(.subheadline)
+                        Text("Scan the QR Code for more info")
+                            .font(.subheadline)
+                    }
                 }
             }
 
@@ -356,3 +434,27 @@ struct QRCodeWindow: View {
 }
 
 
+struct CovidTrackingInfo: Codable  {
+    let date: Int
+    let death: Int?
+    let deathIncrease: Int?
+    let hash: String
+    let hospitalizedCumulative: Int?
+    let hospitalizedCurrently: Int?
+    let hospitalizedIncrease: Int?
+    let inIcuCumulative: Int?
+    let inIcuCurrently: Int?
+    let negative: Int?
+    let negativeIncrease: Int?
+    let onVentilatorCumulative: Int?
+    let onVentilatorCurrently: Int?
+    let pending: Int?
+    let positive: Int?
+    let positiveIncrease: Int?
+    let recovered: Int?
+    let states: Int?
+    let totalTestResults: Int?
+    let totalTestResultsIncrease: Int?
+    
+    
+}
