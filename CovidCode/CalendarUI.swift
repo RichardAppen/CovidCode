@@ -973,9 +973,12 @@ struct dayCircles: View {
         formatter.dateFormat = "MM/dd/yyyy"
         let currentDateTime = formatter.date(from: dateString)
         var isDisabledButton = false
+        var isToday = false
         
         if (!Calendar.current.isDate(currentDateTime!, inSameDayAs: actualDate)) {
             isDisabledButton = true
+        } else {
+            isToday = true
         }
         
         return Button(action: {
@@ -994,10 +997,22 @@ struct dayCircles: View {
             parentView.YearSelected = currentYear
         }) {
             if let surveyFilledStatus = defaults.string(forKey: dateString) {
-                Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
+                if (isToday) {
+                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
+                        .clipShape(Circle())
+                            .overlay(Circle().stroke(Color(UIColor.black), lineWidth: 3))
+                } else {
+                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
+                }
             } else {
                 if (currentDateTime! < actualDate) {
-                    Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
+                    if (isToday) {
+                        Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
+                        .clipShape(Circle())
+                            .overlay(Circle().stroke(Color(UIColor.black), lineWidth: 3))
+                    } else {
+                        Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(red: 250/255, green: 128/255, blue: 114/255))
+                    }
                 } else {
                     Image(systemName: String(number) + circlefill).font(.system(size: 40, weight: .regular)).foregroundColor(Color(UIColor.lightGray))
                 }
