@@ -24,8 +24,16 @@ struct HomescreenUI: View {
     @State var deathsIncrease = 0
     @State var negative = 0
     @State var negativeIncrease = 0
+    @State var firstName = ""
+    @State var lastName = ""
+    @State var friendDictionary: [String : String] = [:]
+    @State var dark:Bool = false
+    @State var showDetailMenu = false
+    @State var fullname = ""
 
     var body: some View {
+        ZStack {
+        GeometryReader {_ in
         ScrollView {
             GeometryReader { geometry in
                 if geometry.frame(in: .global).minY <= 0 {
@@ -40,11 +48,12 @@ struct HomescreenUI: View {
                     .offset(y: -geometry.frame(in: .global).minY)
                 }
             }
-            TopWelcomeView(username: username).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
+            TopWelcomeView(name: firstName, showDetailMenu: $showDetailMenu).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             VStack {
+                StatisticsButton(increaseNumber: getFriendCount(), title: "HIGH RISK FRIENDS", mainValue: getFriendCount(), subTitle: "In Your Friends List", isPlusGreen: false).padding()
                 
                 //StatisticsButton(increaseNumber: 2, title: "PERCENT OF USER", mainValue: 70, subTitle: "That May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true)
+                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -82,13 +91,48 @@ struct HomescreenUI: View {
                 StatisticsButton(increaseNumber: negativeIncrease, title: "NEGATIVE TESTS", mainValue: negative, subTitle: "In The US", isPlusGreen: true).padding()
             }
             .padding()
+            
         }//.background(Color(red: 119/255, green: 158/255, blue: 203/255))
         .edgesIgnoringSafeArea(.top)
         .onAppear {
             loadData()
+            let defaults = UserDefaults.standard
+            if let first_name = defaults.string(forKey: "firstName") {
+                firstName = first_name
+            }
+            if let last_name = defaults.string(forKey: "lastName") {
+                lastName = last_name
+            }
+            
+            fullname = firstName + " " + lastName
+        }
+        HStack{
+            Menu(dark: self.$dark, show: self.$showDetailMenu, name: self.$fullname, friend_count: getFriendCount(), username: username)
+              .offset(x: self.showDetailMenu ? UIScreen.main.bounds.width - (UIScreen.main.bounds.width / 1.5) : UIScreen.main.bounds.width)
+        
+            Spacer(minLength: 0)
+        }
+        .background(Color.primary.opacity(self.showDetailMenu ? (self.dark ? 0.05 : 0.2) : 0).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+        }
         }
 
         
+    }
+    
+    private func getFriendCount() -> Int {
+        let defaults = UserDefaults.standard
+        if let currUsername = defaults.string(forKey: "currUsername") {
+            if let currPassword = defaults.string(forKey: "currPassword") {
+                NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                
+            }
+        }
+        
+        return friendDictionary.count
+    }
+    
+    func getFriendsHandler(friendsDict: [String: String]) {
+        friendDictionary = friendsDict
     }
     
     private func getIfUserCompletedSurveyToday() -> Bool {
@@ -215,20 +259,23 @@ struct StatisticsButton: View {
         numberFormatter.numberStyle = .decimal
         let increaseNumberFormatted = numberFormatter.string(from: NSNumber(value:increaseNumber))
         
-        if (increaseNumber >= 0) {
+        if (increaseNumber > 0) {
             stringToReturn = " +" + increaseNumberFormatted! + " "
             if (isPlusGreen) {
                 colorToUse = Color(red: 119/255, green: 221/255, blue: 119/255)
             } else {
                 colorToUse = Color(red: 250/255, green: 128/255, blue: 114/255)
             }
-        } else {
+        } else if (increaseNumber < 0) {
             stringToReturn = " -" + increaseNumberFormatted! + " "
             if (isPlusGreen) {
                 colorToUse = Color(red: 119/255, green: 221/255, blue: 119/255)
             } else {
                 colorToUse = Color(red: 250/255, green: 128/255, blue: 114/255)
             }
+        } else {
+            stringToReturn = " +" + increaseNumberFormatted! + " "
+            colorToUse = Color(UIColor.lightGray)
         }
         
         return Text(stringToReturn).background(RoundedRectangle(cornerRadius: 8).fill(colorToUse)).frame(alignment: .trailing)
@@ -238,7 +285,8 @@ struct StatisticsButton: View {
 
 
 struct TopWelcomeView: View {
-    var username: String
+    var name: String
+    @Binding var showDetailMenu: Bool
     
     var body: some View {
         VStack {
@@ -247,10 +295,26 @@ struct TopWelcomeView: View {
             Spacer()
             Spacer()
             Spacer()
-            Text("Weclome " + username.capitalizingFirstLetter())
+            HStack {
+                Text("Welcome " + name.capitalizingFirstLetter())
                 .font(.largeTitle)
                 //.background(Color(red: 119/255, green: 158/255, blue: 203/255))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                Button(action: {
+                  withAnimation(.default){
+                      self.showDetailMenu.toggle()
+                    print(showDetailMenu)
+                  }
+                  
+                }) {
+                    
+                    Image(systemName: "slider.horizontal.3")
+                      .resizable()
+                      .frame(width: 15, height: 15)
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                }
+            }
             Text(getCurrDate())
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         }
@@ -347,6 +411,7 @@ struct QRCodeWindow: View {
     var sizeSmall: CGFloat
     var sizeLarge: CGFloat
     var extra: Bool
+    @State var username: String
     
     var body: some View {
         VStack {
@@ -354,7 +419,7 @@ struct QRCodeWindow: View {
             showDetail.toggle()
         }) {
             if (showDetail){
-                Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                Image(uiImage: generateQRCode(from: "http://52.32.17.11:8080/user_risk/" + username)).interpolation(.none)
                     .resizable()
                     .scaledToFit()
                     .frame(width: sizeLarge, height: sizeLarge)
@@ -366,7 +431,7 @@ struct QRCodeWindow: View {
                         )
                     
             } else {
-                Image(uiImage: generateQRCode(from: "www.google.com")).interpolation(.none)
+                Image(uiImage: generateQRCode(from: "http://52.32.17.11:8080/user_risk/" + username)).interpolation(.none)
                     .resizable()
                     .scaledToFit()
                     .frame(width: sizeSmall, height: sizeSmall)
@@ -391,13 +456,13 @@ struct QRCodeWindow: View {
                     if (covidRisk == 0) {
                         Text("We have determined that you have high Covid Risk")
                             .font(.subheadline)
-                        Text("Scan the QR Code for more info")
-                            .font(.subheadline)
+                        Text("")
+                        LinkedText(username: username)
                     } else if (covidRisk == 2) {
                         Text("We have determined that you have low Covid Risk")
                             .font(.subheadline)
-                        Text("Scan the QR Code for more info")
-                            .font(.subheadline)
+                        Text("")
+                        LinkedText(username: username)
                     }
                 }
             }
@@ -431,6 +496,17 @@ struct QRCodeWindow: View {
         return Color.gray
     }
     
+}
+
+struct LinkedText: View {
+    var username: String
+    var body: some View {
+        Text("Scan the QR Code or visit " + "http://52.32.17.11:8080/user_risk/" + username + " for more info").onTapGesture {
+            UIApplication.shared.open(URL(string: "http://52.32.17.11:8080/user_risk/" + username)!)
+        }
+            .font(.subheadline)
+        .fixedSize(horizontal: false, vertical: true)
+    }
 }
 
 

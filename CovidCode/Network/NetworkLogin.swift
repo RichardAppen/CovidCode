@@ -11,7 +11,7 @@ import Foundation
 
 class NetworkLogin {
     // Function takes a bool and has no return value
-    typealias userLoginHandler = (Bool, String) -> ()
+    typealias userLoginHandler = (Bool, String, String?, String?) -> ()
  
     static func loginUser(username: String, password: String, handler: @escaping userLoginHandler) {
         let parameters = ["username": username,
@@ -35,16 +35,16 @@ class NetworkLogin {
             }
 
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
+            if let responseJSON = responseJSON as? [String: String] {
                 // API - One of these two results based on input from user
                 //  {"error": username/password} -- Malformed json input
                 //  {"error": Username or password do not exist}
                 //  {"status": Login successful}
                 print (responseJSON)
-                if (responseJSON["status"] != nil && responseJSON["status"] as! String == "Login successful") {
-                    handler(true, "none")
+                if (responseJSON["first_name"] != nil) {
+                    handler(true, "none", responseJSON["first_name"], responseJSON["last_name"])
                 } else {
-                    handler(false, responseJSON["error"] as! String)
+                    handler(false, responseJSON["error"]!, nil, nil)
                 }
 
                 return

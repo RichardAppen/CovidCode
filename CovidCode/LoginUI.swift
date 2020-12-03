@@ -54,6 +54,8 @@ struct ContentView: View {
             if let currUsername = defaults.string(forKey: "currUsername") {
                 username = currUsername
                 if let currPassword = defaults.string(forKey: "currPassword") {
+                    print(currUsername)
+                    print(currPassword)
                     NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
                 }
             }
@@ -61,10 +63,18 @@ struct ContentView: View {
     }
     }
     
-    func userloginHandler(res: Bool, error: String) -> () {
+    func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
         if (res) {
             DispatchQueue.main.async {
+                print("TESTING!!!!!!")
+                let defaults = UserDefaults.standard
+                if let first_name = firstName {
+                    defaults.setValue(first_name, forKey: "firstName")
+                }
+                if let last_name = lastName {
+                    defaults.setValue(last_name, forKey: "lastName")
+                }
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)
@@ -72,6 +82,7 @@ struct ContentView: View {
                 }
             }
         }
+        
     }
 }
 
@@ -122,13 +133,19 @@ struct LoginButton: View {
               }
     }
     
-    func userloginHandler(res: Bool, error: String) -> () {
+    func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
         if (res) {
             DispatchQueue.main.async {
                 let defaults = UserDefaults.standard
                 defaults.setValue(username, forKey: "currUsername")
                 defaults.setValue(password, forKey: "currPassword")
+                if let first_name = firstName {
+                    defaults.setValue(first_name, forKey: "firstName")
+                }
+                if let last_name = lastName {
+                    defaults.setValue(last_name, forKey: "lastName")
+                }
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)

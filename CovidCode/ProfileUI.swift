@@ -96,7 +96,7 @@ struct ProfileUI : View {
                 Spacer()
             }
             
-            QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 3.4, sizeLarge: UIScreen.main.bounds.width / 1.8, extra: false).padding()
+            QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 3.4, sizeLarge: UIScreen.main.bounds.width / 1.8, extra: false, username: "").padding()
             
           
           VStack(spacing: 0) {
@@ -142,7 +142,7 @@ struct ProfileUI : View {
             .navigationBarHidden(true)
           
           HStack{
-              Menu(dark: self.$dark, show: self.$show, name: self.$name, friend_count: getFriendCount())
+              Menu(dark: self.$dark, show: self.$show, name: self.$name, friend_count: getFriendCount(), username: "shouldn't be here")
                 .offset(x: self.show ? UIScreen.main.bounds.width - (UIScreen.main.bounds.width / 1.5) : UIScreen.main.bounds.width)
           
               Spacer(minLength: 0)
@@ -203,6 +203,7 @@ struct Menu : View {
   @Binding var show : Bool
   @Binding var name : String
   var friend_count: Int
+    var username: String
   
   
   var body: some View {
@@ -232,6 +233,7 @@ struct Menu : View {
           
           VStack(spacing: 12) {
               Text(self.name)
+                Text(username).font(.subheadline)
               
               Text(String(self.friend_count) + " friends")
                   .font(.caption)

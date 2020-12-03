@@ -100,6 +100,9 @@ struct FriendListUI: View {
                 let defaults = UserDefaults.standard
                 if let currUsername = defaults.string(forKey: "currUsername") {
                     if let currPassword = defaults.string(forKey: "currPassword") {
+                        print("IN FRIENDS LIST BEFORE GET FRIENDS CALL")
+                        print(currUsername)
+                        print(currPassword)
                         NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
                         
                     }

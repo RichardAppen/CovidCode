@@ -33,7 +33,7 @@ class NetworkGetFriends {
             }
 
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: String] {
+            if let responseJSON = responseJSON as? Any {
                 // API - One of these two results based on input from user
                 //  {"error": username/password/friend} -- Malformed json input
                 //  {"error": Username or password do not exist}
@@ -41,8 +41,9 @@ class NetworkGetFriends {
                 //  {"error": Friend does not exist in system}
                 //  {"status": deleted}
                 //  {"status": no change} -- If this person is not a shared friend
+                print("---------============#########============------------")
                 print (responseJSON)
-                handler(responseJSON)
+                //handler(responseJSON)
                 /*if (responseJSON["status"] != nil) {
                     handler(true, "none")
                 } else {

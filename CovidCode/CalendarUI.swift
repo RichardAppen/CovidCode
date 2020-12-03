@@ -57,7 +57,7 @@ struct CalendarUI: View {
                     WinterView(currentYear: currentYear, parentTabController: parentTabController)
                     SpringView(currentYear: currentYear, parentTabController: parentTabController)
                     SummerView(currentYear: currentYear, parentTabController: parentTabController)
-                    FallView(currentYear: currentYear, parentTabController: parentTabController)
+                    FallView(currentYear: currentYear, parentTabController: parentTabController, scrollview: scrollView)
                 }
                 .onAppear {
                     withAnimation {
@@ -178,6 +178,7 @@ struct SummerView: View {
 struct FallView: View {
     var currentYear: Int
     var parentTabController: TabControllerUI
+    var scrollview : ScrollViewProxy
     var body: some View {
         Text("October").font(.title).fontWeight(.bold).id(10)
         //Divider().frame(height: 2).background(Color(UIColor.darkGray))
@@ -187,7 +188,7 @@ struct FallView: View {
         NovemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 11), currentYear: currentYear)
         Text("December").font(.title).fontWeight(.bold).id(12)
         //Divider().frame(height: 2).background(Color(UIColor.darkGray))
-        DecemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 12), currentYear: currentYear)
+        DecemberView(parentTabController: parentTabController, numDays: dates(year: currentYear, month: 12), currentYear: currentYear, scrollview: scrollview)
     }
     
     private func dates(year: Int, month: Int) -> Int {
@@ -889,6 +890,7 @@ struct DecemberView: View, MonthViewUI {
     @State var daySelected: Int = -1
     @State var monthSelected: Int = -1
     @State var YearSelected: Int = -1
+    var scrollview: ScrollViewProxy
     
     var body: some View {
         VStack {
@@ -920,8 +922,11 @@ struct DecemberView: View, MonthViewUI {
             if (showView) {
                 CurrentDateInfoBoxUI(currentDay: daySelected, currentMonth: monthSelected, currentYear: YearSelected, parentTabController: parentTabController)
                 Spacer()
-                Spacer()
-                Spacer()
+                Spacer().id(15)
+                Spacer().onAppear {
+                        print("test")
+                        scrollview.scrollTo(15)
+                    }
             }
         }.onAppear {
             var date = String(currentYear) + "/12/01"
@@ -967,10 +972,10 @@ struct dayCircles: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
         let currentDateTime = formatter.date(from: dateString)
-        var isFutureButton = false
+        var isDisabledButton = false
         
-        if (currentDateTime! > actualDate) {
-            isFutureButton = true
+        if (!Calendar.current.isDate(currentDateTime!, inSameDayAs: actualDate)) {
+            isDisabledButton = true
         }
         
         return Button(action: {
@@ -998,7 +1003,7 @@ struct dayCircles: View {
                 }
             }
         }
-        .disabled(isFutureButton)
+        .disabled(isDisabledButton)
     }
     
 

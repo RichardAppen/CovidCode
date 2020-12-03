@@ -140,6 +140,8 @@ struct RegisterButton: View {
                 let defaults = UserDefaults.standard
                 defaults.setValue(username.lowercased(), forKey: "currUsername")
                 defaults.setValue(password, forKey: "currPassword")
+                defaults.setValue(first_name, forKey: "firstName")
+                defaults.setValue(last_name, forKey: "lastName")
                 UserDefaults.standard.setValue(username, forKey: username)
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {

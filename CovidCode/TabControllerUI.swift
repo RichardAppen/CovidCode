@@ -51,12 +51,6 @@ struct TabControllerUI: View {
                    Text("Friends")
              }
                 .tag(3)
-            ProfileUI()
-                .tabItem {
-                    Image(systemName: "person").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemBlue))
-                   Text("Me")
-             }
-                .tag(4)
             
         }.onAppear {
             //selectedTab = 0
