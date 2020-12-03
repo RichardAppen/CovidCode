@@ -8,10 +8,10 @@
 import Foundation
 
 
-class NetworkGetFriends {
-    typealias getFriendsHandler = ([String: String]) -> ()
+class NetworkGetIncomingFriends {
+    typealias getFriendsIncomingHandler = ([String: String]) -> ()
     
-    static func getFriends(username: String, password: String, handler: @escaping getFriendsHandler) {
+    static func getIncomingFriends(username: String, password: String, handler: @escaping getFriendsIncomingHandler) {
         let parameters = ["username": username,
                           "password": password]
         let url = URL(string: "https://52.32.17.11:8000/api/get_friends")!
@@ -33,7 +33,7 @@ class NetworkGetFriends {
             }
 
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            print (responseJSON)
+            
             if let responseJSON = responseJSON as? [String: [String: String]] {
                 // API - One of these two results based on input from user
                 //  {"error": username/password/friend} -- Malformed json input
@@ -45,8 +45,8 @@ class NetworkGetFriends {
                 print("---------============#########============------------")
                 print (responseJSON)
                 //handler(responseJSON)
-                if (responseJSON["friends"] != nil) {
-                    handler(responseJSON["friends"]!)
+                if (responseJSON["inc_friends"] != nil) {
+                    handler(responseJSON["inc_friends"]!)
                 } else {
                     //handler(false, responseJSON["error"] as! String)
                 }

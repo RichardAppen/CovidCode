@@ -86,10 +86,10 @@ struct FriendListUI: View {
                         }.padding()*/
                         Text(key)
                         Spacer()
-                        if (Int(value) == 0) {
+                        if (Int(value) != -1) {
                             Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
                         } else {
-                            Image(systemName: "checkmark.circle.fill").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
+                            Image(systemName: "checkmark.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                         }
                         RemoveFriendButton(friend: key)
                         
@@ -117,6 +117,7 @@ struct FriendListUI: View {
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        
         
     }
     
@@ -233,6 +234,7 @@ struct TopFriendListView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Spacer()
+                Spacer()
                 /*Button(action: {
                     let contentView = NewFriendUI(parentTabController: parentTabController)
                     if let window = UIApplication.shared.windows.first {
@@ -243,9 +245,15 @@ struct TopFriendListView: View {
                     Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                     
                 }*/
-                NavigationLink(destination: NewFriendUI()) {
-                    Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                NavigationLink(destination: FriendRequestsUI()) {
+                    Image(systemName: "envelope").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                 }
+                Spacer()
+                NavigationLink(destination: NewFriendUI()) {
+                    Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                }
+                
+                
             }
             
             
