@@ -45,7 +45,9 @@ class NetworkRemoveFriend {
                 //  {"status": no change} -- If this person is not a shared friend
                 print (responseJSON)
                 if (responseJSON["status"] != nil && responseJSON["status"] as! String == "deleted") {
-                    handler(true, "Friend removed")
+                    handler(true, "Friend removed!")
+                } else if (responseJSON["status"] != nil && responseJSON["status"] as! String == "removed") {
+                    handler(true, "Friend request denied!")
                 } else if (responseJSON["status"] != nil && responseJSON["status"] as! String == "no change") {
                     handler(false, "There was an error removing this friend")
                 } else {

@@ -16,7 +16,7 @@ struct NewFriendUI: View {
     
     var body: some View {
         
-        NavigationView {
+       NavigationView {
             GeometryReader { geometry in
                 VStack() {
                     TextField("Friend Name", text: $friendName)
@@ -24,6 +24,7 @@ struct NewFriendUI: View {
                         .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                         .cornerRadius(5.0)
                         .padding(.bottom, 20)
+                        //.padding(.top, -60)
                         .frame(width: geometry.size.width / 1.1)
                         .disableAutocorrection(true)
                     Button(action: {
@@ -53,12 +54,14 @@ struct NewFriendUI: View {
                     }
                     
                     
+                 
                 }
                 .frame(maxWidth: UIScreen.main.bounds.width)
+                
             }
             
-        }
-        .navigationBarTitleDisplayMode(.inline)
+       }
+       .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
@@ -92,4 +95,11 @@ struct NewFriendUI: View {
     
     
 }
+
+struct NewFriendUI_Previews: PreviewProvider {
+    static var previews: some View {
+        NewFriendUI()
+    }
+}
+
 

@@ -18,11 +18,14 @@ struct FriendListUI: View {
     @State var friendDictionary: [String: String] = [:]
     @State private var searchName: String = ""
     
-    @State var alertMsg: String = ""
-    
+    /*@State var alertMsg: String = ""
     @State var showingConfirmAlert = false
     @State var showingMessageAlert = false
+    @State var errorMsg = ""*/
+    @State var confirmAlert = true
+    @State var showingAlert = false
     @State var errorMsg = ""
+
 
     
     var body: some View {
@@ -91,7 +94,41 @@ struct FriendListUI: View {
                         } else {
                             Image(systemName: "checkmark.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                         }
-                        RemoveFriendButton(friend: key)
+                        Button(action: {
+                            self.showingAlert = true
+                            
+                        }) {
+                            
+                                Image(systemName: "trash.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(.black)
+        
+
+                        }
+                        
+                        .alert(isPresented: $showingAlert) {
+                            if (confirmAlert) {
+                                return Alert(title: Text("Important"), message: Text("Are you sure you would like to remove " + key + " as a friend?"),  primaryButton: .destructive(Text("Remove")) {
+                                        let defaults = UserDefaults.standard
+                                        if let currUsername = defaults.string(forKey: "currUsername") {
+                                        if let currPassword = defaults.string(forKey: "currPassword") {
+                                        NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: key.lowercased(), handler: removeFriendHandler)
+                                        
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                                NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                                        }
+                                        }
+                                    }
+                                }, secondaryButton: .cancel())
+                            
+                            } else {
+                                
+                                return Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")) {
+                                    confirmAlert = true
+                                })
+                                      
+                            }
+                        }
+                    
+                        
                         
                     }.padding()
                 }
@@ -109,7 +146,7 @@ struct FriendListUI: View {
                 }
                 
             }
-           
+                       
             
         }
         .navigationBarTitle("")
@@ -128,9 +165,11 @@ struct FriendListUI: View {
     func removeFriendHandler(res: Bool, error: String) -> () {
 
             errorMsg = error
-            showingMessageAlert = true
+            confirmAlert = false
+            showingAlert = true
 
     }
+    
     
     private func needNewLetter(currName: String) -> Bool {
         let currNameUpper = currName.uppercased()
@@ -172,6 +211,7 @@ struct FriendListUI: View {
 
 struct RemoveFriendButton: View {
     
+    var type: String
     var friend: String
     @State var confirmAlert = true
     @State var showingAlert = false
@@ -183,7 +223,11 @@ struct RemoveFriendButton: View {
             self.showingAlert = true
             
         }) {
-            Image(systemName: "trash.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(.black)
+            if (type=="trashcan") {
+                Image(systemName: "trash.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(.black)
+            } else if (type == "x") {
+                Image(systemName: "xmark.circle.fill").font(.system(size: 32, weight: .regular)).foregroundColor(.red)
+            }
 
         }
         
@@ -194,6 +238,7 @@ struct RemoveFriendButton: View {
                         if let currUsername = defaults.string(forKey: "currUsername") {
                         if let currPassword = defaults.string(forKey: "currPassword") {
                         NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
+                        
                         }
                     }
                 }, secondaryButton: .cancel())
@@ -224,6 +269,7 @@ struct RemoveFriendButton: View {
 
 
 struct TopFriendListView: View {
+    @State var incFriendRequests: Bool = false
     
     var body: some View {
         VStack {
@@ -234,7 +280,7 @@ struct TopFriendListView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 Spacer()
-                Spacer()
+        
                 /*Button(action: {
                     let contentView = NewFriendUI(parentTabController: parentTabController)
                     if let window = UIApplication.shared.windows.first {
@@ -246,11 +292,28 @@ struct TopFriendListView: View {
                     
                 }*/
                 NavigationLink(destination: FriendRequestsUI()) {
-                    Image(systemName: "envelope").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    
+                    if (incFriendRequests) {
+                        Image(systemName: "envelope.badge.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    } else {
+                        Image(systemName: "envelope.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    }
                 }
                 Spacer()
                 NavigationLink(destination: NewFriendUI()) {
                     Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                }.onAppear(){
+                    let defaults = UserDefaults.standard
+                    if let currUsername = defaults.string(forKey: "currUsername") {
+                        if let currPassword = defaults.string(forKey: "currPassword") {
+                            print("IN FRIENDS LIST BEFORE GET FRIENDS CALL")
+                            print(currUsername)
+                            print(currPassword)
+                            NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                            
+                        }
+                    }
+                    
                 }
                 
                 
@@ -259,5 +322,15 @@ struct TopFriendListView: View {
             
         }
     }
+    
+    func getIncomingFriendsHandler(friendsDict: [String: String]) {
+        if (friendsDict.count == 0) {
+            incFriendRequests = false
+        } else {
+            incFriendRequests = true
+        }
+    }
+    
+    
 }
 

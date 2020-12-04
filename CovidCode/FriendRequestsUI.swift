@@ -15,10 +15,23 @@ struct FriendRequestsUI: View {
     var body: some View {
         NavigationView {
         VStack {
+            HStack {
+                Spacer()
+                Text("New Requests")
+                    .font(.system(size: 32, weight: .regular))
+                    .padding(.horizontal, 50)
+                    .padding(.vertical, 10)
+                    .background(Color(red: 119/255, green: 158/255, blue: 203/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .padding(.top, -60)
+                    .disableAutocorrection(true)
+                Spacer()
+            }
             
             ForEach(incFriendDictionary.sorted(by: >), id: \.key) {
                 key, value in
-                Divider().frame(height: 2).background(Color(UIColor.lightGray)).padding(.leading).padding(.trailing)
+                
                 HStack {
                     Spacer()
                     Text(key).font(.system(size: 32, weight: .regular))
@@ -35,7 +48,7 @@ struct FriendRequestsUI: View {
                         }
                     }) {
                         Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 23, weight: .regular))
+                            .font(.system(size: 32, weight: .regular))
                             .foregroundColor(Color(UIColor.systemGreen))
                         
                     }
@@ -43,10 +56,17 @@ struct FriendRequestsUI: View {
                         Alert(title: Text("Notice"), message: Text("The user has been added and you are now mutual friends!"), dismissButton: .default(Text("Confirm")))
                     }
                     
-                    RemoveFriendButton(friend: key)
-                    Spacer()
+                    RemoveFriendButton(type: "x", friend: key)
+                    
+                    
                 }
+                .padding(.vertical, 20)
+                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                .cornerRadius(5.0)
+                .padding(.vertical, 20)
+                
             }
+            
             Spacer()
         }.onAppear {
             let defaults = UserDefaults.standard
