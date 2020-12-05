@@ -177,7 +177,7 @@ struct ProfileUI : View {
     }
     
     func getFriendsHandler(friendsDict: [String: String]) {
-        friendDictionary = friendsDict
+        friendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 > -1}
     }
     
     private func generateQRCode(from string: String) -> UIImage {

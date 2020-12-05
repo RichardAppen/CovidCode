@@ -53,7 +53,7 @@ struct FriendRequestsUI: View {
                         
                     }
                     .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Notice"), message: Text("The user has been added and you are now mutual friends!"), dismissButton: .default(Text("Confirm")))
+                        Alert(title: Text("Notice"), message: Text("The user and you are now friends!"), dismissButton: .default(Text("Confirm")))
                     }
                     
                     RemoveFriendButton(type: "x", friend: key)
@@ -101,10 +101,10 @@ struct FriendRequestsUI: View {
     func addFriendHandler(status: Bool, res: String ) {
         if (status) {
             if (res == "True") {
-                errorMsg = "The user has been added and you are now mutual friends!"
+                errorMsg = "You user and you are now friends!"
                 
             } else {
-                errorMsg = "The user has been added. Tell them to add you back to become mututal friends!"
+                errorMsg = "A friend request has been sent!"
                 
             }
             showingAlert = true
