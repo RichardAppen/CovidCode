@@ -27,7 +27,7 @@
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
-		01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 01F437172576B9C5006CD5BC /* CodeScanner */; };
+		01F437182576B9C5006CD5BC /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */; };
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */; };
 		5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */; };
@@ -39,6 +39,7 @@
 		AA1E2DFB256B02C60039316C /* NetworkRemoveFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E2DFA256B02C60039316C /* NetworkRemoveFriend.swift */; };
 		AA1E2E03256B03A50039316C /* NetworkAddUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E2E02256B03A50039316C /* NetworkAddUser.swift */; };
 		AA1E2E08256B04A90039316C /* NetworkRemoveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E2E07256B04A90039316C /* NetworkRemoveUser.swift */; };
+		E4AC9630D5BDB105BADFA0C6 /* libPods-CovidCode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5181A6AF243D58383C419DAA /* libPods-CovidCode.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
 		019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateInfoBoxUI.swift; sourceTree = "<group>"; };
+		2D931DD3A7F45815B249FAF4 /* Pods-CovidCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.release.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.release.xcconfig"; sourceTree = "<group>"; };
+		5181A6AF243D58383C419DAA /* libPods-CovidCode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CovidCode.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
 		5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetIncomingFriends.swift; sourceTree = "<group>"; };
 		5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsUI.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		AA1E2DFA256B02C60039316C /* NetworkRemoveFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRemoveFriend.swift; sourceTree = "<group>"; };
 		AA1E2E02256B03A50039316C /* NetworkAddUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAddUser.swift; sourceTree = "<group>"; };
 		AA1E2E07256B04A90039316C /* NetworkRemoveUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRemoveUser.swift; sourceTree = "<group>"; };
+		E780A069BD1C9099C91F0F39 /* Pods-CovidCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.debug.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */,
+				01F437182576B9C5006CD5BC /* BuildFile in Frameworks */,
+				E4AC9630D5BDB105BADFA0C6 /* libPods-CovidCode.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +152,8 @@
 				0184F7352553B56D008655E6 /* CovidCodeTests */,
 				0184F7402553B56E008655E6 /* CovidCodeUITests */,
 				0184F7222553B56A008655E6 /* Products */,
+				777A4745A1C56801FBA5159D /* Pods */,
+				F51C61DBE5C7D3C1A9950FC1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +222,24 @@
 			path = CovidCodeUITests;
 			sourceTree = "<group>";
 		};
+		777A4745A1C56801FBA5159D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E780A069BD1C9099C91F0F39 /* Pods-CovidCode.debug.xcconfig */,
+				2D931DD3A7F45815B249FAF4 /* Pods-CovidCode.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F51C61DBE5C7D3C1A9950FC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5181A6AF243D58383C419DAA /* libPods-CovidCode.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -222,9 +247,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0184F7462553B56E008655E6 /* Build configuration list for PBXNativeTarget "CovidCode" */;
 			buildPhases = (
+				7621C2EF8E4B16FD0C287918 /* [CP] Check Pods Manifest.lock */,
 				0184F71D2553B56A008655E6 /* Sources */,
 				0184F71E2553B56A008655E6 /* Frameworks */,
 				0184F71F2553B56A008655E6 /* Resources */,
+				B1E95F8F59A1E6D49583C813 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,7 +259,7 @@
 			);
 			name = CovidCode;
 			packageProductDependencies = (
-				01F437172576B9C5006CD5BC /* CodeScanner */,
+				01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */,
 			);
 			productName = CovidCode;
 			productReference = 0184F7212553B56A008655E6 /* CovidCode.app */;
@@ -306,7 +333,7 @@
 			);
 			mainGroup = 0184F7182553B56A008655E6;
 			packageReferences = (
-				01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 0184F7222553B56A008655E6 /* Products */;
 			projectDirPath = "";
@@ -345,6 +372,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7621C2EF8E4B16FD0C287918 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CovidCode-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1E95F8F59A1E6D49583C813 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CovidCode/Pods-CovidCode-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CovidCode/Pods-CovidCode-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CovidCode/Pods-CovidCode-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0184F71D2553B56A008655E6 /* Sources */ = {
@@ -530,6 +599,7 @@
 		};
 		0184F7472553B56E008655E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E780A069BD1C9099C91F0F39 /* Pods-CovidCode.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -552,6 +622,7 @@
 		};
 		0184F7482553B56E008655E6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D931DD3A7F45815B249FAF4 /* Pods-CovidCode.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -694,7 +765,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+		01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
@@ -705,9 +776,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		01F437172576B9C5006CD5BC /* CodeScanner */ = {
+		01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			package = 01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */;
 			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
