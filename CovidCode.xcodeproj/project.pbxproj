@@ -27,7 +27,10 @@
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
-		01F437182576B9C5006CD5BC /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */; };
+		01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 01F437172576B9C5006CD5BC /* CodeScanner */; };
+		135100B9257D9A8100DB52DE /* Heatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B7257D9A8000DB52DE /* Heatmap.swift */; };
+		135100BA257D9A8100DB52DE /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B8257D9A8100DB52DE /* MapUI.swift */; };
+		135100BF257D9BE500DB52DE /* sampleRisks.json in Resources */ = {isa = PBXBuildFile; fileRef = 135100BE257D9BE400DB52DE /* sampleRisks.json */; };
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */; };
 		5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */; };
@@ -86,6 +89,9 @@
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
 		019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateInfoBoxUI.swift; sourceTree = "<group>"; };
+		135100B7257D9A8000DB52DE /* Heatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heatmap.swift; sourceTree = "<group>"; };
+		135100B8257D9A8100DB52DE /* MapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUI.swift; sourceTree = "<group>"; };
+		135100BE257D9BE400DB52DE /* sampleRisks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleRisks.json; sourceTree = "<group>"; };
 		2D931DD3A7F45815B249FAF4 /* Pods-CovidCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.release.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.release.xcconfig"; sourceTree = "<group>"; };
 		5181A6AF243D58383C419DAA /* libPods-CovidCode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CovidCode.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
@@ -107,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F437182576B9C5006CD5BC /* BuildFile in Frameworks */,
+				01F437182576B9C5006CD5BC /* CodeScanner in Frameworks */,
 				E4AC9630D5BDB105BADFA0C6 /* libPods-CovidCode.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +179,8 @@
 				0145723C2556079500809A7F /* cert.der */,
 				0145720C2556003100809A7F /* Network */,
 				0184F7262553B56A008655E6 /* LoginUI.swift */,
+				135100B7257D9A8000DB52DE /* Heatmap.swift */,
+				135100B8257D9A8100DB52DE /* MapUI.swift */,
 				019F686A25683C3E000E2CC5 /* TabControllerUI.swift */,
 				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
 				017F1A3425702BAD00C82321 /* ProfileUI.swift */,
@@ -189,6 +197,7 @@
 				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
 				0175B74F2569EE2400946F26 /* FriendListUI.swift */,
 				0175B7542569F08000946F26 /* NewFriendUI.swift */,
+				135100BE257D9BE400DB52DE /* sampleRisks.json */,
 				5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */,
 				5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */,
 				5AFB669C256EF5FC00FAF965 /* RegisterUI.swift */,
@@ -228,7 +237,6 @@
 				E780A069BD1C9099C91F0F39 /* Pods-CovidCode.debug.xcconfig */,
 				2D931DD3A7F45815B249FAF4 /* Pods-CovidCode.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -259,7 +267,7 @@
 			);
 			name = CovidCode;
 			packageProductDependencies = (
-				01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */,
+				01F437172576B9C5006CD5BC /* CodeScanner */,
 			);
 			productName = CovidCode;
 			productReference = 0184F7212553B56A008655E6 /* CovidCode.app */;
@@ -333,7 +341,7 @@
 			);
 			mainGroup = 0184F7182553B56A008655E6;
 			packageReferences = (
-				01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */,
+				01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 0184F7222553B56A008655E6 /* Products */;
 			projectDirPath = "";
@@ -353,6 +361,7 @@
 			files = (
 				0145723D2556079500809A7F /* cert.der in Resources */,
 				0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */,
+				135100BF257D9BE500DB52DE /* sampleRisks.json in Resources */,
 				0184F7292553B56D008655E6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +439,7 @@
 				AA1E2E03256B03A50039316C /* NetworkAddUser.swift in Sources */,
 				017F1A3525702BAD00C82321 /* ProfileUI.swift in Sources */,
 				5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */,
+				135100BA257D9A8100DB52DE /* MapUI.swift in Sources */,
 				0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */,
 				019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */,
 				0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */,
@@ -440,6 +450,7 @@
 				017F1A3F25706AA800C82321 /* NetworkGetFriends.swift in Sources */,
 				0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */,
 				019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */,
+				135100B9257D9A8100DB52DE /* Heatmap.swift in Sources */,
 				5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,
 				5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */,
@@ -605,7 +616,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CovidCode/Preview Content\"";
-				DEVELOPMENT_TEAM = 2RD55BAT9J;
+				DEVELOPMENT_TEAM = 3NJXKKCV2R;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CovidCode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -628,7 +639,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CovidCode/Preview Content\"";
-				DEVELOPMENT_TEAM = 2RD55BAT9J;
+				DEVELOPMENT_TEAM = 3NJXKKCV2R;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CovidCode/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -765,7 +776,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */ = {
+		01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
@@ -776,9 +787,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		01F437172576B9C5006CD5BC /* SwiftPackageProductDependency */ = {
+		01F437172576B9C5006CD5BC /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 01F437162576B9C5006CD5BC /* RemoteSwiftPackageReference */;
+			package = 01F437162576B9C5006CD5BC /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */

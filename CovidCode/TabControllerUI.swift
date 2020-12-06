@@ -33,7 +33,7 @@ struct TabControllerUI: View {
                 Text("Home")
               }
                 .tag(0)
-            Text("Map View")
+            MapUI(parentTabController: self)
                 .tabItem {
                     Image(systemName: "mappin.and.ellipse").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemYellow))
                    Text("Map")
