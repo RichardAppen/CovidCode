@@ -13,10 +13,13 @@ class NetworkNewRisk {
     typealias newRiskHandler = (Bool, String) -> ()
     
     static func newRisk( username: String, password: String, risk: String, state: String, handler: @escaping newRiskHandler) {
+        print(risk)
         let parameters = ["username": username,
                           "password": password,
                           "risk": risk,
-                          "state": state]
+                          "state": state,
+                          "date": String(Calendar.current.component(.month, from: Date())) + "/" + String(Calendar.current.component(.day, from: Date())) + "/" + String(Calendar.current.component(.year, from: Date())),
+                          "location": "Location"]
         let url = URL(string: "https://52.32.17.11:8000/api/new_risk")!
         let session = URLSession(configuration: URLSessionConfiguration.default,
                                  delegate: NSURLSessionPinningDelegate(),
@@ -34,7 +37,7 @@ class NetworkNewRisk {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            print(response)
+           
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
@@ -42,8 +45,7 @@ class NetworkNewRisk {
                 //  {"error": username/password/first_name/last_name/email} -- Malformed json input
                 //  {"error": user exists}
                 //  {"status": Added}
-                print (responseJSON)
-                print("test1")
+                print(responseJSON)
                 if (responseJSON["status"] != nil && responseJSON["status"] as! String == "added") {
                     handler(true, "none")
                 } else {

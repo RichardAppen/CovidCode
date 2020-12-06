@@ -34,6 +34,7 @@
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */; };
 		5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */; };
+		5AA988A9257DA05600CC063C /* NetworkGetRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA988A8257DA05600CC063C /* NetworkGetRisk.swift */; };
 		5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */; };
 		5AF6BBFE256C39C500E635F0 /* QuestionCardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */; };
 		5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */; };
@@ -97,6 +98,7 @@
 		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
 		5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetIncomingFriends.swift; sourceTree = "<group>"; };
 		5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsUI.swift; sourceTree = "<group>"; };
+		5AA988A8257DA05600CC063C /* NetworkGetRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetRisk.swift; sourceTree = "<group>"; };
 		5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionCardUI.swift; path = CovidCode/QuestionCardUI.swift; sourceTree = SOURCE_ROOT; };
 		5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireUI.swift; path = CovidCode/QuestionnaireUI.swift; sourceTree = SOURCE_ROOT; };
@@ -147,6 +149,7 @@
 				017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */,
 				5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */,
 				5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */,
+				5AA988A8257DA05600CC063C /* NetworkGetRisk.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */,
 				135100B9257D9A8100DB52DE /* Heatmap.swift in Sources */,
 				5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */,
+				5AA988A9257DA05600CC063C /* NetworkGetRisk.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,
 				5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */,
 				5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */,

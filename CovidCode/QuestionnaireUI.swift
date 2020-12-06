@@ -114,6 +114,15 @@ struct SubmitQuestionnaireButton: View {
     @State private var showingAlert = false
     var body: some View {
         Button(action: {
+            var state: String
+            let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
+            let defaults = UserDefaults.standard
+            if (defaults.integer(forKey: dateString) == 1) {
+                state = "current"
+            } else {
+                state = "new"
+            }
+        
             if ((!questions.questions[1].answers[q1_answer0]! && !questions.questions[1].answers[q1_answer1]!  && !questions.questions[1].answers[q1_answer2]! )) {
                 errorMsg = "Please answer question 2"
                 showingAlert = true
@@ -127,9 +136,15 @@ struct SubmitQuestionnaireButton: View {
             } else if (questions.questions[4].answer == nil) {
                 errorMsg = "Please answer question 5"
                 showingAlert = true
-            } else {
-                print("y")
-                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(5), state: "new", handler: newRiskHandler)
+            } else if (questions.questions[1].answers[q1_answer0]!) {
+                
+                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(1), state: "current", handler: newRiskHandler)
+            } else if (questions.questions[1].answers[q1_answer1]!) {
+                
+                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(2), state: "current", handler: newRiskHandler)
+            } else if (questions.questions[1].answers[q1_answer2]!) {
+                
+                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(3), state: "current", handler: newRiskHandler)
             }
         }) {
             Text("Submit")
@@ -148,6 +163,7 @@ struct SubmitQuestionnaireButton: View {
     func newRiskHandler(res: Bool, error: String) -> () {
         // TODO Change this name and make this the return handler of login
         if (res) {
+            print("test")
             DispatchQueue.main.async {
                 let dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
                 let defaults = UserDefaults.standard

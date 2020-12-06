@@ -89,10 +89,14 @@ struct FriendListUI: View {
                         }.padding()*/
                         Text(key)
                         Spacer()
-                        if (Int(value) != -1) {
+                        if (Int(value) == 3) {
                             Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemRed))
+                        } else if (Int(value) == 2){
+                            Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemYellow))
+                        } else if (Int(value) == 1){
+                            Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
                         } else {
-                            Image(systemName: "checkmark.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(Color(UIColor.systemGreen))
+                            Image(systemName: "burn").font(.system(size: 23, weight: .regular)).foregroundColor(Color(.black))
                         }
                         Button(action: {
                             self.showingAlert = true

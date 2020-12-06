@@ -53,7 +53,7 @@ struct HomescreenUI: View {
                 StatisticsButton(increaseNumber: getFriendCount(), title: "HIGH RISK FRIENDS", mainValue: getFriendCount(), subTitle: "In Your Friends List", isPlusGreen: false).padding()
                 
                 //StatisticsButton(increaseNumber: 2, title: "PERCENT OF USER", mainValue: 70, subTitle: "That May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
+                QRCodeWindow(showDetail: showDetail, covidRisk: getRisk(), sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -133,6 +133,22 @@ struct HomescreenUI: View {
     
     func getFriendsHandler(friendsDict: [String: String]) {
         friendDictionary = friendsDict
+    }
+    
+    private func getRisk() -> Int {
+        let defaults = UserDefaults.standard
+        if let currUsername = defaults.string(forKey: "currUsername") {
+            if let currPassword = defaults.string(forKey: "currPassword") {
+                NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
+                
+            }
+        }
+        
+        return friendDictionary.count
+    }
+    
+    func getRiskHandler(risk: Int) {
+        covidRisk = risk
     }
     
     private func getIfUserCompletedSurveyToday() -> Bool {
@@ -445,24 +461,36 @@ struct QRCodeWindow: View {
         }
             if (extra) {
                 if (!showDetail) {
-                    if (covidRisk == 0) {
+                    if (covidRisk == 3) {
                         Text("Red indicates high covid risk")
                             .font(.subheadline)
-                    } else if (covidRisk == 2) {
+                    } else if (covidRisk == 1) {
                         Text("Green indicates low covid risk")
                             .font(.subheadline)
+                    } else if (covidRisk == 2) {
+                        Text("Yellow indicates medium covid risk")
+                            .font(.subheadline)
+                    } else {
+                        Text("Please fill out the questionnaire to determine your risk!")
                     }
                 } else {
-                    if (covidRisk == 0) {
+                    if (covidRisk == 3) {
                         Text("We have determined that you have high Covid Risk")
                             .font(.subheadline)
                         Text("")
                         LinkedText(username: username)
-                    } else if (covidRisk == 2) {
+                    } else if (covidRisk == 1) {
                         Text("We have determined that you have low Covid Risk")
                             .font(.subheadline)
                         Text("")
                         LinkedText(username: username)
+                    } else if (covidRisk == 2) {
+                        Text("We have determined that you have medium Covid Risk")
+                            .font(.subheadline)
+                        Text("")
+                        LinkedText(username: username)
+                    } else if (covidRisk == 0) {
+                        Text("Please fill out the questionnaire to determine your risk!")
                     }
                 }
             }
@@ -487,10 +515,14 @@ struct QRCodeWindow: View {
     }
     
     private func determineColor() -> Color {
-        if (covidRisk == 0) {
+        if (covidRisk == 3) {
             return Color(red: 250/255, green: 128/255, blue: 114/255)
-        } else if (covidRisk == 2) {
+        } else if (covidRisk == 1) {
             return Color(red: 119/255, green: 221/255, blue: 119/255)
+        } else if (covidRisk == 2) {
+            return Color(.yellow)
+        } else {
+            return Color(.white)
         }
         
         return Color.gray
@@ -501,11 +533,20 @@ struct QRCodeWindow: View {
 struct LinkedText: View {
     var username: String
     var body: some View {
-        Text("Scan the QR Code or visit " + "http://52.32.17.11:8080/user_risk/" + username + " for more info").onTapGesture {
-            UIApplication.shared.open(URL(string: "http://52.32.17.11:8080/user_risk/" + username)!)
-        }
+        Text("Scan the QR Code or visit the link below for more info")
             .font(.subheadline)
-        .fixedSize(horizontal: false, vertical: true)
+            .fixedSize(horizontal: false, vertical: true)
+        
+        Button (action: {
+            UIApplication.shared.open(URL(string: "http://52.32.17.11:8080/user_risk/" + username)!)
+        }) {
+           Text("Link")
+        }//.onTapGesture {
+         //   UIApplication.shared.open(URL(string: "http://52.32.17.11:8080/user_risk/" + username)!)
+        //}
+        
+            
+        
     }
 }
 
