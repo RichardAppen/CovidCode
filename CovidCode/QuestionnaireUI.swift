@@ -139,12 +139,16 @@ struct SubmitQuestionnaireButton: View {
             } else if (questions.questions[1].answers[q1_answer0]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(1), state: "current", handler: newRiskHandler)
+                let defaults = UserDefaults.standard
+                defaults.set("1", forKey: "Risk")
             } else if (questions.questions[1].answers[q1_answer1]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(2), state: "current", handler: newRiskHandler)
+                defaults.set("2", forKey: "Risk")
             } else if (questions.questions[1].answers[q1_answer2]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(3), state: "current", handler: newRiskHandler)
+                defaults.set("3", forKey: "Risk")
             }
         }) {
             Text("Submit")
