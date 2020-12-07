@@ -132,7 +132,7 @@ struct HomescreenUI: View {
     }
     
     func getFriendsHandler(friendsDict: [String: String]) {
-        friendDictionary = friendsDict
+        friendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}
     }
     
     /*private func getRisk() -> Int {
@@ -466,33 +466,43 @@ struct QRCodeWindow: View {
                     if (covidRisk == 3) {
                         Text("Red indicates high covid risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     } else if (covidRisk == 1) {
                         Text("Green indicates low covid risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     } else if (covidRisk == 2) {
                         Text("Yellow indicates medium covid risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     } else {
                         Text("Please fill out the questionnaire to determine your risk!")
+                            .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 } else {
                     if (covidRisk == 3) {
                         Text("We have determined that you have high Covid Risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                         Text("")
                         LinkedText(username: username)
                     } else if (covidRisk == 1) {
                         Text("We have determined that you have low Covid Risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                         Text("")
                         LinkedText(username: username)
                     } else if (covidRisk == 2) {
                         Text("We have determined that you have medium Covid Risk")
                             .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                         Text("")
                         LinkedText(username: username)
                     } else if (covidRisk == 0) {
                         Text("Please fill out the questionnaire to determine your risk!")
+                            .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
