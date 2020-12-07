@@ -14,7 +14,7 @@ struct HomescreenUI: View {
     
     @State private var showDetail = false
     @State private var isShowingScanner = false
-    @State private var covidRisk = 0
+    @State private var covidRisk = Int(UserDefaults.standard.string(forKey: "Risk") ?? "0")
     var parentTabController: TabControllerUI
     var username: String
     @State var results = [CovidTrackingInfo]()
@@ -53,7 +53,7 @@ struct HomescreenUI: View {
                 StatisticsButton(increaseNumber: getFriendCount(), title: "HIGH RISK FRIENDS", mainValue: getFriendCount(), subTitle: "In Your Friends List", isPlusGreen: false).padding()
                 
                 //StatisticsButton(increaseNumber: 2, title: "PERCENT OF USER", mainValue: 70, subTitle: "That May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail, covidRisk: getRisk(), sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
+                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk ?? 0, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -135,7 +135,7 @@ struct HomescreenUI: View {
         friendDictionary = friendsDict
     }
     
-    private func getRisk() -> Int {
+    /*private func getRisk() -> Int {
         let defaults = UserDefaults.standard
         if let currUsername = defaults.string(forKey: "currUsername") {
             if let currPassword = defaults.string(forKey: "currPassword") {
@@ -143,13 +143,15 @@ struct HomescreenUI: View {
                 
             }
         }
-        
-        return friendDictionary.count
+        print("CR")
+        print(covidRisk)
+        return covidRisk
     }
     
     func getRiskHandler(risk: Int) {
+        print("r")
         covidRisk = risk
-    }
+    }*/
     
     private func getIfUserCompletedSurveyToday() -> Bool {
         let currentYear = Calendar.current.component(.year, from: Date())
@@ -366,7 +368,7 @@ struct TopWelcomeView: View {
         case 11:
             currentMonthWritten = "Novemeber"
         default:
-            currentMonthWritten = "Decemeber"
+            currentMonthWritten = "December"
         }
         
         return currentMonthWritten + " " + String(currentDay) + ", " + String(currentYear)
