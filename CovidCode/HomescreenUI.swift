@@ -368,7 +368,7 @@ struct TopWelcomeView: View {
         case 11:
             currentMonthWritten = "Novemeber"
         default:
-            currentMonthWritten = "Decemeber"
+            currentMonthWritten = "December"
         }
         
         return currentMonthWritten + " " + String(currentDay) + ", " + String(currentYear)
