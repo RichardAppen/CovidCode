@@ -48,7 +48,7 @@ class NetworkGetFriends {
                 if (responseJSON["friends"] != nil) {
                     handler(responseJSON["friends"]!)
                 } else {
-                    //handler(false, responseJSON["error"] as! String)
+                    handler([:])
                 }
                 
                 return

@@ -26,6 +26,7 @@ var question1: String = "Do you have a fever?"
 var question2: String = "Have you participated in any of the following recently?"
 var question3: String = "Have you come in close contact with anyone diagnosed with Covid-19 recently?"
 var question4: String = "Do you continue to practice protective measures such as using a mask to cover your nose and mouth, follow social distancing, and washing your hands frequently?"
+var question5: String = "Have you tested positive for Covid-19??"
 
 var q0_answer0: String = "Cough"
 var q0_answer1: String = "Headache"
@@ -52,7 +53,8 @@ class Questions: ObservableObject {
         Question(id: 1, question: question1, type: qMultiple, answers: [q1_answer0: false, q1_answer1: false, q1_answer2: false]),
         Question(id: 2, question: question2, type: qMultiple, answers: [q2_answer0: false, q2_answer1: false, q2_answer2: false]),
         Question(id: 3, question: question3, type: qSingle, answers: [:]),
-        Question(id: 4, question: question4, type: qSingle, answers: [:])
+        Question(id: 4, question: question4, type: qSingle, answers: [:]),
+        Question(id: 5, question: question4, type: qSingle, answers: [:])
     ]
 }
 
@@ -122,7 +124,8 @@ struct SubmitQuestionnaireButton: View {
             } else {
                 state = "new"
             }
-        
+            var risk = 0
+            defaults.setValue(risk, forKey: "risk")
             if ((!questions.questions[1].answers[q1_answer0]! && !questions.questions[1].answers[q1_answer1]!  && !questions.questions[1].answers[q1_answer2]! )) {
                 errorMsg = "Please answer question 2"
                 showingAlert = true
@@ -136,19 +139,23 @@ struct SubmitQuestionnaireButton: View {
             } else if (questions.questions[4].answer == nil) {
                 errorMsg = "Please answer question 5"
                 showingAlert = true
+                
+            } else if (questions.questions[5].answer == nil) {
+                errorMsg = "Please answer question 6"
+                showingAlert = true
             } else if (questions.questions[1].answers[q1_answer0]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(1), state: "current", handler: newRiskHandler)
-                let defaults = UserDefaults.standard
-                defaults.set("1", forKey: "Risk")
+                
+                
             } else if (questions.questions[1].answers[q1_answer1]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(2), state: "current", handler: newRiskHandler)
-                defaults.set("2", forKey: "Risk")
+                
             } else if (questions.questions[1].answers[q1_answer2]!) {
                 
                 NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(3), state: "current", handler: newRiskHandler)
-                defaults.set("3", forKey: "Risk")
+                
             }
         }) {
             Text("Submit")

@@ -84,54 +84,54 @@ struct QuestionCardView: View {
             VStack(alignment: .leading) {
                 VisualEffectBlur(blurStyle: .systemUltraThinMaterial, vibrancyStyle: .none) {
                     VStack {
-                    HStack {
-                        Spacer()
-                        Text("\(self.question.question) ")
-                            .font(.title)
-                            .bold()
-                            .fixedSize(horizontal: false, vertical: true)
-                        
-                        Spacer()
-                    }
-                    .frame(width: 375, height: 400, alignment: .topTrailing)
-                    
-                    HStack {
-                        if(self.question.type == "single") {
+                        HStack {
                             Spacer()
-                            Button(action: {
-                                self.question.answer = false
-                            }, label: {
-                                Image(systemName: "x.circle")
-                                    .resizable()
-                                    .foregroundColor(noButtonColor)
-                                    .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            })
-                            
-                            
-                            Spacer()
-                            Spacer()
-                            Button(action: {
-                                self.question.answer = true
-                            }, label: {
-                                Image(systemName: "checkmark.circle")
-                                    .resizable()
-                                    .foregroundColor(yesButtonColor)
-                                    .frame(width: 48, height: 48, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            })
-                            Spacer()
-                        } else if (self.question.type == "multiple"){
-                            Spacer()
-                            VStack {
-                                ForEach(self.question.answers.sorted(by: ==), id: \.key) { key, value in
-                                    CheckboxField(id: key, label: key, callback: self.checkboxSelected, q: self.question)
-                                }
-                            }
+                            Text("\(self.question.question) ")
+                                .font(.title)
+                                .bold()
+                                .fixedSize(horizontal: false, vertical: true)
                             
                             Spacer()
                         }
+                        .frame(width: 375, height: 400, alignment: .topTrailing)
                         
-                    }.frame(width: 325, height: 0, alignment: .bottomLeading)
-                }
+                        HStack {
+                            if(self.question.type == "single") {
+                                Spacer()
+                                Button(action: {
+                                    self.question.answer = false
+                                }, label: {
+                                    Image(systemName: "x.circle")
+                                        .resizable()
+                                        .foregroundColor(noButtonColor)
+                                        .frame(width: 48, height: 48, alignment: .center)
+                                })
+                                
+                                
+                                Spacer()
+                                Spacer()
+                                Button(action: {
+                                    self.question.answer = true
+                                }, label: {
+                                    Image(systemName: "checkmark.circle")
+                                        .resizable()
+                                        .foregroundColor(yesButtonColor)
+                                        .frame(width: 48, height: 48, alignment: .center)
+                                })
+                                Spacer()
+                            } else if (self.question.type == "multiple"){
+                                Spacer()
+                                VStack {
+                                    ForEach(self.question.answers.sorted(by: ==), id: \.key) { key, value in
+                                        CheckboxField(id: key, label: key, callback: self.checkboxSelected, q: self.question)
+                                    }
+                                }
+                                
+                                Spacer()
+                            }
+                            
+                        }.frame(width: 325, height: 0, alignment: .bottomLeading)
+                    }
                 }
  
                 
@@ -186,26 +186,33 @@ struct CheckboxField: View {
     
     
     var body: some View {
-        Button(action:{
-            self.q.answers[id] = !(self.q.answers[id] ?? false)
-            self.callback(self.id, self.q.answers[id] ?? false)
-            print(self.q.answers[id])
-        }) {
-            HStack(alignment: .center, spacing: 10) {
-                Image(systemName: (self.q.answers[id]!) ? "checkmark.square" : "square")
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: self.size, height: self.size)
-                
-                Text(label)
-                    .font(.system(size: 20))
-                    .minimumScaleFactor(0.5)
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer()
-            }.foregroundColor(self.color)
+        HStack {
+            Button(action:{
+                self.q.answers[id] = !(self.q.answers[id] ?? false)
+                self.callback(self.id, self.q.answers[id] ?? false)
+                print(self.q.answers[id])
+            }) {
+                HStack(alignment: .center, spacing: 10) {
+                    Image(systemName: (self.q.answers[id]!) ? "checkmark.square" : "square")
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: self.size, height: self.size)
+                    
+                    /*Text(label)
+                        .font(.system(size: 20))
+                        .minimumScaleFactor(0.5)
+                        .fixedSize(horizontal: false, vertical: true)*/
+                    
+                }.foregroundColor(self.color)
+            }
+            .foregroundColor(Color.white)
+            Text(label)
+                .font(.system(size: 20))
+                .minimumScaleFactor(0.5)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer()
         }
-        .foregroundColor(Color.white)
     }
 }
 

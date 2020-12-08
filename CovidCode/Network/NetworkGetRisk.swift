@@ -42,7 +42,7 @@ class NetworkGetRisk {
                     handler(Int(responseJSON["risk"]! as! String)!)
             
                 } else {
-                    //handler(false, responseJSON["error"] as! String)
+                    handler(0)
                 }
                 
                 return
