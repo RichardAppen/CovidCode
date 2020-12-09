@@ -19,12 +19,14 @@ struct ContentView: View {
                 CovidLogo()
                 Spacer()
                 TextField("Username", text: $username)
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding()
                     .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
                     .frame(width: geometry.size.width / 1.1)
                     .disableAutocorrection(true)
+                
                 SecureField("Password", text: $password)
                     .padding()
                     .background(Color(red: 235/255, green: 235/255, blue: 235/255))
@@ -50,18 +52,35 @@ struct ContentView: View {
             }
             .padding()
             .onAppear {
+               
                 let defaults = UserDefaults.standard
                 if let currUsername = defaults.string(forKey: "currUsername") {
                     username = currUsername
                     if let currPassword = defaults.string(forKey: "currPassword") {
                         print(currUsername)
                         print(currPassword)
+                        resetDefaults()
+                        defaults.setValue(currUsername, forKey: "currUsername")
+                        defaults.setValue(currPassword, forKey: "currPassword")
                         NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
                         NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
                         NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                        NetworkGetRiskHistory.getRiskHistory(username: currUsername, password: currPassword, handler: getRiskHistoryHandler)
+
                     }
                 }
             }
+        }
+    }
+    
+    func getRiskHistoryHandler(risks: [String: String]) {
+        print(risks)
+        let defaults = UserDefaults.standard
+        for(key, value) in risks {
+            defaults.set("1", forKey: key)
+            print("RISK TEST")
+            print(key)
+            print(value)
         }
     }
     
@@ -127,10 +146,11 @@ struct LoginButton: View {
     
     var body: some View {
         Button(action: {
-            
+            resetDefaults()
             NetworkLogin.loginUser(username: username, password: password, handler: userloginHandler)
             NetworkGetRisk.getRisk(username: username, password: password, handler: getRiskHandler)
             NetworkGetFriends.getFriends(username: username, password: password, handler: getFriendsHandler)
+            NetworkGetRiskHistory.getRiskHistory(username: username, password: password, handler: getRiskHistoryHandler)
             
         }) {
             Text("Login")
@@ -154,6 +174,17 @@ struct LoginButton: View {
         let defaults = UserDefaults.standard
         defaults.setValue(risk, forKey: "risk")
         
+    }
+    func getRiskHistoryHandler(risks: [String: String]) {
+        print(risks)
+        let defaults = UserDefaults.standard
+        for(key, value) in risks {
+            defaults.set("1", forKey: key)
+            print("RISK TEST")
+            print(key)
+            print(value)
+            
+        }
     }
     
     func getFriendsHandler(friendsDict: [String: String]) {
@@ -195,5 +226,13 @@ struct LoginButton: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+func resetDefaults() {
+    let defaults = UserDefaults.standard
+    let dictionary = defaults.dictionaryRepresentation()
+    dictionary.keys.forEach { key in
+        defaults.removeObject(forKey: key)
     }
 }

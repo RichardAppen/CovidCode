@@ -27,6 +27,7 @@ struct NewFriendUI: View {
                         //.padding(.top, -60)
                         .frame(width: geometry.size.width / 1.1)
                         .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     Button(action: {
                         
                         let defaults = UserDefaults.standard

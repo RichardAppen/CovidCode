@@ -57,6 +57,7 @@ struct FriendListUI: View {
                         .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                         .cornerRadius(5.0)
                         .padding(.trailing)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 }.padding()
                 
                 ForEach(friendDictionary.sorted { $0.key < $1.key }.filter({
