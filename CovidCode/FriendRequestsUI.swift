@@ -63,6 +63,9 @@ struct FriendRequestsUI: View {
                         if let currUsername = defaults.string(forKey: "currUsername") {
                             if let currPassword = defaults.string(forKey: "currPassword") {
                                 NetworkAddFriend.addFriend(username: currUsername, password: currPassword, friend: key.lowercased(), handler: addFriendHandler)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                    NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                                }
                             }
                         }
                     }) {
@@ -75,7 +78,7 @@ struct FriendRequestsUI: View {
                         Alert(title: Text("Notice"), message: Text("The user and you are now friends!"), dismissButton: .default(Text("Confirm")))
                     }
                     
-                    RemoveFriendButton(type: "x", friend: key)
+                    DenyRequestButton(type: "x", friend: key, incFriendDictionary: $incFriendDictionary)
                     
                     
                 }
@@ -126,6 +129,70 @@ struct FriendRequestsUI: View {
         }
     }
 }
+
+
+struct DenyRequestButton: View {
+    
+    var type: String
+    var friend: String
+    @Binding var incFriendDictionary: [String: String]
+    @State var confirmAlert = true
+    @State var showingAlert = false
+    @State var errorMsg = ""
+    
+    var body: some View {
+        
+        Button(action: {
+            self.showingAlert = true
+            
+        }) {
+            if (type=="trashcan") {
+                Image(systemName: "trash.circle.fill").font(.system(size: 23, weight: .regular)).foregroundColor(.black)
+            } else if (type == "x") {
+                Image(systemName: "xmark.circle.fill").font(.system(size: 32, weight: .regular)).foregroundColor(.red)
+            }
+            
+        }
+        
+        .alert(isPresented: $showingAlert) {
+            if (confirmAlert) {
+                return Alert(title: Text("Important"), message: Text("Are you sure you would like to deny " + friend + " as a friend?"),  primaryButton: .destructive(Text("Remove")) {
+                    let defaults = UserDefaults.standard
+                    if let currUsername = defaults.string(forKey: "currUsername") {
+                        if let currPassword = defaults.string(forKey: "currPassword") {
+                            NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                            }
+                        }
+                    }
+                }, secondaryButton: .cancel())
+                
+            } else {
+                
+                return Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")) {
+                    confirmAlert = true
+                })
+                
+            }
+        }
+        
+        
+        
+        
+    }
+    func removeFriendHandler(res: Bool, error: String) -> () {
+        
+        errorMsg = error
+        confirmAlert = false
+        showingAlert = true
+        
+    }
+    func getIncomingFriendsHandler(friendsDict: [String: String]) {
+        incFriendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 > -1}
+    }
+}
+
 
 struct FriendRequestsUI_Previews: PreviewProvider {
     static var previews: some View {
