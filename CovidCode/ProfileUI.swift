@@ -235,7 +235,7 @@ struct Menu : View {
               Text(self.name)
                 Text(username).font(.subheadline)
               
-              Text(String(getFriendCount()) + " friends")
+              Text(String(friend_count) + " friends")
                   .font(.caption)
           }
           .padding(.top,25)

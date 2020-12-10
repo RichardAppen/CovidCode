@@ -32,6 +32,15 @@ struct HomescreenUI: View {
     @State var dark:Bool = false
     @State var showDetailMenu = false
     @State var fullname = ""
+    @State var completedSurveyToday = false
+    @State var getRiskHistoryLoading: Bool = false
+    @State var getRiskLoading: Bool = false
+    @State var getFriendsLoading: Bool = false
+    @State private var isAnimating = false
+    var foreverAnimation: Animation {
+            Animation.linear(duration: 2.0)
+                .repeatForever(autoreverses: false)
+    }
 
     var body: some View {
         ZStack {
@@ -61,7 +70,7 @@ struct HomescreenUI: View {
                 HStack {
                     gotToQRCodeButton(showDetail: showDetail).padding()
                 VStack {
-                if (getIfUserCompletedSurveyToday()) {
+                if (completedSurveyToday) {
                     Image(systemName: "checkmark.circle.fill").font(.system(size: 30, weight:   .regular)).foregroundColor(Color(red: 119/255, green: 221/255, blue: 119/255))
                     Text("Today's Survey Complete!").multilineTextAlignment(.center).padding().fixedSize(horizontal: false, vertical: true)
                 } else {
@@ -100,6 +109,7 @@ struct HomescreenUI: View {
             loadData()
             
             let defaults = UserDefaults.standard
+            
             if let first_name = defaults.string(forKey: "firstName") {
                 
                 firstName = first_name
@@ -109,30 +119,33 @@ struct HomescreenUI: View {
                 lastName = last_name
             }
             
-            if let risk = defaults.string(forKey: "risk") {
-                
-                covidRisk = Int(risk)!
-                
-            }
-            
-            if let risks = defaults.string(forKey: "highRiskFriendsCount") {
-                
-                highRiskFriendCount = Int(risks)!
-                defaults.setValue(risks, forKey: "recentHRFC")
-                
-            }
-            
-            if let risks = defaults.string(forKey: "highRiskFriendsCount") {
-                
-                if let last = defaults.string(forKey: "recentHRFC") {
-                    highRiskFriendCountInc = Int(risks)! - Int(last)!
+            if let currUsername = defaults.string(forKey: "currUsername") {
+                if let currPassword = defaults.string(forKey: "currPassword") {
+                    getRiskLoading = true
+                    getFriendsLoading = true
+                    getRiskHistoryLoading = true
+                    NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
+                    NetworkGetRiskHistory.getRiskHistory(username: currUsername, password: currPassword, handler: getRiskHistoryHandler)
+                    NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
                 }
+            }
+            
+        
+            
+            if let inc = defaults.string(forKey: "highRiskFriendsCountInc") {
+
+                highRiskFriendCountInc = Int(inc)!
+                
             }
                 
 
             
             
             fullname = firstName + " " + lastName
+            
+            /*if (getFriendsDone && getRiskDone && getRiskHistoryDone) {
+                loading = false
+            }*/
             
         }
         HStack{
@@ -143,10 +156,67 @@ struct HomescreenUI: View {
         }
         .background(Color.primary.opacity(self.showDetailMenu ? (self.dark ? 0.05 : 0.2) : 0).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
         }
+        .frame(height: (getRiskLoading || getRiskHistoryLoading || getFriendsLoading) ? 0 : nil)
+            if (getRiskLoading || getRiskHistoryLoading || getFriendsLoading) {
+                VStack {
+                Image(systemName: "burn")
+                                    .rotationEffect(Angle(degrees: self.isAnimating ? 360 : 0.0))
+                                    .animation(self.isAnimating ? foreverAnimation : .default)
+                                    .onAppear { self.isAnimating = true }
+                                    .onDisappear { self.isAnimating = false }
+                                    .font(.system(size: 23, weight: .regular))
+                Text("Loading...")
+                }
+                
+            }
         }
 
         
     }
+    
+    
+    func getRiskHandler(risk: Int) {
+        covidRisk = risk
+        
+        getRiskLoading = false
+    }
+    
+    func getRiskHistoryHandler(risks: [String: String]) {
+        print(risks)
+        let defaults = UserDefaults.standard
+        for(key, value) in risks {
+            defaults.set("1", forKey: key)
+            print("RISK TEST")
+            print(key)
+            print(value)
+            getIfUserCompletedSurveyToday()
+            
+        }
+        
+        getRiskHistoryLoading = false
+        
+    }
+    
+    func getFriendsHandler(friendsDict: [String: String]) {
+        let HRFC = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
+        print(HRFC)
+        let defaults = UserDefaults.standard
+        highRiskFriendCount = HRFC
+        if let last = defaults.string(forKey: "lastHRFC") {
+            let HRFCchange = abs(Int(last)! - highRiskFriendCount)
+            highRiskFriendCountInc = HRFCchange
+        }
+        defaults.setValue(HRFC, forKey: "lastHRFC")
+        
+        let LRFC = friendsDict.filter { key, value in return Int(value) ?? -1 == 1}.count
+        let MRFC = friendsDict.filter { key, value in return Int(value) ?? -1 == 2}.count
+        let NRFC = friendsDict.filter { key, value in return Int(value) ?? -1 == 0}.count
+        friendCount = HRFC + LRFC + MRFC + NRFC
+        
+        getFriendsLoading = false
+        
+    }
+
     /*
     private func getFriendCount() -> Int {
         let defaults = UserDefaults.standard
@@ -166,16 +236,16 @@ struct HomescreenUI: View {
     */
             
     
-    private func getIfUserCompletedSurveyToday() -> Bool {
+    private func getIfUserCompletedSurveyToday() {
         let currentYear = Calendar.current.component(.year, from: Date())
         let currentMonth = Calendar.current.component(.month, from: Date())
         let currentDay = Calendar.current.component(.day, from: Date())
         let actualDate = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
         let defaults = UserDefaults.standard
         if let surveyFilledStatus = defaults.string(forKey: actualDate) {
-            return true
+            completedSurveyToday = true
         } else {
-            return false
+            completedSurveyToday = false
         }
     }
     
@@ -600,3 +670,4 @@ struct CovidTrackingInfo: Codable  {
     
     
 }
+
