@@ -16,9 +16,28 @@ struct NewFriendUI: View {
     
     var body: some View {
         
-       NavigationView {
             GeometryReader { geometry in
                 VStack() {
+                    ZStack {
+                        HStack {
+                            Button(action: {
+                                let defaults = UserDefaults.standard
+                                if let currUsername = defaults.string(forKey: "currUsername") {
+                                    
+                                    let contentView = TabControllerUI(selectedTab: 3, username: currUsername)
+                                    if let window = UIApplication.shared.windows.first {
+                                        window.rootViewController = UIHostingController(rootView: contentView)
+                                        window.makeKeyAndVisible()
+                                    }
+                                }
+                            }) {
+                                Text("Back").padding()
+                            }
+                            Spacer()
+                        }
+                        
+                    }
+                    Divider()
                     TextField("Friend Name", text: $friendName)
                         .padding()
                         .background(Color(red: 235/255, green: 235/255, blue: 235/255))
@@ -61,16 +80,6 @@ struct NewFriendUI: View {
                 
             }
             
-       }
-       .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Add Friend").font(.headline)
-                    
-                }
-            }
-        }
         
        
     }

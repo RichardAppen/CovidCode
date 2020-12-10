@@ -30,7 +30,6 @@ struct FriendListUI: View {
     
     var body: some View {
        
-        NavigationView {
         ScrollView {
             
                 GeometryReader { geometry in
@@ -154,11 +153,11 @@ struct FriendListUI: View {
                        
             
         }
-        .navigationBarTitle("")
+        /*.navigationBarTitle("")
         .navigationBarHidden(true)
         }
         .navigationBarTitle("")
-        .navigationBarHidden(true)
+        .navigationBarHidden(true)*/
         
         
     }
@@ -296,16 +295,35 @@ struct TopFriendListView: View {
                     Image(systemName: "plus.circle").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                     
                 }*/
-                NavigationLink(destination: FriendRequestsUI()) {
-                    
+                Button(action: {
+                    let contentView = FriendRequestsUI()
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
+                }) {
                     if (incFriendRequests) {
                         Image(systemName: "envelope.badge.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                     } else {
                         Image(systemName: "envelope.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                     }
                 }
+                /*NavigationLink(destination: FriendRequestsUI()) {
+                    
+                    if (incFriendRequests) {
+                        Image(systemName: "envelope.badge.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    } else {
+                        Image(systemName: "envelope.fill").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                    }
+                }*/
                 Spacer()
-                NavigationLink(destination: NewFriendUI()) {
+                Button(action: {
+                    let contentView = NewFriendUI()
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
+                }) {
                     Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
                 }.onAppear(){
                     let defaults = UserDefaults.standard
@@ -320,6 +338,22 @@ struct TopFriendListView: View {
                     }
                     
                 }
+
+               /* NavigationLink(destination: NewFriendUI()) {
+                    Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 30, weight: .regular)).foregroundColor(Color.white)
+                }.onAppear(){
+                    let defaults = UserDefaults.standard
+                    if let currUsername = defaults.string(forKey: "currUsername") {
+                        if let currPassword = defaults.string(forKey: "currPassword") {
+                            print("IN FRIENDS LIST BEFORE GET FRIENDS CALL")
+                            print(currUsername)
+                            print(currPassword)
+                            NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                            
+                        }
+                    }
+                    
+                }*/
                 
                 
             }

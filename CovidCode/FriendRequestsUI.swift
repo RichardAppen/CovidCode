@@ -13,8 +13,27 @@ struct FriendRequestsUI: View {
     @State private var errorMsg: String = ""
     
     var body: some View {
-        NavigationView {
         VStack {
+            ZStack {
+                HStack {
+                    Button(action: {
+                        let defaults = UserDefaults.standard
+                        if let currUsername = defaults.string(forKey: "currUsername") {
+                            
+                            let contentView = TabControllerUI(selectedTab: 3, username: currUsername)
+                            if let window = UIApplication.shared.windows.first {
+                                window.rootViewController = UIHostingController(rootView: contentView)
+                                window.makeKeyAndVisible()
+                            }
+                        }
+                    }) {
+                        Text("Back").padding()
+                    }
+                    Spacer()
+                }
+                
+            }
+            Divider()
             HStack {
                 Spacer()
                 Text("New Requests")
@@ -24,8 +43,8 @@ struct FriendRequestsUI: View {
                     .background(Color(red: 119/255, green: 158/255, blue: 203/255))
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
-                    .padding(.top, -60)
-                    .disableAutocorrection(true)
+                    //.padding(.top, -60)
+                    //.disableAutocorrection(true)
                 Spacer()
             }
             
@@ -82,15 +101,7 @@ struct FriendRequestsUI: View {
         
         }
         
-    }.navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Incoming Requests").font(.headline)
-                    
-                }
-            }
-        }
+    
         
     }
     func getIncomingFriendsHandler(friendsDict: [String: String]) {

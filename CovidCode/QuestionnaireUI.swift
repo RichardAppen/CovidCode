@@ -71,10 +71,14 @@ struct QuestionnaireUI: View {
             ZStack {
                 HStack {
                     Button(action: {
-                        let contentView = parentTabController
-                        if let window = UIApplication.shared.windows.first {
-                            window.rootViewController = UIHostingController(rootView: contentView)
-                            window.makeKeyAndVisible()
+                        let defaults = UserDefaults.standard
+                        if let currUsername = defaults.string(forKey: "currUsername") {
+                            
+                            let contentView = TabControllerUI(selectedTab: 2, username: currUsername)
+                            if let window = UIApplication.shared.windows.first {
+                                window.rootViewController = UIHostingController(rootView: contentView)
+                                window.makeKeyAndVisible()
+                            }
                         }
                     }) {
                         Text("Back").padding()
@@ -211,10 +215,12 @@ struct SubmitQuestionnaireButton: View {
                 let defaults = UserDefaults.standard
                 var dateString = String(currentMonth) + "/" + String(currentDay) + "/" + String(currentYear)
                 defaults.set("1", forKey: dateString)
-                let contentView = parentTabController
-                if let window = UIApplication.shared.windows.first {
-                    window.rootViewController = UIHostingController(rootView: contentView)
-                    window.makeKeyAndVisible()
+                if let currUsername = defaults.string(forKey: "currUsername") {
+                let contentView = TabControllerUI(selectedTab: 2, username: currUsername)
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: contentView)
+                        window.makeKeyAndVisible()
+                    }
                 }
             }
         } else {
