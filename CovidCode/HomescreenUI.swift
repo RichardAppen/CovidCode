@@ -14,7 +14,7 @@ struct HomescreenUI: View {
     
     @State private var showDetail = false
     @State private var isShowingScanner = false
-    @State private var covidRisk = UserDefaults.standard.integer(forKey: "risk")
+    @State private var covidRisk = 0
     var parentTabController: TabControllerUI
     var username: String
     @State var results = [CovidTrackingInfo]()
@@ -26,8 +26,9 @@ struct HomescreenUI: View {
     @State var negativeIncrease = 0
     @State var firstName = ""
     @State var lastName = ""
-    @State var friendCount = UserDefaults.standard.integer(forKey: "friendsCount")
-    @State var highRiskFriendCount = UserDefaults.standard.integer(forKey: "highRiskFriendsCount")
+    @State var friendCount = 0
+    @State var highRiskFriendCount = 0
+    @State var highRiskFriendCountInc = 0
     @State var dark:Bool = false
     @State var showDetailMenu = false
     @State var fullname = ""
@@ -51,10 +52,10 @@ struct HomescreenUI: View {
             }
             TopWelcomeView(name: firstName, showDetailMenu: $showDetailMenu).padding().frame(width: UIScreen.main.bounds.width).background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
             VStack {
-                StatisticsButton(increaseNumber: highRiskFriendCount, title: "HIGH RISK FRIENDS", mainValue: highRiskFriendCount, subTitle: "In Your Friends List", isPlusGreen: false).padding()
+                StatisticsButton(increaseNumber: highRiskFriendCountInc, title: "HIGH RISK FRIENDS", mainValue: highRiskFriendCount, subTitle: "In Your Friends List", isPlusGreen: false).padding()
                 
                 //StatisticsButton(increaseNumber: 2, title: "PERCENT OF USER", mainValue: 70, subTitle: "That May Have Covid", isPlusGreen: false).padding()
-                QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk ?? 0, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
+                QRCodeWindow(showDetail: showDetail, covidRisk: $covidRisk, sizeSmall: UIScreen.main.bounds.width / 1.7, sizeLarge: UIScreen.main.bounds.width / 1.1, extra: true, username: username)
                 Divider().frame(height: 2).background(Color(UIColor.darkGray)).padding()
                 Spacer()
                 HStack {
@@ -97,15 +98,42 @@ struct HomescreenUI: View {
         .edgesIgnoringSafeArea(.top)
         .onAppear {
             loadData()
+            
             let defaults = UserDefaults.standard
             if let first_name = defaults.string(forKey: "firstName") {
+                
                 firstName = first_name
             }
             if let last_name = defaults.string(forKey: "lastName") {
+                
                 lastName = last_name
             }
             
+            if let risk = defaults.string(forKey: "risk") {
+                
+                covidRisk = Int(risk)!
+                
+            }
+            
+            if let risks = defaults.string(forKey: "highRiskFriendsCount") {
+                
+                highRiskFriendCount = Int(risks)!
+                defaults.setValue(risks, forKey: "recentHRFC")
+                
+            }
+            
+            if let risks = defaults.string(forKey: "highRiskFriendsCount") {
+                
+                if let last = defaults.string(forKey: "recentHRFC") {
+                    highRiskFriendCountInc = Int(risks)! - Int(last)!
+                }
+            }
+                
+
+            
+            
             fullname = firstName + " " + lastName
+            
         }
         HStack{
             Menu(dark: self.$dark, show: self.$showDetailMenu, name: self.$fullname, friend_count: friendCount, username: username)
@@ -136,6 +164,7 @@ struct HomescreenUI: View {
         friendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}
     }
     */
+            
     
     private func getIfUserCompletedSurveyToday() -> Bool {
         let currentYear = Calendar.current.component(.year, from: Date())
@@ -409,7 +438,7 @@ struct gotToQRCodeButton: View {
 
 struct QRCodeWindow: View {
     @State var showDetail : Bool
-    @State var covidRisk: Int
+    @Binding var covidRisk: Int
     var sizeSmall: CGFloat
     var sizeLarge: CGFloat
     var extra: Bool
