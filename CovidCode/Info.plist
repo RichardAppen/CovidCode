@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>wantAccurateLocation</key>
+		<string>Gimme accurate location</string>
+	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Description</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Description</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Description</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to camera to scan a QR Code</string>
 	<key>CFBundleDevelopmentRegion</key>

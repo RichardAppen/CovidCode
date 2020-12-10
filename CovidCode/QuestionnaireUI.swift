@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreLocation
 
 /*
  
@@ -118,6 +118,8 @@ struct SubmitQuestionnaireButton: View {
     @State var errorMsg: String = ""
     var parentTabController: TabControllerUI
     @State private var showingAlert = false
+    var locationManager = CLLocationManager()
+    
     var body: some View {
         Button(action: {
             var state: String
@@ -189,7 +191,23 @@ struct SubmitQuestionnaireButton: View {
                 } else {
                     nRisk = 3
                 }
-                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(nRisk), state: state, handler: newRiskHandler)
+                
+                //get location
+                locationManager.requestWhenInUseAuthorization()
+                var currentLoc: CLLocation!
+                var currentLat = "0.0"
+                var currentLong = "0.0"
+                if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+                   currentLoc = locationManager.location
+                   print(currentLoc.coordinate.latitude)
+                   currentLat = String(currentLoc.coordinate.latitude)
+                   print(currentLoc.coordinate.longitude)
+                   currentLong = String(currentLoc.coordinate.longitude)
+
+                }
+                
+                NetworkNewRisk.newRisk(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", risk: String(nRisk), state: state, latitude: currentLat, longitude: currentLong, handler: newRiskHandler)
                 
                 defaults.setValue(nRisk, forKey: "risk")
             }

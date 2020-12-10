@@ -12,14 +12,15 @@ import SwiftUI
 class NetworkNewRisk {
     typealias newRiskHandler = (Bool, String) -> ()
     
-    static func newRisk( username: String, password: String, risk: String, state: String, handler: @escaping newRiskHandler) {
+    static func newRisk( username: String, password: String, risk: String, state: String, latitude: String, longitude: String, handler: @escaping newRiskHandler) {
         print(risk)
+        
         let parameters = ["username": username,
                           "password": password,
                           "risk": risk,
                           "state": state,
                           "date": String(Calendar.current.component(.month, from: Date())) + "/" + String(Calendar.current.component(.day, from: Date())) + "/" + String(Calendar.current.component(.year, from: Date())),
-                          "location": "Location"]
+                          "location": latitude + "," + longitude]
         let url = URL(string: "https://52.32.17.11:8000/api/new_risk")!
         let session = URLSession(configuration: URLSessionConfiguration.default,
                                  delegate: NSURLSessionPinningDelegate(),
