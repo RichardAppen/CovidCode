@@ -13,6 +13,7 @@ class Heatmap: UIViewController {
 
   private var mapView: GMSMapView!
   private var heatmapLayer: GMUHeatmapTileLayer!
+  var locationManager = CLLocationManager()
 
     override func loadView() {
         let camera = GMSCameraPosition.camera(withLatitude: 32.770994, longitude: -117.015391, zoom: 6.0)
@@ -22,6 +23,15 @@ class Heatmap: UIViewController {
         heatmapLayer = GMUHeatmapTileLayer()
         addHeatmap()
         heatmapLayer.map = mapView
+        
+        locationManager.requestWhenInUseAuthorization()
+        var currentLoc: CLLocation!
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+        CLLocationManager.authorizationStatus() == .authorizedAlways) {
+           currentLoc = locationManager.location
+           print(currentLoc.coordinate.latitude)
+           print(currentLoc.coordinate.longitude)
+        }
     }
     
   override func viewDidLoad() {

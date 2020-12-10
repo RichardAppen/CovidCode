@@ -31,6 +31,7 @@
 		135100B9257D9A8100DB52DE /* Heatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B7257D9A8000DB52DE /* Heatmap.swift */; };
 		135100BA257D9A8100DB52DE /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B8257D9A8100DB52DE /* MapUI.swift */; };
 		135100BF257D9BE500DB52DE /* sampleRisks.json in Resources */ = {isa = PBXBuildFile; fileRef = 135100BE257D9BE400DB52DE /* sampleRisks.json */; };
+		13B55A322582D65F00BA3DE4 /* NetworkGetLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B55A312582D65F00BA3DE4 /* NetworkGetLocations.swift */; };
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */; };
 		5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */; };
@@ -94,6 +95,7 @@
 		135100B7257D9A8000DB52DE /* Heatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heatmap.swift; sourceTree = "<group>"; };
 		135100B8257D9A8100DB52DE /* MapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUI.swift; sourceTree = "<group>"; };
 		135100BE257D9BE400DB52DE /* sampleRisks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleRisks.json; sourceTree = "<group>"; };
+		13B55A312582D65F00BA3DE4 /* NetworkGetLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetLocations.swift; sourceTree = "<group>"; };
 		18BC94DFC9C8095EF81FBEE7 /* Pods-CovidCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.debug.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.debug.xcconfig"; sourceTree = "<group>"; };
 		56B753D33FB13642614FBB84 /* Pods-CovidCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.release.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.release.xcconfig"; sourceTree = "<group>"; };
 		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */,
 				5AA988A8257DA05600CC063C /* NetworkGetRisk.swift */,
 				5AFC334A25815D04006F4E1E /* NetworkGetRiskHistory.swift */,
+				13B55A312582D65F00BA3DE4 /* NetworkGetLocations.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */,
 				5AA988A9257DA05600CC063C /* NetworkGetRisk.swift in Sources */,
 				0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */,
+				13B55A322582D65F00BA3DE4 /* NetworkGetLocations.swift in Sources */,
 				5AAE40A9256C3CB100FD7C53 /* VisualEffectBlur.swift in Sources */,
 				5AF6BC03256C39CB00E635F0 /* QuestionnaireUI.swift in Sources */,
 				5AFB669D256EF5FC00FAF965 /* RegisterUI.swift in Sources */,
