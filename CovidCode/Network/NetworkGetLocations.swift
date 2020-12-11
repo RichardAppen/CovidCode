@@ -9,9 +9,9 @@ import Foundation
 
 
 class NetworkGetLocations {
-    typealias getFriendsHandler = ([String: String]) -> ()
+    typealias getLocationsHandler = ([String: String]) -> ()
     
-    static func getFriends(username: String, password: String, handler: @escaping getFriendsHandler) {
+    static func getLocations(username: String, password: String, handler: @escaping getLocationsHandler) {
         let parameters = ["username": username,
                           "password": password]
         let url = URL(string: "https://52.32.17.11:8000/api/get_all_risks")!
@@ -33,6 +33,7 @@ class NetworkGetLocations {
             }
 
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            print("LOCATIONS")
             print (responseJSON)
             if let responseJSON = responseJSON as? [String: [String: String]] {
                 // API - One of these two results based on input from user
@@ -45,8 +46,8 @@ class NetworkGetLocations {
                 print("---------============#########============------------")
                 print (responseJSON)
                 //handler(responseJSON)
-                if (responseJSON["friends"] != nil) {
-                    handler(responseJSON["friends"]!)
+                if (responseJSON["risks"] != nil) {
+                    handler(responseJSON["riskss"]!)
                 } else {
                     handler([:])
                 }
