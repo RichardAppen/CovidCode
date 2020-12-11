@@ -137,7 +137,7 @@ struct HomescreenUI: View {
             
         
             
-            if let inc = defaults.string(forKey: "highRiskFriendsCountInc") {
+            if let inc = defaults.string(forKey: "lastHRFC") {
 
                 highRiskFriendCountInc = Int(inc)!
                 
@@ -170,7 +170,7 @@ struct HomescreenUI: View {
                                     .onAppear { self.isAnimating = true }
                                     .onDisappear { self.isAnimating = false }
                                     .font(.system(size: 23, weight: .regular))
-                Text("Loading...")
+                    Text("Loading...").padding(.top)
                 }
                 
             }

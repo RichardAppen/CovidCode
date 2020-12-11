@@ -25,6 +25,12 @@ struct FriendListUI: View {
     @State var confirmAlert = true
     @State var showingAlert = false
     @State var errorMsg = ""
+    @State var loading = false
+    @State private var isAnimating = false
+    var foreverAnimation: Animation {
+            Animation.linear(duration: 2.0)
+                .repeatForever(autoreverses: false)
+    }
     
     
     
@@ -59,6 +65,19 @@ struct FriendListUI: View {
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 }.padding()
                 
+                if (loading) {
+                        VStack {
+                        Image(systemName: "burn")
+                            .rotationEffect(Angle(degrees: self.isAnimating ? 360 : 0.0))
+                            .animation(self.isAnimating ? foreverAnimation : .default)
+                            .onAppear { self.isAnimating = true }
+                            .onDisappear { self.isAnimating = false }
+                            .font(.system(size: 23, weight: .regular))
+                            Text("Loading...").padding(.top)
+                        }
+                            
+                        
+                } else {
                 ForEach(friendDictionary.sorted { $0.key < $1.key }.filter({
                     if (searchName == "") {
                         return true
@@ -127,6 +146,8 @@ struct FriendListUI: View {
                     }.padding()
                    
                 }
+                }
+                
                 
             }.onAppear {
                 let defaults = UserDefaults.standard
@@ -135,6 +156,7 @@ struct FriendListUI: View {
                         print("IN FRIENDS LIST BEFORE GET FRIENDS CALL")
                         print(currUsername)
                         print(currPassword)
+                        loading = true
                         NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
                         
                     }
@@ -155,6 +177,7 @@ struct FriendListUI: View {
     
     func getFriendsHandler(friendsDict: [String: String]) {
         friendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 > -1}
+        loading = false
     }
     
     func removeFriendHandler(res: Bool, error: String) -> () {

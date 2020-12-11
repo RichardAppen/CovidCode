@@ -200,10 +200,10 @@ struct SubmitQuestionnaireButton: View {
                 if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
                    currentLoc = locationManager.location
-                   print(currentLoc.coordinate.latitude)
-                   currentLat = String(currentLoc.coordinate.latitude)
-                   print(currentLoc.coordinate.longitude)
-                   currentLong = String(currentLoc.coordinate.longitude)
+                    if (currentLoc != nil) {
+                        currentLat = String(currentLoc.coordinate.latitude)
+                        currentLong = String(currentLoc.coordinate.longitude)
+                    }
 
                 }
                 
