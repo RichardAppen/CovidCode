@@ -35,22 +35,11 @@ class NetworkGetLocations {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             print("LOCATIONS")
             print (responseJSON)
-            if let responseJSON = responseJSON as? [String: [String: String]] {
-                // API - One of these two results based on input from user
-                //  {"error": username/password/friend} -- Malformed json input
-                //  {"error": Username or password do not exist}
-                //  {"status": Friend already added}
-                //  {"error": Friend does not exist in system}
-                //  {"status": deleted}
-                //  {"status": no change} -- If this person is not a shared friend
+            if let responseJSON = responseJSON as? [String: String] {
                 print("---------============#########============------------")
                 print (responseJSON)
                 //handler(responseJSON)
-                if (responseJSON["risks"] != nil) {
-                    handler(responseJSON["riskss"]!)
-                } else {
-                    handler([:])
-                }
+                handler(responseJSON)
                 
                 return
             }

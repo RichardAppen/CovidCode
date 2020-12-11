@@ -8,12 +8,13 @@
 import UIKit
 import GoogleMaps
 import GoogleMapsUtils
+import SwiftUI
 
 class Heatmap: UIViewController {
 
-  private var mapView: GMSMapView!
-  private var heatmapLayer: GMUHeatmapTileLayer!
-
+  var mapView: GMSMapView!
+  var heatmapLayer: GMUHeatmapTileLayer!
+    
     override func loadView() {
         let camera = GMSCameraPosition.camera(withLatitude: 32.770994, longitude: -117.015391, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
@@ -31,16 +32,13 @@ class Heatmap: UIViewController {
   }
     
     func getLocations() {
-        //replace with network function
-        var json = [
-            "1,1" : "1",
-            "32.877868,-117.246479" : "3",
-            "3,3" : "2",
-            "4,4" : "3",
-        ]
-        
+        NetworkGetLocations.getLocations(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", handler: getLocationsHandler)
+    }
+    
+    func getLocationsHandler(locationdict: [String:String]) -> () {
         var locations : [[String: Any]] = []
-        for (key, value) in json {
+        for (key, value) in locationdict {
+            print("key: " + key + " value: " + value)
             if value == "3" {
                 let coords = key.components(separatedBy: ",")
                 locations.append(["lat":Double(coords[0]), "lng":Double(coords[1])])
@@ -60,6 +58,7 @@ class Heatmap: UIViewController {
         
         // Add the latlngs to the heatmap layer.
         heatmapLayer.weightedData = list
+        heatmapLayer.clearTileCache()
     }
 
   func addHeatmap() {

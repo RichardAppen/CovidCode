@@ -193,7 +193,7 @@ struct SubmitQuestionnaireButton: View {
                 }
                 
                 //get location
-                locationManager.requestWhenInUseAuthorization()
+                //locationManager.requestWhenInUseAuthorization()
                 var currentLoc: CLLocation!
                 var currentLat = "0.0"
                 var currentLong = "0.0"
@@ -203,6 +203,8 @@ struct SubmitQuestionnaireButton: View {
                     if (currentLoc != nil) {
                         currentLat = String(currentLoc.coordinate.latitude)
                         currentLong = String(currentLoc.coordinate.longitude)
+                        print(currentLat)
+                        print(currentLong)
                     }
 
                 }
