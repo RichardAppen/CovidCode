@@ -62,10 +62,10 @@ struct ContentView: View {
                         resetDefaults()
                         defaults.setValue(currUsername, forKey: "currUsername")
                         defaults.setValue(currPassword, forKey: "currPassword")
+                        //NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
+                        //NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                        //NetworkGetRiskHistory.getRiskHistory(username: currUsername, password: currPassword, handler: getRiskHistoryHandler)
                         NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
-                        NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
-                        NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
-                        NetworkGetRiskHistory.getRiskHistory(username: currUsername, password: currPassword, handler: getRiskHistoryHandler)
 
                     }
                 }
@@ -73,16 +73,18 @@ struct ContentView: View {
         }
     }
     
-    func getRiskHistoryHandler(risks: [String: String]) {
-        print(risks)
-        let defaults = UserDefaults.standard
-        for(key, value) in risks {
-            defaults.set("1", forKey: key)
-            print("RISK TEST")
-            print(key)
-            print(value)
+    /*func getRiskHistoryHandler(risks: [String: String]) {
+        DispatchQueue.main.async {
+            print(risks)
+            let defaults = UserDefaults.standard
+            for(key, value) in risks {
+                defaults.set("1", forKey: key)
+                print("RISK TEST")
+                print(key)
+                print(value)
+            }
         }
-    }
+    }*/
     
     func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
@@ -106,17 +108,28 @@ struct ContentView: View {
         }
         
     }
-    func getRiskHandler(risk: Int) {
-        let defaults = UserDefaults.standard
-        defaults.setValue(risk, forKey: "risk")
+    /*func getRiskHandler(risk: Int) {
+        DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            defaults.setValue(risk, forKey: "risk")
+        }
         
-    }
-    func getFriendsHandler(friendsDict: [String: String]) {
-        let defaults = UserDefaults.standard
-        var highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
-        defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
-        defaults.setValue(friendsDict.count, forKey: "friendsCount")
-    }
+    }*/
+    /*func getFriendsHandler(friendsDict: [String: String]) {
+        DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            let highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
+            print(highRiskFriendsCount)
+            defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
+            if let last = defaults.string(forKey: "lastHRFC") {
+                let HRFCchange = Int(last)! - highRiskFriendsCount
+                defaults.setValue(HRFCchange, forKey: "highRiskFriendsCountInc")
+            }
+            defaults.setValue(highRiskFriendsCount, forKey: "lastHRFC")
+            defaults.setValue(friendsDict.count, forKey: "friendsCount")
+        }
+        
+    }*/
 }
 
 struct CovidLogo: View {
@@ -147,10 +160,10 @@ struct LoginButton: View {
     var body: some View {
         Button(action: {
             resetDefaults()
+            //NetworkGetRisk.getRisk(username: username, password: password, handler: getRiskHandler)
+            //NetworkGetFriends.getFriends(username: username, password: password, handler: getFriendsHandler)
+            //NetworkGetRiskHistory.getRiskHistory(username: username, password: password, handler: getRiskHistoryHandler)
             NetworkLogin.loginUser(username: username, password: password, handler: userloginHandler)
-            NetworkGetRisk.getRisk(username: username, password: password, handler: getRiskHandler)
-            NetworkGetFriends.getFriends(username: username, password: password, handler: getFriendsHandler)
-            NetworkGetRiskHistory.getRiskHistory(username: username, password: password, handler: getRiskHistoryHandler)
             
         }) {
             Text("Login")
@@ -170,29 +183,42 @@ struct LoginButton: View {
     }
     
     
-    func getRiskHandler(risk: Int) {
-        let defaults = UserDefaults.standard
-        defaults.setValue(risk, forKey: "risk")
-        
-    }
-    func getRiskHistoryHandler(risks: [String: String]) {
-        print(risks)
-        let defaults = UserDefaults.standard
-        for(key, value) in risks {
-            defaults.set("1", forKey: key)
-            print("RISK TEST")
-            print(key)
-            print(value)
-            
+    /*func getRiskHandler(risk: Int) {
+        DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            defaults.setValue(risk, forKey: "risk")
         }
-    }
+        
+    }*/
+    /*func getRiskHistoryHandler(risks: [String: String]) {
+        DispatchQueue.main.async {
+            print(risks)
+            let defaults = UserDefaults.standard
+            for(key, value) in risks {
+                defaults.set("1", forKey: key)
+                print("RISK TEST")
+                print(key)
+                print(value)
+            
+            }
+        }
+    }*/
     
-    func getFriendsHandler(friendsDict: [String: String]) {
-        let defaults = UserDefaults.standard
-        var highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
-        defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
-        defaults.setValue(friendsDict.count, forKey: "friendsCount")
-    }
+    /*func getFriendsHandler(friendsDict: [String: String]) {
+        DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            let highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
+            print("$#%#$%$#^#$^$#$$^TESTING --- ")
+            print(highRiskFriendsCount)
+            defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
+            if let last = defaults.string(forKey: "lastHRFC") {
+                let HRFCchange = Int(last)! - highRiskFriendsCount
+                defaults.setValue(HRFCchange, forKey: "highRiskFriendsCountInc")
+            }
+            defaults.setValue(highRiskFriendsCount, forKey: "lastHRFC")
+            defaults.setValue(friendsDict.count, forKey: "friendsCount")
+        }
+    }*/
     func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
         if (res) {

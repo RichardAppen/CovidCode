@@ -96,7 +96,7 @@ struct ProfileUI : View {
                 Spacer()
             }
             
-            QRCodeWindow(showDetail: showDetail, covidRisk: covidRisk, sizeSmall: UIScreen.main.bounds.width / 3.4, sizeLarge: UIScreen.main.bounds.width / 1.8, extra: false, username: "").padding()
+            QRCodeWindow(showDetail: showDetail, covidRisk: $covidRisk, sizeSmall: UIScreen.main.bounds.width / 3.4, sizeLarge: UIScreen.main.bounds.width / 1.8, extra: false, username: "").padding()
             
           
           VStack(spacing: 0) {
@@ -235,7 +235,7 @@ struct Menu : View {
               Text(self.name)
                 Text(username).font(.subheadline)
               
-              Text(String(self.friend_count) + " friends")
+              Text(String(friend_count) + " friends")
                   .font(.caption)
           }
           .padding(.top,25)
@@ -299,6 +299,15 @@ struct Menu : View {
       .overlay(Rectangle().stroke(Color.primary.opacity(0.2),lineWidth: 2).shadow(radius: 3).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
     }
   }
+    
+    private func getFriendCount() -> Int {
+        let defaults = UserDefaults.standard
+        if let count = defaults.string(forKey: "friendsCount") {
+            return Int(count)!
+        }
+        return 0
+    }
+
 }
 
 
