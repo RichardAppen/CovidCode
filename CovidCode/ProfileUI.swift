@@ -241,6 +241,7 @@ struct Menu : View {
           .padding(.top,25)
           
 
+        /*
           Group {
               Button(action: {
                   
@@ -269,7 +270,7 @@ struct Menu : View {
                   Spacer()
               }
           }
-          .padding(.top, 25)
+          .padding(.top, 25) */
           
           Spacer()
         

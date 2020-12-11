@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 import CodeScanner
+import CoreLocation
 
 struct HomescreenUI: View {
     
@@ -41,6 +42,7 @@ struct HomescreenUI: View {
             Animation.linear(duration: 2.0)
                 .repeatForever(autoreverses: false)
     }
+    var locationManager = CLLocationManager()
 
     var body: some View {
         ZStack {
@@ -106,6 +108,9 @@ struct HomescreenUI: View {
         }//.background(Color(red: 119/255, green: 158/255, blue: 203/255))
         .edgesIgnoringSafeArea(.top)
         .onAppear {
+            //ask for location permission
+            locationManager.requestWhenInUseAuthorization()
+            
             loadData()
             
             let defaults = UserDefaults.standard
