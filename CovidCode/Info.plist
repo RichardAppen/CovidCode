@@ -2,19 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
-	<dict>
-		<key>wantAccurateLocation</key>
-		<string>Gimme accurate location</string>
-	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Description</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Description</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Description</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow access to camera to scan a QR Code</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -33,6 +20,19 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to camera to scan a QR Code</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Description</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Description</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>wantAccurateLocation</key>
+		<string>Gimme accurate location</string>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Description</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -49,8 +49,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
