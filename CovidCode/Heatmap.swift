@@ -13,7 +13,6 @@ class Heatmap: UIViewController {
 
   private var mapView: GMSMapView!
   private var heatmapLayer: GMUHeatmapTileLayer!
-  var locationManager = CLLocationManager()
 
     override func loadView() {
         let camera = GMSCameraPosition.camera(withLatitude: 32.770994, longitude: -117.015391, zoom: 6.0)
@@ -21,23 +20,47 @@ class Heatmap: UIViewController {
         view = mapView
         
         heatmapLayer = GMUHeatmapTileLayer()
-        addHeatmap()
+        getLocations()
+        //addHeatmap()
         heatmapLayer.map = mapView
-        
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-        CLLocationManager.authorizationStatus() == .authorizedAlways) {
-           currentLoc = locationManager.location
-           print(currentLoc.coordinate.latitude)
-           print(currentLoc.coordinate.longitude)
-        }
     }
     
   override func viewDidLoad() {
     super.viewDidLoad()
 
   }
+    
+    func getLocations() {
+        //replace with network function
+        var json = [
+            "1,1" : "1",
+            "32.877868,-117.246479" : "3",
+            "3,3" : "2",
+            "4,4" : "3",
+        ]
+        
+        var locations : [[String: Any]] = []
+        for (key, value) in json {
+            if value == "3" {
+                let coords = key.components(separatedBy: ",")
+                locations.append(["lat":Double(coords[0]), "lng":Double(coords[1])])
+            }
+        }
+                
+        var list = [GMUWeightedLatLng]()
+        for item in locations {
+          let lat = item["lat"] as! CLLocationDegrees
+          let lng = item["lng"] as! CLLocationDegrees
+          let coords = GMUWeightedLatLng(
+            coordinate: CLLocationCoordinate2DMake(lat, lng),
+            intensity: 1.0
+          )
+          list.append(coords)
+        }
+        
+        // Add the latlngs to the heatmap layer.
+        heatmapLayer.weightedData = list
+    }
 
   func addHeatmap() {
 
