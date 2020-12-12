@@ -71,10 +71,8 @@ struct QuestionCardView: View {
     func checkboxSelected(id: String, res: Bool) {
         if (res) {
             //self.question.answers[id] = true
-            print(self.question.answers)
         } else {
             //self.question.answers[id] = false
-            print(self.question.answers)
         }
     }
     
@@ -190,7 +188,6 @@ struct CheckboxField: View {
             Button(action:{
                 self.q.answers[id] = !(self.q.answers[id] ?? false)
                 self.callback(self.id, self.q.answers[id] ?? false)
-                print(self.q.answers[id])
             }) {
                 HStack(alignment: .center, spacing: 10) {
                     Image(systemName: (self.q.answers[id]!) ? "checkmark.square" : "square")
@@ -220,14 +217,13 @@ struct CheckboxField: View {
 
 /*
  
+ The Questionnaire:
+ 
  Are you experiencing any of the following symptoms? Cough, Headache, Fatigue, Breathing Issues, Soreness
  Do you have a fever? No, Yes a low fever between 37.2°C and 38.5°C, Yes a high fever over 38.5°C
  Have you participated in any of the following recently? Attended a mass gathering such as a party or wedding, travelled by plane, train, bus, or other public transport, None of these
  Have you come in close contact with anyone diagnosed with Covid-19 today?
  Do you continue to practice protective measures such as using a mask to cover your nose and mouth, follow social distancing, and washing your hands with soap and water? Yes or No
- 
- 
- 
  
  */
 

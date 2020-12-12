@@ -4,6 +4,8 @@
 //
 //  Created by Richard Appen on 11/21/20.
 //
+//  Special page to deal with adding a new friend
+//
 
 import Foundation
 import SwiftUI
@@ -18,12 +20,15 @@ struct NewFriendUI: View {
         
             GeometryReader { geometry in
                 VStack() {
+                    // HEADER
                     ZStack {
                         HStack {
+                            // Back Button
                             Button(action: {
                                 let defaults = UserDefaults.standard
                                 if let currUsername = defaults.string(forKey: "currUsername") {
                                     
+                                    // Goes back to friend list
                                     let contentView = TabControllerUI(selectedTab: 3, username: currUsername)
                                     if let window = UIApplication.shared.windows.first {
                                         window.rootViewController = UIHostingController(rootView: contentView)
@@ -37,6 +42,7 @@ struct NewFriendUI: View {
                         }
                         
                     }
+                    // END HEADER
                     Divider()
                     TextField("Friend Name", text: $friendName)
                         .padding()
@@ -51,6 +57,7 @@ struct NewFriendUI: View {
                         
                         let defaults = UserDefaults.standard
                         
+                        // Check if the user is adding themselves
                         if (friendName.caseInsensitiveCompare(defaults.string(forKey: "currUsername") ?? "unknown") == .orderedSame) {
                             errorMsg = "You can not add yourself as a friend!"
                             showingAlert = true
@@ -58,6 +65,7 @@ struct NewFriendUI: View {
                         }
                         if let currUsername = defaults.string(forKey: "currUsername") {
                             if let currPassword = defaults.string(forKey: "currPassword") {
+                                // Network function to add a friend
                                 NetworkAddFriend.addFriend(username: currUsername, password: currPassword, friend: friendName.lowercased(), handler: addFriendHandler)
                             }
                         }
@@ -72,19 +80,12 @@ struct NewFriendUI: View {
                     .alert(isPresented: $showingAlert) {
                         Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
                     }
-                    
-                    
-                 
                 }
                 .frame(maxWidth: UIScreen.main.bounds.width)
-                
             }
-            
-        
-       
     }
         
-    
+    // HANDLER : for the network function of adding a new friend
     func addFriendHandler(status: Bool, res: String ) {
         if (status) {
             if (res == "True") {

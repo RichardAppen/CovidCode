@@ -7,15 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		013674B6256ECB3900566821 /* QRCodeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013674B5256ECB3900566821 /* QRCodeUI.swift */; };
 		0145723D2556079500809A7F /* cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 0145723C2556079500809A7F /* cert.der */; };
 		0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73725696A0C00946F26 /* NetworkLogin.swift */; };
 		0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B73C25696A9000946F26 /* NetworkManager.swift */; };
 		0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B74725696EA800946F26 /* CovidCodeApp.swift */; };
 		0175B7502569EE2400946F26 /* FriendListUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B74F2569EE2400946F26 /* FriendListUI.swift */; };
 		0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175B7542569F08000946F26 /* NewFriendUI.swift */; };
-		017F1A3525702BAD00C82321 /* ProfileUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3425702BAD00C82321 /* ProfileUI.swift */; };
-		017F1A3A25702BED00C82321 /* EditProfileUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3925702BED00C82321 /* EditProfileUI.swift */; };
 		017F1A3F25706AA800C82321 /* NetworkGetFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */; };
 		0184F7272553B56A008655E6 /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7262553B56A008655E6 /* LoginUI.swift */; };
 		0184F7292553B56D008655E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0184F7282553B56D008655E6 /* Assets.xcassets */; };
@@ -23,7 +20,6 @@
 		0184F7372553B56D008655E6 /* CovidCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7362553B56D008655E6 /* CovidCodeTests.swift */; };
 		0184F7422553B56E008655E6 /* CovidCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7412553B56E008655E6 /* CovidCodeUITests.swift */; };
 		0184F7542553C1ED008655E6 /* HomescreenUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7532553C1ED008655E6 /* HomescreenUI.swift */; };
-		0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */; };
 		019F686B25683C3E000E2CC5 /* TabControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F686A25683C3E000E2CC5 /* TabControllerUI.swift */; };
 		019F688C256852F3000E2CC5 /* CalendarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F688B256852F3000E2CC5 /* CalendarUI.swift */; };
 		019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */; };
@@ -66,15 +62,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		013674B5256ECB3900566821 /* QRCodeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUI.swift; sourceTree = "<group>"; };
 		0145723C2556079500809A7F /* cert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.der; sourceTree = "<group>"; };
 		0175B73725696A0C00946F26 /* NetworkLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogin.swift; sourceTree = "<group>"; };
 		0175B73C25696A9000946F26 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0175B74725696EA800946F26 /* CovidCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidCodeApp.swift; sourceTree = "<group>"; };
 		0175B74F2569EE2400946F26 /* FriendListUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListUI.swift; sourceTree = "<group>"; };
 		0175B7542569F08000946F26 /* NewFriendUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFriendUI.swift; sourceTree = "<group>"; };
-		017F1A3425702BAD00C82321 /* ProfileUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUI.swift; sourceTree = "<group>"; };
-		017F1A3925702BED00C82321 /* EditProfileUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUI.swift; sourceTree = "<group>"; };
 		017F1A3E25706AA800C82321 /* NetworkGetFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetFriends.swift; sourceTree = "<group>"; };
 		0184F7212553B56A008655E6 /* CovidCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0184F7262553B56A008655E6 /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
@@ -88,7 +81,6 @@
 		0184F7412553B56E008655E6 /* CovidCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidCodeUITests.swift; sourceTree = "<group>"; };
 		0184F7432553B56E008655E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0184F7532553C1ED008655E6 /* HomescreenUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomescreenUI.swift; sourceTree = "<group>"; };
-		0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDiagnosisUI.swift; sourceTree = "<group>"; };
 		019F686A25683C3E000E2CC5 /* TabControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControllerUI.swift; sourceTree = "<group>"; };
 		019F688B256852F3000E2CC5 /* CalendarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUI.swift; sourceTree = "<group>"; };
 		019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateInfoBoxUI.swift; sourceTree = "<group>"; };
@@ -103,8 +95,8 @@
 		5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsUI.swift; sourceTree = "<group>"; };
 		5AA988A8257DA05600CC063C /* NetworkGetRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetRisk.swift; sourceTree = "<group>"; };
 		5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
-		5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionCardUI.swift; path = CovidCode/QuestionCardUI.swift; sourceTree = SOURCE_ROOT; };
-		5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireUI.swift; path = CovidCode/QuestionnaireUI.swift; sourceTree = SOURCE_ROOT; };
+		5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionCardUI.swift; path = CovidCode/src/Scene/QuestionCardUI.swift; sourceTree = SOURCE_ROOT; };
+		5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireUI.swift; path = CovidCode/src/Scene/QuestionnaireUI.swift; sourceTree = SOURCE_ROOT; };
 		5AFB669C256EF5FC00FAF965 /* RegisterUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUI.swift; sourceTree = "<group>"; };
 		5AFC334A25815D04006F4E1E /* NetworkGetRiskHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetRiskHistory.swift; sourceTree = "<group>"; };
 		AA1E2DF5256B00FA0039316C /* NetworkAddFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAddFriend.swift; sourceTree = "<group>"; };
@@ -185,31 +177,11 @@
 		0184F7232553B56A008655E6 /* CovidCode */ = {
 			isa = PBXGroup;
 			children = (
+				01A39A092585012B002C88F7 /* src */,
 				0145723C2556079500809A7F /* cert.der */,
-				0145720C2556003100809A7F /* Network */,
-				0184F7262553B56A008655E6 /* LoginUI.swift */,
-				135100B7257D9A8000DB52DE /* Heatmap.swift */,
-				135100B8257D9A8100DB52DE /* MapUI.swift */,
-				019F686A25683C3E000E2CC5 /* TabControllerUI.swift */,
-				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
-				017F1A3425702BAD00C82321 /* ProfileUI.swift */,
-				017F1A3925702BED00C82321 /* EditProfileUI.swift */,
-				013674B5256ECB3900566821 /* QRCodeUI.swift */,
-				019F688B256852F3000E2CC5 /* CalendarUI.swift */,
-				0184F7882553C71E008655E6 /* CovidDiagnosisUI.swift */,
-				019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */,
 				0184F7282553B56D008655E6 /* Assets.xcassets */,
-				5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */,
-				5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */,
 				0184F72D2553B56D008655E6 /* Info.plist */,
 				0184F72A2553B56D008655E6 /* Preview Content */,
-				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
-				13B55A4E258434F500BA3DE4 /* sampleRisks.json */,
-				0175B74F2569EE2400946F26 /* FriendListUI.swift */,
-				0175B7542569F08000946F26 /* NewFriendUI.swift */,
-				5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */,
-				5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */,
-				5AFB669C256EF5FC00FAF965 /* RegisterUI.swift */,
 			);
 			path = CovidCode;
 			sourceTree = "<group>";
@@ -238,6 +210,38 @@
 				0184F7432553B56E008655E6 /* Info.plist */,
 			);
 			path = CovidCodeUITests;
+			sourceTree = "<group>";
+		};
+		01A39A092585012B002C88F7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				01A39A0A2585013D002C88F7 /* Scene */,
+				0145720C2556003100809A7F /* Network */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		01A39A0A2585013D002C88F7 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				5AFB669C256EF5FC00FAF965 /* RegisterUI.swift */,
+				0184F7262553B56A008655E6 /* LoginUI.swift */,
+				0175B74725696EA800946F26 /* CovidCodeApp.swift */,
+				019F686A25683C3E000E2CC5 /* TabControllerUI.swift */,
+				0184F7532553C1ED008655E6 /* HomescreenUI.swift */,
+				135100B8257D9A8100DB52DE /* MapUI.swift */,
+				135100B7257D9A8000DB52DE /* Heatmap.swift */,
+				019F688B256852F3000E2CC5 /* CalendarUI.swift */,
+				13B55A4E258434F500BA3DE4 /* sampleRisks.json */,
+				019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */,
+				5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */,
+				5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */,
+				0175B74F2569EE2400946F26 /* FriendListUI.swift */,
+				0175B7542569F08000946F26 /* NewFriendUI.swift */,
+				5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */,
+				5AAE40A8256C3CB100FD7C53 /* VisualEffectBlur.swift */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		777A4745A1C56801FBA5159D /* Pods */ = {
@@ -441,12 +445,9 @@
 				0175B73D25696A9000946F26 /* NetworkManager.swift in Sources */,
 				0175B7502569EE2400946F26 /* FriendListUI.swift in Sources */,
 				0184F7272553B56A008655E6 /* LoginUI.swift in Sources */,
-				013674B6256ECB3900566821 /* QRCodeUI.swift in Sources */,
-				0184F7892553C71E008655E6 /* CovidDiagnosisUI.swift in Sources */,
 				AA1E2DF6256B00FA0039316C /* NetworkAddFriend.swift in Sources */,
 				AA1E2E08256B04A90039316C /* NetworkRemoveUser.swift in Sources */,
 				AA1E2E03256B03A50039316C /* NetworkAddUser.swift in Sources */,
-				017F1A3525702BAD00C82321 /* ProfileUI.swift in Sources */,
 				5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */,
 				135100BA257D9A8100DB52DE /* MapUI.swift in Sources */,
 				0175B7552569F08000946F26 /* NewFriendUI.swift in Sources */,
@@ -455,7 +456,6 @@
 				0175B74825696EA800946F26 /* CovidCodeApp.swift in Sources */,
 				5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */,
 				019F68912568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift in Sources */,
-				017F1A3A25702BED00C82321 /* EditProfileUI.swift in Sources */,
 				AA1E2DFB256B02C60039316C /* NetworkRemoveFriend.swift in Sources */,
 				017F1A3F25706AA800C82321 /* NetworkGetFriends.swift in Sources */,
 				0175B73825696A0C00946F26 /* NetworkLogin.swift in Sources */,

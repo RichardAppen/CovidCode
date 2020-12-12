@@ -21,9 +21,13 @@ struct RegisterUI: View {
     
     var body: some View {
         VStack {
+            // HEADER
             ZStack {
+                // Back button
                 HStack {
                     Button(action: {
+                        
+                        // Goes back to login page
                         let contentView = ContentView()
                         if let window = UIApplication.shared.windows.first {
                             window.rootViewController = UIHostingController(rootView: contentView)
@@ -36,76 +40,65 @@ struct RegisterUI: View {
                 }
                 Spacer()
             }
+            // END HEADER
             Divider()
             Spacer()
             VStack {
-            
-            
-            
-            Text("Register")
-                .bold()
-                .foregroundColor(.primary)
-                .padding(10)
-                .font(.system(size: 45))
-            Text("Password must be at least 8 characters long")
-                .bold()
-                .foregroundColor(.primary)
-                .padding(10)
-                .multilineTextAlignment(.center)
-            Spacer()
-            TextField("First Name", text: $first_name)
-                .padding()
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-                .disableAutocorrection(true)
-            TextField("Last Name", text: $last_name)
-                .padding()
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-                .disableAutocorrection(true)
-            TextField("Username", text: $username)
-                .padding()
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-                .disableAutocorrection(true)
-                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-            TextField("Email", text: $email)
-                .padding()
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-                .disableAutocorrection(true)
-                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-            SecureField("Password", text: $password)
-                .padding()
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-                .textContentType(.newPassword)
-           // SecureField("Confirm Password", text: $confirm_password)
-            //    .padding()
-            //    .background(Color(red: colorNum, green: colorNum, blue: colorNum))
-           //     .cornerRadius(5.0)
-            //    .padding(.bottom, 20)
-            //    .textContentType(.newPassword)
+                
+                // All register fields
+                Text("Register")
+                    .bold()
+                    .foregroundColor(.primary)
+                    .padding(10)
+                    .font(.system(size: 45))
+                Text("Password must be at least 8 characters long")
+                    .bold()
+                    .foregroundColor(.primary)
+                    .padding(10)
+                    .multilineTextAlignment(.center)
+                Spacer()
+                TextField("First Name", text: $first_name)
+                    .padding()
+                    .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .disableAutocorrection(true)
+                TextField("Last Name", text: $last_name)
+                    .padding()
+                    .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .disableAutocorrection(true)
+                TextField("Username", text: $username)
+                    .padding()
+                    .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .disableAutocorrection(true)
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                TextField("Email", text: $email)
+                    .padding()
+                    .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .disableAutocorrection(true)
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                SecureField("Password", text: $password)
+                    .padding()
+                    .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                    .textContentType(.newPassword)
+                
+                // EXTENSTION VIEW
                 RegisterButton(first_name: first_name, last_name: last_name, username: username.lowercased(), email: email, password: password)
-            
-            
-            
             }.padding()
             Spacer()
-            
         }
-        
     }
-    
-    
-    
 }
 
+// ECTENSION VIEW : register for an account with all the entries of the TextFields
 struct RegisterButton: View {
     var first_name: String
     var last_name: String
@@ -118,6 +111,7 @@ struct RegisterButton: View {
     var body: some View {
         Button(action: {
             debugPrint("test")
+            // Network function to add a user into the CovidCode system
             NetworkAddUser.addUser(first_name: first_name, last_name: last_name, username: username, password: password, email: email, handler: addUserHandler)
             
         }) {
@@ -135,11 +129,13 @@ struct RegisterButton: View {
               }
     }
     
+    // HANDLER : for the network function of adding a user to the system
     func addUserHandler(res: Bool, error: String) -> () {
         // TODO Change this name and make this the return handler of login
         if (res) {
             DispatchQueue.main.async {
                 let defaults = UserDefaults.standard
+                // Set their login values for auto login next time and to populate the upcoming homescreen with their name
                 defaults.setValue(username.lowercased(), forKey: "currUsername")
                 defaults.setValue(password, forKey: "currPassword")
                 defaults.setValue(first_name, forKey: "firstName")

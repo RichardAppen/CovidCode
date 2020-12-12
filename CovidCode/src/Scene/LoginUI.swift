@@ -1,12 +1,13 @@
 //
-//  ContentView.swift
+//  LoginUI.swift
 //  CovidCode
 //
 //  Created by Richard Appen on 11/4/20.
 //
+//  Login screen that handles a user trying to login, register, or auto logs in if possible
+//
 
 import SwiftUI
-
 
 struct ContentView: View {
     
@@ -16,8 +17,13 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack() {
+                
+                // Extension view
                 CovidLogo()
+                
                 Spacer()
+                
+                // Username TextField
                 TextField("Username", text: $username)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding()
@@ -27,13 +33,18 @@ struct ContentView: View {
                     .frame(width: geometry.size.width / 1.1)
                     .disableAutocorrection(true)
                 
+                // Password TextField
                 SecureField("Password", text: $password)
                     .padding()
                     .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
                     .frame(width: geometry.size.width / 1.1)
+                
+                // Extension view
                 LoginButton(username: username.lowercased(), password: password, geometry: geometry)
+                
+                // Register Button
                 Button(action: {
                     let contentView = RegisterUI()
                     if let window = UIApplication.shared.windows.first {
@@ -48,23 +59,24 @@ struct ContentView: View {
                         .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
                     
                 }
+                
                 Spacer()
             }
             .padding()
             .onAppear {
                
+                // Load local data
                 let defaults = UserDefaults.standard
+                
+                // Try to auto login the user if they logged in last time the app was open
                 if let currUsername = defaults.string(forKey: "currUsername") {
                     username = currUsername
                     if let currPassword = defaults.string(forKey: "currPassword") {
-                        print(currUsername)
-                        print(currPassword)
                         resetDefaults()
                         defaults.setValue(currUsername, forKey: "currUsername")
                         defaults.setValue(currPassword, forKey: "currPassword")
-                        //NetworkGetRisk.getRisk(username: currUsername, password: currPassword, handler: getRiskHandler)
-                        //NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
-                        //NetworkGetRiskHistory.getRiskHistory(username: currUsername, password: currPassword, handler: getRiskHistoryHandler)
+                        
+                        // Network function to login user
                         NetworkLogin.loginUser(username: currUsername, password: currPassword, handler: userloginHandler)
 
                     }
@@ -73,32 +85,23 @@ struct ContentView: View {
         }
     }
     
-    /*func getRiskHistoryHandler(risks: [String: String]) {
-        DispatchQueue.main.async {
-            print(risks)
-            let defaults = UserDefaults.standard
-            for(key, value) in risks {
-                defaults.set("1", forKey: key)
-                print("RISK TEST")
-                print(key)
-                print(value)
-            }
-        }
-    }*/
-    
+    // HANDLER : For network function to login user (Case: Auto login)
     func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
         if (res) {
             DispatchQueue.main.async {
-                print("TESTING!!!!!!")
+                // Get ready to save local data
                 let defaults = UserDefaults.standard
                 
+                // handler retrieves user's first and last name from server -> save them locally
                 if let first_name = firstName {
                     defaults.setValue(first_name, forKey: "firstName")
                 }
                 if let last_name = lastName {
                     defaults.setValue(last_name, forKey: "lastName")
                 }
+                
+                // Now that we are logged in move on to main screen (within the Tab View Controller)
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)
@@ -108,38 +111,13 @@ struct ContentView: View {
         }
         
     }
-    /*func getRiskHandler(risk: Int) {
-        DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            defaults.setValue(risk, forKey: "risk")
-        }
-        
-    }*/
-    /*func getFriendsHandler(friendsDict: [String: String]) {
-        DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            let highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
-            print(highRiskFriendsCount)
-            defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
-            if let last = defaults.string(forKey: "lastHRFC") {
-                let HRFCchange = Int(last)! - highRiskFriendsCount
-                defaults.setValue(HRFCchange, forKey: "highRiskFriendsCountInc")
-            }
-            defaults.setValue(highRiskFriendsCount, forKey: "lastHRFC")
-            defaults.setValue(friendsDict.count, forKey: "friendsCount")
-        }
-        
-    }*/
 }
 
+// EXTENSION VIEW : Holds the CovidCode Team Logo
 struct CovidLogo: View {
     var body: some View {
         VStack {
             HStack {
-                /*
-                 Image(systemName: "waveform.path.ecg").font(.system(size: 50, weight: .regular))
-                 Image(systemName: "bandage.fill").font(.system(size: 50, weight: .regular))
-                 */
                 Image("qr-code")
                     .resizable()
                     .scaledToFit()
@@ -149,10 +127,10 @@ struct CovidLogo: View {
     }
 }
 
-
+// EXTENSION VIEW : Holds the button that handles loging a user in
 struct LoginButton: View {
-    var username: String
-    var password: String
+    var username: String            // Passed in from username TextField in main view
+    var password: String            // Passed in from password TextField in main view
     @State var errorMsg: String = ""
     @State private var showingAlert = false
     var geometry: GeometryProxy
@@ -160,9 +138,8 @@ struct LoginButton: View {
     var body: some View {
         Button(action: {
             resetDefaults()
-            //NetworkGetRisk.getRisk(username: username, password: password, handler: getRiskHandler)
-            //NetworkGetFriends.getFriends(username: username, password: password, handler: getFriendsHandler)
-            //NetworkGetRiskHistory.getRiskHistory(username: username, password: password, handler: getRiskHistoryHandler)
+            
+            // Network function to login user
             NetworkLogin.loginUser(username: username, password: password, handler: userloginHandler)
             
         }) {
@@ -171,68 +148,36 @@ struct LoginButton: View {
                 .padding(6)
                 .frame(width: geometry.size.width / 1.1)
                 .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 119/255, green: 158/255, blue: 203/255)))
-            
-            
         }
         .buttonStyle(PlainButtonStyle())
         .disabled(username.isEmpty || password.isEmpty || password.count < 8 )
-        
+        // Notify user of login status
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Error"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")))
         }
     }
     
-    
-    /*func getRiskHandler(risk: Int) {
-        DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            defaults.setValue(risk, forKey: "risk")
-        }
-        
-    }*/
-    /*func getRiskHistoryHandler(risks: [String: String]) {
-        DispatchQueue.main.async {
-            print(risks)
-            let defaults = UserDefaults.standard
-            for(key, value) in risks {
-                defaults.set("1", forKey: key)
-                print("RISK TEST")
-                print(key)
-                print(value)
-            
-            }
-        }
-    }*/
-    
-    /*func getFriendsHandler(friendsDict: [String: String]) {
-        DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            let highRiskFriendsCount = friendsDict.filter { key, value in return Int(value) ?? -1 == 3}.count
-            print("$#%#$%$#^#$^$#$$^TESTING --- ")
-            print(highRiskFriendsCount)
-            defaults.setValue(highRiskFriendsCount, forKey: "highRiskFriendsCount")
-            if let last = defaults.string(forKey: "lastHRFC") {
-                let HRFCchange = Int(last)! - highRiskFriendsCount
-                defaults.setValue(HRFCchange, forKey: "highRiskFriendsCountInc")
-            }
-            defaults.setValue(highRiskFriendsCount, forKey: "lastHRFC")
-            defaults.setValue(friendsDict.count, forKey: "friendsCount")
-        }
-    }*/
+    // HANDLER : For network function to login user (Case: Not auto logging in)
     func userloginHandler(res: Bool, error: String, firstName: String?, lastName: String?) -> () {
         
         if (res) {
             DispatchQueue.main.async {
+                // Get ready to save local data
                 let defaults = UserDefaults.standard
                 
+                // Save the user's username and password for auto login next time
                 defaults.setValue(username, forKey: "currUsername")
                 defaults.setValue(password, forKey: "currPassword")
+                
+                // handler retrieves user's first and last name from server -> save them locally
                 if let first_name = firstName {
                     defaults.setValue(first_name, forKey: "firstName")
                 }
                 if let last_name = lastName {
                     defaults.setValue(last_name, forKey: "lastName")
                 }
+                
+                // Now that we are logged in move on to main screen (within the Tab View Controller)
                 let contentView = TabControllerUI(username: username)
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: contentView)
@@ -255,6 +200,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+// Used to clear all values in User Defaults (local storage)
 func resetDefaults() {
     let defaults = UserDefaults.standard
     let dictionary = defaults.dictionaryRepresentation()

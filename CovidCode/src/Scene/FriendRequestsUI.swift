@@ -4,6 +4,8 @@
 //
 //  Created by Ryan muinos on 12/3/20.
 //
+//  Page for the user to look at who wants to be their friend
+//
 
 import SwiftUI
 
@@ -14,12 +16,15 @@ struct FriendRequestsUI: View {
     
     var body: some View {
         VStack {
+            // HEADER
             ZStack {
+                // Back Button
                 HStack {
                     Button(action: {
                         let defaults = UserDefaults.standard
                         if let currUsername = defaults.string(forKey: "currUsername") {
                             
+                            // Goes back to friend list
                             let contentView = TabControllerUI(selectedTab: 3, username: currUsername)
                             if let window = UIApplication.shared.windows.first {
                                 window.rootViewController = UIHostingController(rootView: contentView)
@@ -33,6 +38,7 @@ struct FriendRequestsUI: View {
                 }
                 
             }
+            // END HEADER
             Divider()
             HStack {
                 Spacer()
@@ -43,11 +49,10 @@ struct FriendRequestsUI: View {
                     .background(Color(red: 119/255, green: 158/255, blue: 203/255))
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
-                    //.padding(.top, -60)
-                    //.disableAutocorrection(true)
                 Spacer()
             }
             
+            // Display all incoming friends in a list
             ForEach(incFriendDictionary.sorted(by: >), id: \.key) {
                 key, value in
                 
@@ -56,14 +61,21 @@ struct FriendRequestsUI: View {
                     Text(key).font(.system(size: 32, weight: .regular))
                     Spacer()
                     
+                    // Button to add the friend who made the request to the user
                     Button(action: {
                         
                         let defaults = UserDefaults.standard
                         
                         if let currUsername = defaults.string(forKey: "currUsername") {
                             if let currPassword = defaults.string(forKey: "currPassword") {
+                                
+                                // Network function of adding a new friend
                                 NetworkAddFriend.addFriend(username: currUsername, password: currPassword, friend: key.lowercased(), handler: addFriendHandler)
+                                
+                                // Then once thats done update the incoming request friend list
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                    
+                                    // Network function of getting all incoming friends
                                     NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
                                 }
                             }
@@ -78,6 +90,7 @@ struct FriendRequestsUI: View {
                         Alert(title: Text("Notice"), message: Text("The user and you are now friends!"), dismissButton: .default(Text("Confirm")))
                     }
                     
+                    // EXTENSION VIEW
                     DenyRequestButton(type: "x", friend: key, incFriendDictionary: $incFriendDictionary)
                     
                     
@@ -94,24 +107,21 @@ struct FriendRequestsUI: View {
             let defaults = UserDefaults.standard
             if let currUsername = defaults.string(forKey: "currUsername") {
                 if let currPassword = defaults.string(forKey: "currPassword") {
-                    print("IN FRIENDS LIST BEFORE GET FRIENDS CALL")
-                    print(currUsername)
-                    print(currPassword)
+                    
+                    // Network function of getting the incoming friend request
                     NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
                     
                 }
             }
-        
         }
-        
-    
-        
     }
+    
+    // HANDLER : for the network function of getting the incoming friend request
     func getIncomingFriendsHandler(friendsDict: [String: String]) {
         incFriendDictionary = friendsDict
     }
     
-    
+    // HANDLER : for the network function of adding a friend
     func addFriendHandler(status: Bool, res: String ) {
         if (status) {
             if (res == "True") {
@@ -130,7 +140,7 @@ struct FriendRequestsUI: View {
     }
 }
 
-
+// EXTENSION VIEW : button for the user to press that will deny an incoming friend request
 struct DenyRequestButton: View {
     
     var type: String
@@ -155,13 +165,19 @@ struct DenyRequestButton: View {
         }
         
         .alert(isPresented: $showingAlert) {
+            // ConfirmAlert tells what the alert will do
             if (confirmAlert) {
                 return Alert(title: Text("Important"), message: Text("Are you sure you would like to deny " + friend + " as a friend?"),  primaryButton: .destructive(Text("Remove")) {
                     let defaults = UserDefaults.standard
                     if let currUsername = defaults.string(forKey: "currUsername") {
                         if let currPassword = defaults.string(forKey: "currPassword") {
+                            // Network function to remove a friend from the user's list of incoming friends
                             NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
+                            
+                            // After that is finished re-update the incoming friends list
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                
+                                // Netowrk function of getting the incoming friends
                                 NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
                             }
                         }
@@ -176,11 +192,9 @@ struct DenyRequestButton: View {
                 
             }
         }
-        
-        
-        
-        
     }
+    
+    // HANDLER : For the network function of removing a friend
     func removeFriendHandler(res: Bool, error: String) -> () {
         
         errorMsg = error
@@ -188,6 +202,8 @@ struct DenyRequestButton: View {
         showingAlert = true
         
     }
+    
+    // HANDLER : for the network fucntion of getting the incoming friend request list
     func getIncomingFriendsHandler(friendsDict: [String: String]) {
         incFriendDictionary = friendsDict.filter { key, value in return Int(value) ?? -1 > -1}
     }

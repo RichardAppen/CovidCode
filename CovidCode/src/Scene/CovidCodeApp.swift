@@ -4,6 +4,8 @@
 //
 //  Created by Richard Appen on 11/21/20.
 //
+//  Holds AppDelegate definition
+//
 
 import Foundation
 import SwiftUI
