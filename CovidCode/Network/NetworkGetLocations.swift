@@ -37,7 +37,6 @@ class NetworkGetLocations {
             print (responseJSON)
             if let responseJSON = responseJSON as? [String: String] {
                 print("---------============#########============------------")
-                print (responseJSON)
                 //handler(responseJSON)
                 handler(responseJSON)
                 

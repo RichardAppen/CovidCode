@@ -52,6 +52,7 @@ class Heatmap: UIViewController {
     }
 
     // Add the latlngs to the heatmap layer.
+    heatmapLayer.radius = 50
     heatmapLayer.weightedData = list
   }
 }

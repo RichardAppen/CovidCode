@@ -75,6 +75,7 @@ struct TabControllerUI: View {
                 locations.append(["lat":Double(coords[0])!, "lng":Double(coords[1])!])
             }
         }
+        print(locations)
         
         do {
             try save(jsonObject: locations, toFilename: "sampleRisks.json")
