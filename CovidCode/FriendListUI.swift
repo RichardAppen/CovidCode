@@ -63,6 +63,7 @@ struct FriendListUI: View {
                         .cornerRadius(5.0)
                         .padding(.trailing)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .disableAutocorrection(true)
                 }.padding()
                 
                 if (loading) {

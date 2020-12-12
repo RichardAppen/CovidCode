@@ -39,7 +39,7 @@ var q2_answer2: String = "Yes, a high fever over 38.5°C"
 */
 var q3_answer0: String = "Attended a mass gathering such as a party or wedding"
 var q3_answer1: String = "Been on a plane, train, bus, or other public transport"
-var q3_answer2: String = "None of the above"
+//var q3_answer2: String = "None of the above"
 
 var qSingle: String = "single"
 var qMultiple: String = "multiple"
@@ -51,7 +51,7 @@ class Questions: ObservableObject {
         Question(id: 0, question: question0, type: qSingle, answers: [:]),
         Question(id: 1, question: question1, type: qMultiple, answers: [q1_answer0: false, q1_answer1: false, q1_answer2: false, q1_answer3: false, q1_answer4: false] ),
         Question(id: 2, question: question2, type: qSingle, answers: [:]),
-        Question(id: 3, question: question3, type: qMultiple, answers: [q3_answer0: false, q3_answer1: false, q3_answer2: false]),
+        Question(id: 3, question: question3, type: qMultiple, answers: [q3_answer0: false, q3_answer1: false]),
         Question(id: 4, question: question4, type: qSingle, answers: [:]),
         Question(id: 5, question: question5, type: qSingle, answers: [:])
         
@@ -136,9 +136,6 @@ struct SubmitQuestionnaireButton: View {
                 showingAlert = true
             } else if (questions.questions[2].answer == nil) {
                 errorMsg = "Please answer question 3"
-                showingAlert = true
-            } else if (!questions.questions[3].answers[q3_answer0]! && !questions.questions[3].answers[q3_answer1]! && !questions.questions[3].answers[q3_answer2]! ){
-                errorMsg = "Please answer question 4"
                 showingAlert = true
             } else if (questions.questions[4].answer == nil) {
                 errorMsg = "Please answer question 5"
