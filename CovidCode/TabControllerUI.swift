@@ -16,6 +16,7 @@ struct TabControllerUI: View {
     @State var selectedTab = 0
     @State var coords: [String:String] = [:]
     var username: String
+    @State var loadingMap = false
     
     
     var body: some View {
@@ -36,7 +37,7 @@ struct TabControllerUI: View {
                 Text("Home")
               }
                 .tag(0)
-            MapUI(parentTabController: self)
+            MapWrapperUI(parentTabViewController: self, loadingMap: $loadingMap)
                 .tabItem {
                     Image(systemName: "mappin.and.ellipse").font(.system(size: 16, weight: .regular)).foregroundColor(Color(UIColor.systemYellow))
                    Text("Map")
@@ -57,6 +58,7 @@ struct TabControllerUI: View {
             
         }.onAppear {
             //selectedTab = 0
+            loadingMap = true
             NetworkGetLocations.getLocations(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", handler: getLocationsHandler)
         }
         //.accentColor(.purple)
@@ -82,6 +84,8 @@ struct TabControllerUI: View {
         } catch {
             print("failed to write json")
         }
+        
+        loadingMap = false
     }
     
     func save(jsonObject: Any, toFilename filename: String) throws -> Bool{

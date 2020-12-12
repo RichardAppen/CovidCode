@@ -16,7 +16,7 @@ class Heatmap: UIViewController {
   var heatmapLayer: GMUHeatmapTileLayer!
     
     override func loadView() {
-        let camera = GMSCameraPosition.camera(withLatitude: 32.770994, longitude: -117.015391, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 39.828560, longitude: -98.579287, zoom: 3.5)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         view = mapView
         
