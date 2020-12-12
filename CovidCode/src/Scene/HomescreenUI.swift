@@ -540,6 +540,7 @@ struct gotToQRCodeButton: View {
            self.isShowingScanner = false
            switch result {
            case .success(let data):
+               UIApplication.shared.open(URL(string: data)!)
                print("Success with \(data)")
                 
            case .failure(let error):
