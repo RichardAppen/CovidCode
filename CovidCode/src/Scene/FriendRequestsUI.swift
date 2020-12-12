@@ -95,10 +95,12 @@ struct FriendRequestsUI: View {
                     
                     
                 }
-                .padding(.vertical, 20)
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
+                .padding(.vertical)
                 .cornerRadius(5.0)
-                .padding(.vertical, 20)
+                .padding(.vertical)
+                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 235/255, green: 235/255, blue: 235/255)))
+                .padding(.leading)
+                .padding(.trailing)
                 
             }
             
@@ -163,7 +165,7 @@ struct DenyRequestButton: View {
             }
             
         }
-        
+        .padding(.trailing)
         .alert(isPresented: $showingAlert) {
             // ConfirmAlert tells what the alert will do
             if (confirmAlert) {
