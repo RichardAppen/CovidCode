@@ -38,7 +38,7 @@ class Heatmap: UIViewController {
         
         var object: [[String: Any]] = [[:]]
         do {
-            try object = loadJSON(withFilename: "sampleRisks.json") as! [[String: Any]]
+            try object = loadJSON(withFilename: "riskLocations.json") as! [[String: Any]]
         } catch {
             print("failed to load json")
         }
