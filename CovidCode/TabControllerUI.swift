@@ -7,11 +7,14 @@
 
 import Foundation
 import SwiftUI
+import GoogleMaps
+import GoogleMapsUtils
 
 struct TabControllerUI: View {
     
     @State private var showDetail = false
     @State var selectedTab = 0
+    @State var coords: [String:String] = [:]
     var username: String
     
     
@@ -54,12 +57,44 @@ struct TabControllerUI: View {
             
         }.onAppear {
             //selectedTab = 0
+            NetworkGetLocations.getLocations(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", handler: getLocationsHandler)
         }
         //.accentColor(.purple)
         
-            
     }
 
 
-
+    func getLocationsHandler(locationdict: [String:String]) -> () {
+        self.coords = locationdict
+        
+        //write to json file
+        var locations : [[String: Double]] = []
+        for (key, value) in locationdict {
+            if value == "3" {
+                let coords = key.components(separatedBy: ",")
+                locations.append(["lat":Double(coords[0])!, "lng":Double(coords[1])!])
+            }
+        }
+        
+        do {
+            try save(jsonObject: locations, toFilename: "sampleRisks.json")
+        } catch {
+            print("failed to write json")
+        }
+    }
+    
+    func save(jsonObject: Any, toFilename filename: String) throws -> Bool{
+            let fm = FileManager.default
+            let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+            if let url = urls.first {
+                var fileURL = url.appendingPathComponent(filename)
+                fileURL = fileURL.appendingPathExtension("json")
+                let data = try JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted])
+                try data.write(to: fileURL, options: [.atomicWrite])
+                return true
+            }
+            
+            return false
+    }
 }
+

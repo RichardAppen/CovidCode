@@ -21,8 +21,7 @@ class Heatmap: UIViewController {
         view = mapView
         
         heatmapLayer = GMUHeatmapTileLayer()
-        getLocations()
-        //addHeatmap()
+        addHeatmap()
         heatmapLayer.map = mapView
     }
     
@@ -30,54 +29,17 @@ class Heatmap: UIViewController {
     super.viewDidLoad()
 
   }
-    
-    func getLocations() {
-        NetworkGetLocations.getLocations(username: UserDefaults.standard.string(forKey: "currUsername") ?? "usernameError", password: UserDefaults.standard.string(forKey: "currPassword") ?? "passwordError", handler: getLocationsHandler)
-    }
-    
-    func getLocationsHandler(locationdict: [String:String]) -> () {
-        var locations : [[String: Any]] = []
-        for (key, value) in locationdict {
-            print("key: " + key + " value: " + value)
-            if value == "3" {
-                let coords = key.components(separatedBy: ",")
-                locations.append(["lat":Double(coords[0]), "lng":Double(coords[1])])
-            }
-        }
-                
-        var list = [GMUWeightedLatLng]()
-        for item in locations {
-          let lat = item["lat"] as! CLLocationDegrees
-          let lng = item["lng"] as! CLLocationDegrees
-          let coords = GMUWeightedLatLng(
-            coordinate: CLLocationCoordinate2DMake(lat, lng),
-            intensity: 1.0
-          )
-          list.append(coords)
-        }
-        
-        // Add the latlngs to the heatmap layer.
-        heatmapLayer.weightedData = list
-        heatmapLayer.clearTileCache()
-    }
 
   func addHeatmap() {
-
-    // Get the data: latitude/longitude positions of police stations.
-    guard let path = Bundle.main.url(forResource: "sampleRisks", withExtension: "json") else {
-      return
-    }
-    guard let data = try? Data(contentsOf: path) else {
-      return
-    }
-    guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-      return
-    }
-    guard let object = json as? [[String: Any]] else {
-      print("Could not read the JSON.")
-      return
+    
+    var object: [[String: Any]] = [[:]]
+    do {
+        try object = loadJSON(withFilename: "sampleRisks.json") as! [[String: Any]]
+    } catch {
+        print("failed to load json")
     }
 
+    //print(object)
     var list = [GMUWeightedLatLng]()
     for item in object {
       let lat = item["lat"] as! CLLocationDegrees
@@ -94,3 +56,15 @@ class Heatmap: UIViewController {
   }
 }
 
+func loadJSON(withFilename filename: String) throws -> Any? {
+        let fm = FileManager.default
+        let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+        if let url = urls.first {
+            var fileURL = url.appendingPathComponent(filename)
+            fileURL = fileURL.appendingPathExtension("json")
+            let data = try Data(contentsOf: fileURL)
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .mutableLeaves])
+            return jsonObject
+        }
+        return nil
+    }

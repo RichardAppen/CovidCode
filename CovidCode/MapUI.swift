@@ -15,14 +15,14 @@ import GoogleMapsUtils
 struct MapUI: UIViewControllerRepresentable {
     
     var parentTabController: TabControllerUI
-    @State var heatmap = Heatmap()
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<MapUI>) -> Heatmap {
+        let heatmap = Heatmap()
         return heatmap
     }
     
     func updateUIViewController(_ uiViewController: Heatmap, context: UIViewControllerRepresentableContext<MapUI>) {
-        
+    
     }
     
 }
