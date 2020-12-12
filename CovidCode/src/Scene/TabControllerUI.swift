@@ -82,9 +82,9 @@ struct TabControllerUI: View {
             }
         }
         
-        // Try and save the locations to the sampleRisks.json file
+        // Try and save the locations to the riskLocations.json file
         do {
-            try save(jsonObject: locations, toFilename: "sampleRisks.json")
+            try save(jsonObject: locations, toFilename: "riskLocations.json")
         } catch {
             print("failed to write json")
         }

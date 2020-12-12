@@ -27,7 +27,7 @@
 		135100B9257D9A8100DB52DE /* Heatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B7257D9A8000DB52DE /* Heatmap.swift */; };
 		135100BA257D9A8100DB52DE /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135100B8257D9A8100DB52DE /* MapUI.swift */; };
 		13B55A322582D65F00BA3DE4 /* NetworkGetLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B55A312582D65F00BA3DE4 /* NetworkGetLocations.swift */; };
-		13B55A4F258434F500BA3DE4 /* sampleRisks.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B55A4E258434F500BA3DE4 /* sampleRisks.json */; };
+		13B55A4F258434F500BA3DE4 /* riskLocations.json in Resources */ = {isa = PBXBuildFile; fileRef = 13B55A4E258434F500BA3DE4 /* riskLocations.json */; };
 		5A0508C82571A3A600A04E84 /* NetworkNewRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */; };
 		5A9D6E6A2579A458009250C9 /* NetworkGetIncomingFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E692579A458009250C9 /* NetworkGetIncomingFriends.swift */; };
 		5A9D6E6F2579AAA5009250C9 /* FriendRequestsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D6E6E2579AAA5009250C9 /* FriendRequestsUI.swift */; };
@@ -87,7 +87,7 @@
 		135100B7257D9A8000DB52DE /* Heatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heatmap.swift; sourceTree = "<group>"; };
 		135100B8257D9A8100DB52DE /* MapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUI.swift; sourceTree = "<group>"; };
 		13B55A312582D65F00BA3DE4 /* NetworkGetLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGetLocations.swift; sourceTree = "<group>"; };
-		13B55A4E258434F500BA3DE4 /* sampleRisks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleRisks.json; sourceTree = "<group>"; };
+		13B55A4E258434F500BA3DE4 /* riskLocations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = riskLocations.json; sourceTree = "<group>"; };
 		18BC94DFC9C8095EF81FBEE7 /* Pods-CovidCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.debug.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.debug.xcconfig"; sourceTree = "<group>"; };
 		56B753D33FB13642614FBB84 /* Pods-CovidCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidCode.release.xcconfig"; path = "Target Support Files/Pods-CovidCode/Pods-CovidCode.release.xcconfig"; sourceTree = "<group>"; };
 		5A0508C72571A3A600A04E84 /* NetworkNewRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkNewRisk.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 				135100B8257D9A8100DB52DE /* MapUI.swift */,
 				135100B7257D9A8000DB52DE /* Heatmap.swift */,
 				019F688B256852F3000E2CC5 /* CalendarUI.swift */,
-				13B55A4E258434F500BA3DE4 /* sampleRisks.json */,
+				13B55A4E258434F500BA3DE4 /* riskLocations.json */,
 				019F68902568BE1E000E2CC5 /* CurrentDateInfoBoxUI.swift */,
 				5AF6BBFD256C39C500E635F0 /* QuestionCardUI.swift */,
 				5AF6BC02256C39CB00E635F0 /* QuestionnaireUI.swift */,
@@ -375,7 +375,7 @@
 				0145723D2556079500809A7F /* cert.der in Resources */,
 				0184F72C2553B56D008655E6 /* Preview Assets.xcassets in Resources */,
 				0184F7292553B56D008655E6 /* Assets.xcassets in Resources */,
-				13B55A4F258434F500BA3DE4 /* sampleRisks.json in Resources */,
+				13B55A4F258434F500BA3DE4 /* riskLocations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
