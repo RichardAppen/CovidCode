@@ -231,12 +231,7 @@ struct RemoveFriendButton: View {
                             // Network function to remove a friend from the list
                             NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
                             
-                            // Then after this update the friend list again
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                
-                                // Network function to get a list of the user's friends
-                                NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
-                            }
+                           
                         }
                     }
                 }, secondaryButton: .cancel())
@@ -245,6 +240,12 @@ struct RemoveFriendButton: View {
                 
                 return Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")) {
                     confirmAlert = true
+                    let defaults = UserDefaults.standard
+                    if let currUsername = defaults.string(forKey: "currUsername") {
+                        if let currPassword = defaults.string(forKey: "currPassword") {
+                            NetworkGetFriends.getFriends(username: currUsername, password: currPassword, handler: getFriendsHandler)
+                        }
+                    }
                 })
                 
             }
@@ -333,4 +334,3 @@ struct TopFriendListView: View {
     
     
 }
-

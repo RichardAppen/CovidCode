@@ -72,12 +72,7 @@ struct FriendRequestsUI: View {
                                 // Network function of adding a new friend
                                 NetworkAddFriend.addFriend(username: currUsername, password: currPassword, friend: key.lowercased(), handler: addFriendHandler)
                                 
-                                // Then once thats done update the incoming request friend list
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                    
-                                    // Network function of getting all incoming friends
-                                    NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
-                                }
+                
                             }
                         }
                     }) {
@@ -87,7 +82,17 @@ struct FriendRequestsUI: View {
                         
                     }
                     .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Notice"), message: Text("The user and you are now friends!"), dismissButton: .default(Text("Confirm")))
+                        Alert(title: Text("Notice"), message: Text("The user and you are now friends!"), dismissButton: .default(Text("Confirm")) {
+                            let defaults = UserDefaults.standard
+                             if let currUsername = defaults.string(forKey: "currUsername") {
+                                 if let currPassword = defaults.string(forKey: "currPassword") {
+                                     
+                                     // Network function of getting the incoming friend request
+                                     NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                                     
+                                 }
+                             }
+                        })
                     }
                     
                     // EXTENSION VIEW
@@ -95,12 +100,10 @@ struct FriendRequestsUI: View {
                     
                     
                 }
-                .padding(.vertical)
+                .padding(.vertical, 20)
+                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
                 .cornerRadius(5.0)
-                .padding(.vertical)
-                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 235/255, green: 235/255, blue: 235/255)))
-                .padding(.leading)
-                .padding(.trailing)
+                .padding(.vertical, 20)
                 
             }
             
@@ -165,7 +168,7 @@ struct DenyRequestButton: View {
             }
             
         }
-        .padding(.trailing)
+        
         .alert(isPresented: $showingAlert) {
             // ConfirmAlert tells what the alert will do
             if (confirmAlert) {
@@ -176,12 +179,7 @@ struct DenyRequestButton: View {
                             // Network function to remove a friend from the user's list of incoming friends
                             NetworkRemoveFriend.removeFriend(username: currUsername, password: currPassword, friend: friend.lowercased(), handler: removeFriendHandler)
                             
-                            // After that is finished re-update the incoming friends list
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                
-                                // Netowrk function of getting the incoming friends
-                                NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
-                            }
+    
                         }
                     }
                 }, secondaryButton: .cancel())
@@ -190,6 +188,16 @@ struct DenyRequestButton: View {
                 
                 return Alert(title: Text("Notice"), message: Text(errorMsg.capitalizingFirstLetter()), dismissButton: .default(Text("Confirm")) {
                     confirmAlert = true
+                    let defaults = UserDefaults.standard
+                     if let currUsername = defaults.string(forKey: "currUsername") {
+                         if let currPassword = defaults.string(forKey: "currPassword") {
+                             
+                             // Network function of getting the incoming friend request
+                             NetworkGetIncomingFriends.getIncomingFriends(username: currUsername, password: currPassword, handler: getIncomingFriendsHandler)
+                             
+                         }
+                     }
+
                 })
                 
             }
@@ -217,3 +225,5 @@ struct FriendRequestsUI_Previews: PreviewProvider {
         FriendRequestsUI()
     }
 }
+
+
