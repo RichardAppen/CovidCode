@@ -101,9 +101,13 @@ struct FriendRequestsUI: View {
                     
                 }
                 .padding(.vertical, 20)
-                .background(Color(red: 235/255, green: 235/255, blue: 235/255))
-                .cornerRadius(5.0)
+                .cornerRadius(.infinity)
+                .padding(.leading)
+                .padding(.trailing)
+                .background(RoundedRectangle(cornerRadius: .infinity).fill(Color(red: 235/255, green: 235/255, blue: 235/255)))
                 .padding(.vertical, 20)
+                .padding(.leading)
+                .padding(.trailing)
                 
             }
             
